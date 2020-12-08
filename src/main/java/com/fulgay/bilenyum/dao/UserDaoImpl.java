@@ -5,6 +5,7 @@ import com.fulgay.bilenyum.enums.EnumUserType;
 import com.fulgay.bilenyum.utils.hibernate.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Fırat ÜLGAY
  * @since 8/12/2020
  */
+@Repository
 public class UserDaoImpl extends BaseUserDao {
 
     public UserDaoImpl() {

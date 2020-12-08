@@ -4,10 +4,12 @@ import com.fulgay.bilenyum.domain.User;
 import com.fulgay.bilenyum.utils.hibernate.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -45,8 +47,15 @@ public abstract class BaseDao<T> {
         return session.createQuery(query).getResultList();
     }
 
-    public T findById(Long var){
-        return null;
+    public T findById(Long id){
+        Session session = getSession();
+        CriteriaBuilder criteriaBuilder =session.getCriteriaBuilder();
+        CriteriaQuery<T> query = criteriaBuilder.createQuery(clazz);
+        Root<T> root = query.from(clazz);
+        query.select(root).where(criteriaBuilder.equal(root.get("id"),id));
+
+        return session.createQuery(query).getSingleResult();
+
     }
 
     Session getSession(){

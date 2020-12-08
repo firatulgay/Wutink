@@ -12,12 +12,14 @@ import java.util.List;
  * @author Fırat ÜLGAY
  * @since 8/12/2020
  */
-public abstract class BaseUserDao extends BaseDao {
+public abstract class BaseUserDao extends BaseDao<User> {
 
     public BaseUserDao() {
         super(User.class);
     }
+
     abstract User findUserByUserName(String userName);
+
     abstract List<User> findAllByUserType(EnumUserType userType);
 
 }
