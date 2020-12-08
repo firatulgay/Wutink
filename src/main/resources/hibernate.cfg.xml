@@ -17,6 +17,7 @@
         <mapping class="com.fulgay.bilenyum.domain.Experience" />
         <mapping class="com.fulgay.bilenyum.domain.Category" />
         <mapping class="com.fulgay.bilenyum.domain.Cat2Ex" />
+        <mapping class="com.fulgay.bilenyum.domain.Cat2Cat" />
 
     </session-factory>
 </hibernate-configuration>
