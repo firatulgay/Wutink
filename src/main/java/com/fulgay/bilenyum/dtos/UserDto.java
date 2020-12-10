@@ -1,15 +1,14 @@
-package com.fulgay.bilenyum.dtos.userDto;
+package com.fulgay.bilenyum.dtos;
 
 import com.fulgay.bilenyum.enums.EnumUserType;
 
-public class UserDto {
+public class UserDto extends BaseDto {
     private Long id;
     private String name;
     private String surname;
     private String password;
     private String userName;
     private EnumUserType userType;
-    private String message;
 
     public Long getId() {
         return id;
@@ -59,11 +58,4 @@ public class UserDto {
         this.userType = userType;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

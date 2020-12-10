@@ -1,10 +1,8 @@
 package com.fulgay.bilenyum.dao;
 
-import com.fulgay.bilenyum.domain.User;
 import com.fulgay.bilenyum.utils.hibernate.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -30,8 +28,8 @@ public abstract class BaseDao<T> {
 
     private SessionFactory sessionFactory;
 
-    public T save(T var){
-        return (T)getSession().merge(var);
+    public Long save(T var){
+         return  (Long)getSession().save(var);
     }
 
     public void delete(T var){

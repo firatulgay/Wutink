@@ -1,7 +1,7 @@
 package com.fulgay.bilenyum.populators;
 
 import com.fulgay.bilenyum.domain.User;
-import com.fulgay.bilenyum.dtos.userDto.UserDto;
+import com.fulgay.bilenyum.dtos.UserDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -26,5 +26,16 @@ public class UserPopulator {
         userDto.setSurname(user.getSurname());
 
         return userDto;
+    }
+
+    public User populateUser(UserDto userDto){
+        User user = new User();
+        user.setUserName(userDto.getUserName());
+        user.setUserType(userDto.getUserType());
+        user.setName(userDto.getName());
+        user.setPassword(userDto.getPassword());
+        user.setSurname(userDto.getSurname());
+
+        return user;
     }
 }

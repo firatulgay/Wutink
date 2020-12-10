@@ -19,9 +19,9 @@ public class UserService {
     @Autowired
     UserDaoImpl userDao;
 
-    public User save(User user){
-        User userSaved = (User)userDao.save(user);
-        return userSaved;
+    public Long save(User user){
+        Long userId = userDao.save(user);
+        return userId;
     }
 
     public List<User> findAllUsers(){

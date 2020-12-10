@@ -1,7 +1,6 @@
 package com.fulgay.bilenyum.controllers;
 
-import com.fulgay.bilenyum.domain.User;
-import com.fulgay.bilenyum.dtos.userDto.UserDto;
+import com.fulgay.bilenyum.dtos.UserDto;
 import com.fulgay.bilenyum.facades.UserFacade;
 import com.fulgay.bilenyum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +21,11 @@ public class UserController {
     @Autowired
     UserFacade userFacade;
 
-//    @PostMapping("/userDto")
-//    public User saveUser(@RequestBody UserDto userDto){
-//            userService.save(userDto);
-//    }
+    @PostMapping("/saveUser")
+    public UserDto saveUser(@RequestBody UserDto userDto){
+        UserDto savedUser = userFacade.save(userDto);
+        return savedUser;
+    }
 
     @GetMapping("/getUsers")
     public List<UserDto> findAllUsers(){
