@@ -1,16 +1,8 @@
 package com.fulgay;
 
-import com.fulgay.bilenyum.dao.UserDaoImpl;
-import com.fulgay.bilenyum.domain.User;
-import com.fulgay.bilenyum.utils.hibernate.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.List;
 
 /**
  * Hello world!
@@ -27,14 +19,14 @@ public class App implements CommandLineRunner
 
     @Override
     public void run(String... strings) throws Exception {
-        UserDaoImpl userDao = new UserDaoImpl();
-        List<User> all = (List<User>) userDao.findAll();
-        for (User user : all) {
-            System.out.println("***************");
-            System.out.println(user.getId()+"  "+ user.getName() + "  " + user.getSurname());
-            System.out.println("***************");
-
-        }
+//        UserDaoImpl userDao = new UserDaoImpl();
+//        List<User> all = (List<User>) userDao.findAll();
+//        for (User user : all) {
+//            System.out.println("***************");
+//            System.out.println(user.getId()+"  "+ user.getName() + "  " + user.getSurname());
+//            System.out.println("***************");
+//
+//        }
 
 
 //        User user = new User();
@@ -43,10 +35,10 @@ public class App implements CommandLineRunner
 //        user.setPassword("234jdlg834");
 //        user.setUserName("dAsan");
 //        user.setUserType(EnumUserType.USER);
-
+//
 //        Session session = HibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction = session.beginTransaction();
-
+//
 //        User userSaved = (User)session.merge(user);
 //        transaction.commit();
 

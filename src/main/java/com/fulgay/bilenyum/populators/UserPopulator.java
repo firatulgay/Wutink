@@ -9,22 +9,33 @@ import java.util.List;
 
 @Component
 public class UserPopulator {
+
+    private UserDto userDto;
+    private User user;
+    List<UserDto> userDtoList ;
+
     public List<UserDto> populateUserDtoList(List<User> userList){
-        List<UserDto> userDtoList = new ArrayList<>();
-        userList.stream().forEach(user -> userDtoList.add(populateUserDto(user)));
+
+        if (userList != null && userList.size() > 0){
+            userDtoList = new ArrayList<>();
+            for (User user : userList) {
+                userDtoList.add(populateUserDto(user));  // userList.stream().forEach(user -> userDtoList.add(populateUserDto(user)));
+            }
+        }
         return userDtoList;
     }
 
     public UserDto populateUserDto(User user) {
-        UserDto userDto = new UserDto();
 
-        userDto.setUserName(user.getUserName());
-        userDto.setId(user.getId());
-        userDto.setUserType(user.getUserType());
-        userDto.setName(user.getName());
-        userDto.setPassword(user.getPassword());
-        userDto.setSurname(user.getSurname());
-
+        if(user != null){
+            userDto = new UserDto();
+            userDto.setUserName(user.getUserName());
+            userDto.setId(user.getId());
+            userDto.setUserType(user.getUserType());
+            userDto.setName(user.getName());
+            userDto.setPassword(user.getPassword());
+            userDto.setSurname(user.getSurname());
+        }
         return userDto;
     }
 

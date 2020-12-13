@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -20,7 +21,7 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public abstract class BaseDao<T> {
 
-    private final Class<T> clazz;
+    private  Class<T> clazz;
 
     public BaseDao(Class<T> clazz) {
         this.clazz = clazz;
@@ -51,9 +52,11 @@ public abstract class BaseDao<T> {
         CriteriaQuery<T> query = criteriaBuilder.createQuery(clazz);
         Root<T> root = query.from(clazz);
         query.select(root).where(criteriaBuilder.equal(root.get("id"),id));
-
-        return session.createQuery(query).getSingleResult();
-
+        try {
+            return session.createQuery(query).getSingleResult();
+        }catch (NoResultException ex){
+            return null;
+        }
     }
 
     Session getSession(){

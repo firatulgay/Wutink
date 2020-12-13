@@ -5,6 +5,7 @@ import com.fulgay.bilenyum.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
  * @since 8/12/2020
  */
 @Service
+@Transactional
 public class UserService {
     @Autowired
     UserDaoImpl userDao;
@@ -30,5 +32,9 @@ public class UserService {
 
     public User findUserById(Long id) {
         return userDao.findById(id);
+    }
+
+    public User findUserByUserName(String userName) {
+        return userDao.findUserByUserName(userName);
     }
 }

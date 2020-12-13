@@ -34,9 +34,15 @@ public class UserController {
     }
 
     @GetMapping("/getUserById")
-    public UserDto findAllUsers(@PathParam("id") Long id){
+    public UserDto findUserById(@PathParam("id") Long id){
         UserDto userById = userFacade.findUserById(id);
         return userById;
+    }
+
+    @GetMapping("/getUserByUserName")
+    public UserDto findUserByUserName(@PathParam("userName") String userName){
+        UserDto userDto = userFacade.findUserByUserName(userName);
+        return userDto;
     }
 
 
