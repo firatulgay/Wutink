@@ -37,6 +37,6 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         bodyOfResponse.setCode("1000");
         LOG.error(ex.getMessage());
 
-        return new ResponseEntity<ErrorDto>(bodyOfResponse,HttpStatus.CONFLICT);
+        return new ResponseEntity<ErrorDto>(bodyOfResponse,HttpStatus.BAD_REQUEST);
     }
 }

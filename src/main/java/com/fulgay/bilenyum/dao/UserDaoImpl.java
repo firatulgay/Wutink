@@ -21,7 +21,7 @@ import java.util.List;
 @Repository
 public class UserDaoImpl extends BaseUserDao {
 
-    private User user;
+    private User user = null;
 
     public UserDaoImpl() {
         super();

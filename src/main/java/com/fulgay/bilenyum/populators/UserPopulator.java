@@ -26,9 +26,9 @@ public class UserPopulator {
     }
 
     public UserDto populateUserDto(User user) {
+        userDto = new UserDto();
 
         if(user != null){
-            userDto = new UserDto();
             userDto.setUserName(user.getUserName());
             userDto.setId(user.getId());
             userDto.setUserType(user.getUserType());
@@ -40,12 +40,16 @@ public class UserPopulator {
     }
 
     public User populateUser(UserDto userDto){
-        User user = new User();
-        user.setUserName(userDto.getUserName());
-        user.setUserType(userDto.getUserType());
-        user.setName(userDto.getName());
-        user.setPassword(userDto.getPassword());
-        user.setSurname(userDto.getSurname());
+        user = new User();
+
+        if (userDto != null) {
+
+            user.setUserName(userDto.getUserName());
+            user.setUserType(userDto.getUserType());
+            user.setName(userDto.getName());
+            user.setPassword(userDto.getPassword());
+            user.setSurname(userDto.getSurname());
+        }
 
         return user;
     }

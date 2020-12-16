@@ -41,25 +41,39 @@ public class UserFacade {
 
     public UserDto findUserById(Long id) {
         User user = userService.findUserById(id);
-        return userPopulator.populateUserDto(user);
+        UserDto userDto = userPopulator.populateUserDto(user);
+
+        if (user == null){
+            ErrorDto errorDto = new ErrorDto();
+            errorDto.setMessage(EnumErrorMessage.USER_NOT_FOUND.getDisplayValue());
+            errorDto.setCode(EnumErrorMessage.USER_NOT_FOUND.getCode());
+            userDto.setErrorDto(errorDto);
+        }
+        return userDto;
     }
 
     public UserDto save(UserDto userDto) {
 
-        boolean isValid = userValidator.validateUserByUserName(userDto.getUserName());
+        try {
+            boolean isUserNameValid = userValidator.validateUserByUserName(userDto.getUserName());
 
-        if (isValid) {
-            User user = userPopulator.populateUser(userDto);
-            Long userId = userService.save(user);
+            if (isUserNameValid) {
+                User user = userPopulator.populateUser(userDto);
+                Long userId = userService.save(user);
 
-            userDto.setId(userId);
-            userDto.setMessage(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
-            LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
+                userDto.setId(userId);
+                userDto.setMessage(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
+                LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
 
-        } else {
-            ErrorDto errorDto = new ErrorDto();
-            errorDto.setMessage(userDto.getUserName() + " " +EnumErrorMessage.USERNAME_ALREADY_EXIST.getDisplayValue());
-            userDto.setErrorDto(errorDto);
+            } else {
+                ErrorDto errorDto = new ErrorDto();
+                errorDto.setMessage(userDto.getUserName() + " " +EnumErrorMessage.USERNAME_ALREADY_EXIST.getDisplayValue());
+                userDto.setErrorDto(errorDto);
+            }
+
+        }catch (Exception e){
+            e.getMessage();
+            e.printStackTrace();
         }
         return userDto;
 
@@ -67,6 +81,14 @@ public class UserFacade {
 
     public UserDto findUserByUserName(String userName) {
         User user = userService.findUserByUserName(userName);
-        return userPopulator.populateUserDto(user);
+        UserDto userDto = userPopulator.populateUserDto(user);
+
+        if (user == null){
+            ErrorDto errorDto = new ErrorDto();
+            errorDto.setMessage(EnumErrorMessage.USER_NOT_FOUND.getDisplayValue());
+            errorDto.setCode(EnumErrorMessage.USER_NOT_FOUND.getCode());
+            userDto.setErrorDto(errorDto);
+        }
+        return userDto;
     }
 }
