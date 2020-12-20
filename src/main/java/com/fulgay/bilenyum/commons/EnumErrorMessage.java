@@ -6,7 +6,8 @@ public enum EnumErrorMessage implements BaseEnum {
 
     USER_NOT_FOUND("Kullanıcı bulunamadı!","100"),
     USER_COULDNT_SAVE("Kullanıcı kaydedilirken bir hata oluştu!","101"),
-    USERNAME_ALREADY_EXIST("Kullanıcı adı alınmış!","102");
+    USERNAME_ALREADY_EXIST("Kullanıcı adı alınmış!","102"),
+    GENERAL_ERROR("İşlem sırasında hata oluştu","103");
 
     private String type;
     private String code;

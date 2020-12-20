@@ -12,15 +12,13 @@ public class UserPopulator {
 
     private UserDto userDto;
     private User user;
-    List<UserDto> userDtoList ;
+    List<UserDto> userDtoList;
 
-    public List<UserDto> populateUserDtoList(List<User> userList){
+    public List<UserDto> populateUserDtoList(List<User> userList) {
 
-        if (userList != null && userList.size() > 0){
+        if (userList != null && userList.size() > 0) {
             userDtoList = new ArrayList<>();
-            for (User user : userList) {
-                userDtoList.add(populateUserDto(user));  // userList.stream().forEach(user -> userDtoList.add(populateUserDto(user)));
-            }
+            userList.stream().forEach(user -> userDtoList.add(populateUserDto(user)));
         }
         return userDtoList;
     }
@@ -28,7 +26,7 @@ public class UserPopulator {
     public UserDto populateUserDto(User user) {
         userDto = new UserDto();
 
-        if(user != null){
+        if (user != null) {
             userDto.setUserName(user.getUserName());
             userDto.setId(user.getId());
             userDto.setUserType(user.getUserType());
@@ -39,7 +37,7 @@ public class UserPopulator {
         return userDto;
     }
 
-    public User populateUser(UserDto userDto){
+    public User populateUser(UserDto userDto) {
         user = new User();
 
         if (userDto != null) {

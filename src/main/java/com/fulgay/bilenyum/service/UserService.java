@@ -3,9 +3,11 @@ package com.fulgay.bilenyum.service;
 import com.fulgay.bilenyum.dao.UserDaoImpl;
 import com.fulgay.bilenyum.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.UnexpectedRollbackException;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -16,17 +18,21 @@ import java.util.List;
  * @since 8/12/2020
  */
 @Service
-@Transactional
 public class UserService {
     @Autowired
     UserDaoImpl userDao;
 
-    public Long save(User user){
-        Long userId = userDao.save(user);
-        return userId;
+    @Transactional(rollbackFor = Exception.class)
+    public Long save(User user) {
+        try {
+            Long userId = userDao.save(user);
+            return userId;
+        }catch (UnexpectedRollbackException e){
+            return null;
+        }
     }
 
-    public List<User> findAllUsers(){
+    public List<User> findAllUsers() {
         return userDao.findAll();
     }
 
@@ -35,6 +41,11 @@ public class UserService {
     }
 
     public User findUserByUserName(String userName) {
-        return userDao.findUserByUserName(userName);
+        try {
+            User user = userDao.findUserByUserName(userName);
+            return user;
+        } catch (EmptyResultDataAccessException e) {
+                return null;
+        }
     }
 }

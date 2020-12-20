@@ -1,25 +1,16 @@
 package com.fulgay.bilenyum.dtos;
 
-import com.fulgay.bilenyum.commons.ErrorDto;
+import com.fulgay.bilenyum.commons.GlobalMessages;
 
 public class BaseDto {
-    private String message;
-    private ErrorDto errorDto;
 
+    private  GlobalMessages globalMessage;
 
-    public String getMessage() {
-        return message;
+    public GlobalMessages getGlobalMessage() {
+        return globalMessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public ErrorDto getErrorDto() {
-        return errorDto;
-    }
-
-    public void setErrorDto(ErrorDto errorDto) {
-        this.errorDto = errorDto;
+    public void setGlobalMessage(GlobalMessages globalMessage) {
+        this.globalMessage = globalMessage;
     }
 }

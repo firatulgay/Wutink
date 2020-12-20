@@ -29,8 +29,8 @@ public abstract class BaseDao<T> {
 
     private SessionFactory sessionFactory;
 
-    public Long save(T var){
-         return  (Long)getSession().save(var);
+    public Long save(T var) {
+        return  (Long)getSession().save(var);
     }
 
     public void delete(T var){

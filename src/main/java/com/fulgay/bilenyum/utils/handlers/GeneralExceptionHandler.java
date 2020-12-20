@@ -1,7 +1,7 @@
 package com.fulgay.bilenyum.utils.handlers;
 
 import com.fulgay.bilenyum.commons.EnumErrorMessage;
-import com.fulgay.bilenyum.commons.ErrorDto;
+import com.fulgay.bilenyum.commons.GlobalMessages;
 import org.apache.log4j.Logger;
 import org.hibernate.JDBCException;
 import org.springframework.http.HttpStatus;
@@ -19,24 +19,22 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger LOG = Logger.getLogger(GeneralExceptionHandler.class);
 
     @ExceptionHandler(value = { JDBCException.class})
-    protected ResponseEntity<ErrorDto> handleMyException(JDBCException ex, WebRequest request) {
-        ErrorDto bodyOfResponse = new ErrorDto();
+    protected ResponseEntity<GlobalMessages> handleMyException(JDBCException ex, WebRequest request) {
+        GlobalMessages bodyOfResponse = new GlobalMessages();
 
-        bodyOfResponse.setMessage(EnumErrorMessage.USER_COULDNT_SAVE.getDisplayValue());
-        bodyOfResponse.setCode("1000");
+        bodyOfResponse.setErrorMessage(EnumErrorMessage.USER_COULDNT_SAVE.getDisplayValue());
         LOG.error(ex.getMessage());
 
-        return new ResponseEntity<ErrorDto>(bodyOfResponse,HttpStatus.CONFLICT);
+        return new ResponseEntity<GlobalMessages>(bodyOfResponse,HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(value = { PersistenceException.class})
-    protected ResponseEntity<ErrorDto> handleMyException(PersistenceException ex, WebRequest request) {
-        ErrorDto bodyOfResponse = new ErrorDto();
+    protected ResponseEntity<GlobalMessages> handleMyException(PersistenceException ex, WebRequest request) {
+        GlobalMessages bodyOfResponse = new GlobalMessages();
 
-        bodyOfResponse.setMessage(ex.getMessage());
-        bodyOfResponse.setCode("1000");
+        bodyOfResponse.setErrorMessage(ex.getMessage());
         LOG.error(ex.getMessage());
 
-        return new ResponseEntity<ErrorDto>(bodyOfResponse,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<GlobalMessages>(bodyOfResponse,HttpStatus.BAD_REQUEST);
     }
 }

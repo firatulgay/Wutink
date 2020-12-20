@@ -2,7 +2,7 @@ package com.fulgay.bilenyum.facades;
 
 import com.fulgay.bilenyum.commons.EnumErrorMessage;
 import com.fulgay.bilenyum.commons.EnumSuccessMessage;
-import com.fulgay.bilenyum.commons.ErrorDto;
+import com.fulgay.bilenyum.commons.GlobalMessages;
 import com.fulgay.bilenyum.domain.User;
 import com.fulgay.bilenyum.dtos.UserDto;
 import com.fulgay.bilenyum.populators.UserPopulator;
@@ -31,6 +31,9 @@ public class UserFacade {
 
     private static final Logger LOG = Logger.getLogger(UserFacade.class);
 
+    private GlobalMessages globalMessage;
+    private UserDto userDto;
+
 
     public List<UserDto> findAllUsers() {
         List<User> userList = userService.findAllUsers();
@@ -43,11 +46,10 @@ public class UserFacade {
         User user = userService.findUserById(id);
         UserDto userDto = userPopulator.populateUserDto(user);
 
-        if (user == null){
-            ErrorDto errorDto = new ErrorDto();
-            errorDto.setMessage(EnumErrorMessage.USER_NOT_FOUND.getDisplayValue());
-            errorDto.setCode(EnumErrorMessage.USER_NOT_FOUND.getCode());
-            userDto.setErrorDto(errorDto);
+        if (user == null) {
+            GlobalMessages globalMessage = new GlobalMessages();
+            globalMessage.setErrorMessage(EnumErrorMessage.USER_NOT_FOUND.getDisplayValue());
+            userDto.setGlobalMessage(globalMessage);
         }
         return userDto;
     }
@@ -62,32 +64,45 @@ public class UserFacade {
                 Long userId = userService.save(user);
 
                 userDto.setId(userId);
-                userDto.setMessage(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
+
+                globalMessage = new GlobalMessages();
+                globalMessage.setConfMessage(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
+                userDto.setGlobalMessage(globalMessage);
                 LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
 
             } else {
-                ErrorDto errorDto = new ErrorDto();
-                errorDto.setMessage(userDto.getUserName() + " " +EnumErrorMessage.USERNAME_ALREADY_EXIST.getDisplayValue());
-                userDto.setErrorDto(errorDto);
+                GlobalMessages globalMessage = new GlobalMessages();
+                globalMessage.setErrorMessage(userDto.getUserName() + " " + EnumErrorMessage.USERNAME_ALREADY_EXIST.getDisplayValue());
+                userDto.setGlobalMessage(globalMessage);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getMessage();
             e.printStackTrace();
+            globalMessage = new GlobalMessages();
+            globalMessage.setErrorMessage(EnumErrorMessage.USER_COULDNT_SAVE.getDisplayValue());
+            userDto.setGlobalMessage(globalMessage);
         }
         return userDto;
 
     }
 
     public UserDto findUserByUserName(String userName) {
-        User user = userService.findUserByUserName(userName);
-        UserDto userDto = userPopulator.populateUserDto(user);
+        try {
+            User user = userService.findUserByUserName(userName);
+            userDto = userPopulator.populateUserDto(user);
 
-        if (user == null){
-            ErrorDto errorDto = new ErrorDto();
-            errorDto.setMessage(EnumErrorMessage.USER_NOT_FOUND.getDisplayValue());
-            errorDto.setCode(EnumErrorMessage.USER_NOT_FOUND.getCode());
-            userDto.setErrorDto(errorDto);
+            if (user == null) {
+                globalMessage = new GlobalMessages();
+                globalMessage.setErrorMessage(EnumErrorMessage.USER_NOT_FOUND.getDisplayValue());
+                userDto.setGlobalMessage(globalMessage);
+            }
+
+        } catch (Exception e) {
+            globalMessage = new GlobalMessages();
+            globalMessage.setErrorMessage(EnumErrorMessage.GENERAL_ERROR.getDisplayValue());
+            userDto.setGlobalMessage(globalMessage);
+            e.printStackTrace();
         }
         return userDto;
     }

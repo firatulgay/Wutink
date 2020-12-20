@@ -11,8 +11,10 @@ public class UserValidator {
     @Autowired
     UserService userService;
 
-    public boolean validateUserByUserName(String userName){
+    public boolean validateUserByUserName(String userName)  {
+
         User user = userService.findUserByUserName(userName);
+
         if (user != null){
             return false;
         }else {
