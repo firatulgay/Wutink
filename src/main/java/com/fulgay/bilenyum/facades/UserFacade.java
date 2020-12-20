@@ -17,17 +17,14 @@ import java.util.List;
 @Component
 public class UserFacade {
 
-
-    private static final Logger LOGGER = Logger.getLogger(UserFacade.class);
+    @Autowired
+    private UserValidator userValidator;
 
     @Autowired
-    UserValidator userValidator;
+    private UserPopulator userPopulator;
 
     @Autowired
-    UserPopulator userPopulator;
-
-    @Autowired
-    UserService userService;
+    private UserService userService;
 
     private static final Logger LOG = Logger.getLogger(UserFacade.class);
 

@@ -18,7 +18,7 @@ public class UserPopulator {
 
         if (userList != null && userList.size() > 0) {
             userDtoList = new ArrayList<>();
-            userList.stream().forEach(user -> userDtoList.add(populateUserDto(user)));
+//            userList.stream().forEach(user -> userDtoList.add(populateUserDto(user)));
         }
         return userDtoList;
     }

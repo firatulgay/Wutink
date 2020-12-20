@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -34,8 +35,11 @@ public class UserDaoImpl extends BaseUserDao {
         Root<User> root = query.from(User.class);
         query.select(root).where(criteriaBuilder.equal(root.get("userName"), userName));
 
-        return session.createQuery(query).getSingleResult();
-    }
+        try {
+            return session.createQuery(query).getSingleResult();
+        }catch (NoResultException ex){
+            return null;
+        }    }
 
     @Override
     public List<User> findAllByUserType(EnumUserType userType) {

@@ -3,7 +3,6 @@ package com.fulgay.bilenyum.service;
 import com.fulgay.bilenyum.dao.UserDaoImpl;
 import com.fulgay.bilenyum.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,12 +40,8 @@ public class UserService {
     }
 
     public User findUserByUserName(String userName) {
-        try {
             User user = userDao.findUserByUserName(userName);
             return user;
-        } catch (EmptyResultDataAccessException e) {
-                return null;
-        }
     }
 
     public User findUserByUserNameAndPassword(String userName, String password) {

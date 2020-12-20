@@ -4,7 +4,9 @@ import com.fulgay.bilenyum.enums.BaseEnum;
 
 public enum EnumSuccessMessage implements BaseEnum {
     USER_SAVE_SUCCESS("Kullanıcısı başarıyla kaydedildi!"),
-    LOGIN_SUCCESS("Hoş Geldiniz!");
+    LOGIN_SUCCESS("Hoş Geldiniz!"),
+    CATEGORY_SAVE_SUCCESS("Kategorisi başarıyla kaydedildi!");
+
 
 
     private String type;
