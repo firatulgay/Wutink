@@ -12,7 +12,7 @@ public class UserPopulator {
 
     private UserDto userDto;
     private User user;
-    List<UserDto> userDtoList;
+    private List<UserDto> userDtoList;
 
     public List<UserDto> populateUserDtoList(List<User> userList) {
 
