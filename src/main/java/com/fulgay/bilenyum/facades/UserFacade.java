@@ -106,4 +106,10 @@ public class UserFacade {
         }
         return userDto;
     }
+
+    public UserDto findUserByNameAndPassword(String userName, String password) {
+        User user = userService.findUserByUserNameAndPassword(userName, password);
+        UserDto userDto = userPopulator.populateUserDto(user);
+        return userDto;
+    }
 }

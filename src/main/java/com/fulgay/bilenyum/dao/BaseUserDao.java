@@ -22,4 +22,5 @@ public abstract class BaseUserDao extends BaseDao<User> {
 
     abstract List<User> findAllByUserType(EnumUserType userType);
 
+    public abstract User findUserByUserNameAndPassword(String userName, String password);
 }

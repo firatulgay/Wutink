@@ -48,4 +48,9 @@ public class UserService {
                 return null;
         }
     }
+
+    public User findUserByUserNameAndPassword(String userName, String password) {
+        User user = userDao.findUserByUserNameAndPassword(userName, password);
+        return user;
+    }
 }
