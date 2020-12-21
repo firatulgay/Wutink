@@ -31,6 +31,10 @@ public class CategoryController {
         return categoryFacade.findAllCategories();
 
         //test mesaj
+
+        //asdfsdfgsd
+        //asdasdas
+
         //test mesaj
         //test mesaj
         //test mesaj
