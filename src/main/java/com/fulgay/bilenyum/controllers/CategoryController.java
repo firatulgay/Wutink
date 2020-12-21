@@ -26,6 +26,12 @@ public class CategoryController {
     @GetMapping("/getCategories")
     public List<CategoryDto> findAllCategories(){
         return categoryFacade.findAllCategories();
+
+        //test mesaj
+        //test mesaj
+        //test mesaj
+        //test mesaj
+
     }
 
 }
