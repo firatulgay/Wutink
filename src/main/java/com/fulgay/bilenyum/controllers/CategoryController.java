@@ -30,17 +30,6 @@ public class CategoryController {
     public List<CategoryDto> findAllCategories(){
         return categoryFacade.findAllCategories();
 
-        //test mesaj
-        //masterrTessst
-        //masterrTessst
-
-        //asdfsdfgsd
-        //asdasdas
-
-        //test mesaj
-        //test mesaj
-        //test mesaj
-
     }
 
 }
