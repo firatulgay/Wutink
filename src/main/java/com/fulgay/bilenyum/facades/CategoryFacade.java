@@ -1,10 +1,12 @@
 package com.fulgay.bilenyum.facades;
 
+import com.fulgay.bilenyum.Converter.Converter;
 import com.fulgay.bilenyum.commons.EnumErrorMessage;
 import com.fulgay.bilenyum.commons.EnumSuccessMessage;
 import com.fulgay.bilenyum.commons.GlobalMessages;
 import com.fulgay.bilenyum.domain.Category;
 import com.fulgay.bilenyum.dtos.CategoryDto;
+import com.fulgay.bilenyum.populators.CategoryDtoPopulator;
 import com.fulgay.bilenyum.populators.CategoryPopulator;
 import com.fulgay.bilenyum.service.CategoryService;
 import com.fulgay.bilenyum.utils.validators.CategoryValidator;
@@ -23,25 +25,28 @@ public class CategoryFacade {
     private CategoryService categoryService;
 
     @Autowired
-    private CategoryPopulator categoryPopulator;
-
-    @Autowired
     private CategoryValidator categoryValidator;
 
     private GlobalMessages globalMessage;
     private CategoryDto categoryDto;
-
+    private CategoryDtoPopulator categoryDtoPopulator;
+    private CategoryPopulator categoryPopulator;
+    private Converter<Category, CategoryDto> dtoConverter;
 
     public List<CategoryDto> findAllCategories() {
         List<Category> categoryList = categoryService.findAllCategories();
-        List<CategoryDto> categoryDtoList = categoryPopulator.populateCategoryDtoList(categoryList);
+
+        categoryDtoPopulator = new CategoryDtoPopulator();
+        dtoConverter = new Converter<>(categoryDtoPopulator);
+
+        List<CategoryDto> categoryDtoList = dtoConverter.convertToTargetList(categoryList);
 
         return categoryDtoList;
     }
 
     public CategoryDto findCategoryById(Long id) {
         Category category = categoryService.findCategoryById(id);
-        CategoryDto categoryDto = categoryPopulator.populateCategoryDto(category);
+        CategoryDto categoryDto = categoryDtoPopulator.populate(category);
 
         if (category == null) {
             GlobalMessages globalMessage = new GlobalMessages();
@@ -57,7 +62,9 @@ public class CategoryFacade {
             boolean isCategoryNameValid = categoryValidator.validateCategoryByCategoryName(categoryDto.getName());
 
             if (isCategoryNameValid) {
-                Category category = categoryPopulator.populateCategory(categoryDto);
+                categoryPopulator = new CategoryPopulator();
+
+                Category category = categoryPopulator.populate(categoryDto);
                 Long categoryId = categoryService.save(category);
 
                 categoryDto.setId(categoryId);

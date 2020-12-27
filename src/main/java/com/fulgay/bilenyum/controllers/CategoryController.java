@@ -22,8 +22,6 @@ public class CategoryController {
     public CategoryDto saveCategory(@RequestBody CategoryDto categoryDto){
         return categoryFacade.save(categoryDto);
 
-        //testMaster123
-        //test
     }
 
     @GetMapping("/getCategories")

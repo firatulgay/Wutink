@@ -1,6 +1,5 @@
 package com.fulgay.bilenyum.domain;
 
-import com.fulgay.bilenyum.enums.EnumExperienceCategory;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "EXPERIENCE", indexes = {
-        @Index(name = "IX_EXPERIENCE_HEADER",columnList = "header", unique = true)})
+        @Index(name = "IX_EXPERIENCE_HEADER",columnList = "header,ID_USER", unique = true)})
 public class Experience {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +29,6 @@ public class Experience {
     @Size(max = 50)
     @Column(length = 50)
     private String description;
-
-    @Column(name = "experience_category",length = 50)
-    @Enumerated(EnumType.STRING)
-    private EnumExperienceCategory experienceCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER", foreignKey = @ForeignKey(name = "FK_EXPERIENCE_USER"))
@@ -64,14 +59,6 @@ public class Experience {
         this.description = description;
     }
 
-    public EnumExperienceCategory getExperienceCategory() {
-        return experienceCategory;
-    }
-
-    public void setExperienceCategory(EnumExperienceCategory experienceCategory) {
-        this.experienceCategory = experienceCategory;
-    }
-
     public User getUser() {
         return user;
     }
@@ -79,4 +66,5 @@ public class Experience {
     public void setUser(User user) {
         this.user = user;
     }
+
 }
