@@ -7,20 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDtoPopulator implements Populator<User, UserDto> {
 
-    private UserDto userDto;
-
     @Override
-    public UserDto populate(User source) {
-        userDto = new UserDto();
-
+    public void populate(User source, UserDto target) {
         if (source != null) {
-            userDto.setUserName(source.getUserName());
-            userDto.setId(source.getId());
-            userDto.setUserType(source.getUserType());
-            userDto.setName(source.getName());
-            userDto.setPassword(source.getPassword());
-            userDto.setSurname(source.getSurname());
+            target.setUserName(source.getUserName());
+            target.setId(source.getId());
+            target.setUserType(source.getUserType());
+            target.setName(source.getName());
+            target.setPassword(source.getPassword());
+            target.setSurname(source.getSurname());
         }
-        return userDto;
     }
 }

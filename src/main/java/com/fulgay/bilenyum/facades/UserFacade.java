@@ -3,11 +3,10 @@ package com.fulgay.bilenyum.facades;
 import com.fulgay.bilenyum.commons.EnumErrorMessage;
 import com.fulgay.bilenyum.commons.EnumSuccessMessage;
 import com.fulgay.bilenyum.commons.GlobalMessages;
-import com.fulgay.bilenyum.converter.Converter;
+import com.fulgay.bilenyum.converter.UserConverter;
+import com.fulgay.bilenyum.converter.UserDtoConverter;
 import com.fulgay.bilenyum.domain.User;
 import com.fulgay.bilenyum.dtos.UserDto;
-import com.fulgay.bilenyum.populators.UserDtoPopulator;
-import com.fulgay.bilenyum.populators.UserPopulator;
 import com.fulgay.bilenyum.service.UserService;
 import com.fulgay.bilenyum.utils.validators.UserValidator;
 import org.apache.log4j.Logger;
@@ -15,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
+//import com.fulgay.bilenyum.populators.UserPopulator;
 
 @Component
 public class UserFacade {
@@ -25,30 +26,26 @@ public class UserFacade {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserDtoConverter userDtoConverter;
+
+    @Autowired
+    private UserConverter userConverter;
+
     private static final Logger LOG = Logger.getLogger(UserFacade.class);
     private GlobalMessages globalMessage;
     private UserDto userDto;
-    private Converter<User, UserDto> userDtoConverter;
-    private Converter<UserDto,User> userConverter;
-    private UserPopulator userPopulator;
-    private UserDtoPopulator userDtoPopulator;
 
     public List<UserDto> findAllUsers() {
         List<User> userList = userService.findAllUsers();
-
-        userDtoPopulator = new UserDtoPopulator();
-        userDtoConverter = new Converter<>(userDtoPopulator);
-
-        List<UserDto> userDtoList = userDtoConverter.convertToTargetList(userList);
+        List<UserDto> userDtoList = userDtoConverter.convertToList(userList);
 
         return userDtoList;
     }
 
     public UserDto findUserById(Long id) {
         User user = userService.findUserById(id);
-
-        userDtoPopulator = new UserDtoPopulator();
-        UserDto userDto = userDtoPopulator.populate(user);
+        UserDto userDto = userDtoConverter.convert(user);
 
         if (user == null) {
             GlobalMessages globalMessage = new GlobalMessages();
@@ -64,13 +61,11 @@ public class UserFacade {
             boolean isUserNameValid = userValidator.validateUserByUserName(userDto.getUserName());
 
             if (isUserNameValid) {
-                userPopulator = new UserPopulator();
-                User user = userPopulator.populate(userDto);
+                User user = userConverter.convert(userDto);
                 Long userId = userService.save(user);
 
                 userDto.setId(userId);
                 setSuccessGlobalMessage(userDto);
-
             } else {
                 GlobalMessages globalMessage = new GlobalMessages();
                 globalMessage.setErrorMessage(userDto.getUserName() + " " + EnumErrorMessage.USERNAME_ALREADY_EXIST.getDisplayValue());
@@ -89,13 +84,11 @@ public class UserFacade {
     }
 
 
-
     public UserDto findUserByUserName(String userName) {
+
         try {
             User user = userService.findUserByUserName(userName);
-
-            userDtoPopulator = new UserDtoPopulator();
-            userDto = userDtoPopulator.populate(user);
+            userDto = userDtoConverter.convert(user);
 
             if (user == null) {
                 globalMessage = new GlobalMessages();
@@ -114,9 +107,7 @@ public class UserFacade {
 
     public UserDto findUserByNameAndPassword(String userName, String password) {
         User user = userService.findUserByUserNameAndPassword(userName, password);
-
-        userDtoPopulator = new UserDtoPopulator();
-        UserDto userDto = userDtoPopulator.populate(user);
+        UserDto userDto = userDtoConverter.convert(user);
 
         return userDto;
     }

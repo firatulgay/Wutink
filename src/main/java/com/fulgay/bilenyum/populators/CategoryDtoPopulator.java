@@ -7,16 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryDtoPopulator implements Populator<Category,CategoryDto> {
 
-    private CategoryDto categoryDto;
-
     @Override
-    public CategoryDto populate(Category source) {
-        categoryDto = new CategoryDto();
+    public void populate(Category source,CategoryDto target) {
 
         if (source != null) {
-            categoryDto.setName(source.getName());
-            categoryDto.setId(source.getId());
+            target.setName(source.getName());
+            target.setId(source.getId());
         }
-        return categoryDto;
     }
 }

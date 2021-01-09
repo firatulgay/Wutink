@@ -1,13 +1,12 @@
 package com.fulgay.bilenyum.facades;
 
-import com.fulgay.bilenyum.converter.Converter;
 import com.fulgay.bilenyum.commons.EnumErrorMessage;
 import com.fulgay.bilenyum.commons.EnumSuccessMessage;
 import com.fulgay.bilenyum.commons.GlobalMessages;
+import com.fulgay.bilenyum.converter.CategoryConverter;
+import com.fulgay.bilenyum.converter.CategoryDtoConverter;
 import com.fulgay.bilenyum.domain.Category;
 import com.fulgay.bilenyum.dtos.CategoryDto;
-import com.fulgay.bilenyum.populators.CategoryDtoPopulator;
-import com.fulgay.bilenyum.populators.CategoryPopulator;
 import com.fulgay.bilenyum.service.CategoryService;
 import com.fulgay.bilenyum.utils.validators.CategoryValidator;
 import org.apache.log4j.Logger;
@@ -27,26 +26,25 @@ public class CategoryFacade {
     @Autowired
     private CategoryValidator categoryValidator;
 
+    @Autowired
+    CategoryDtoConverter categoryDtoConverter;
+
+    @Autowired
+    CategoryConverter categoryConverter;
+
     private GlobalMessages globalMessage;
-    private CategoryDto categoryDto;
-    private CategoryDtoPopulator categoryDtoPopulator;
-    private CategoryPopulator categoryPopulator;
-    private Converter<Category, CategoryDto> dtoConverter;
 
     public List<CategoryDto> findAllCategories() {
         List<Category> categoryList = categoryService.findAllCategories();
-
-        categoryDtoPopulator = new CategoryDtoPopulator();
-        dtoConverter = new Converter<>(categoryDtoPopulator);
-
-        List<CategoryDto> categoryDtoList = dtoConverter.convertToTargetList(categoryList);
+        List<CategoryDto> categoryDtoList = categoryDtoConverter.convertToList(categoryList);
 
         return categoryDtoList;
     }
 
     public CategoryDto findCategoryById(Long id) {
         Category category = categoryService.findCategoryById(id);
-        CategoryDto categoryDto = categoryDtoPopulator.populate(category);
+
+        CategoryDto categoryDto = categoryDtoConverter.convert(category);
 
         if (category == null) {
             GlobalMessages globalMessage = new GlobalMessages();
@@ -62,9 +60,8 @@ public class CategoryFacade {
             boolean isCategoryNameValid = categoryValidator.validateCategoryByCategoryName(categoryDto.getName());
 
             if (isCategoryNameValid) {
-                categoryPopulator = new CategoryPopulator();
 
-                Category category = categoryPopulator.populate(categoryDto);
+                Category category = categoryConverter.convert(categoryDto);
                 Long categoryId = categoryService.save(category);
 
                 categoryDto.setId(categoryId);

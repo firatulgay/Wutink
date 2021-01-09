@@ -3,14 +3,13 @@ package com.fulgay.bilenyum.facades;
 import com.fulgay.bilenyum.commons.EnumErrorMessage;
 import com.fulgay.bilenyum.commons.EnumSuccessMessage;
 import com.fulgay.bilenyum.commons.GlobalMessages;
-import com.fulgay.bilenyum.converter.Converter;
+import com.fulgay.bilenyum.converter.ExperienceConverter;
+import com.fulgay.bilenyum.converter.ExperienceDtoConverter;
 import com.fulgay.bilenyum.domain.Cat2Ex;
 import com.fulgay.bilenyum.domain.Category;
 import com.fulgay.bilenyum.domain.Experience;
 import com.fulgay.bilenyum.dtos.CategoryDto;
 import com.fulgay.bilenyum.dtos.ExperienceDto;
-import com.fulgay.bilenyum.populators.ExperienceDtoPopulator;
-import com.fulgay.bilenyum.populators.ExperiencePopulator;
 import com.fulgay.bilenyum.service.Cat2ExService;
 import com.fulgay.bilenyum.service.CategoryService;
 import com.fulgay.bilenyum.service.ExperienceService;
@@ -21,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+//import com.fulgay.bilenyum.populators.ExperienceDtoPopulator;
+//import com.fulgay.bilenyum.populators.ExperiencePopulator;
 
 @Component
 public class ExperienceFacade {
@@ -40,20 +42,18 @@ public class ExperienceFacade {
     Cat2ExService cat2ExService;
 
     @Autowired
-    private ExperienceDtoPopulator experienceDtoPopulator;
+    private ExperienceDtoConverter experienceDtoConverter;
 
     @Autowired
-    private ExperiencePopulator experiencePopulator;
+    private ExperienceConverter experienceConverter;
 
     private GlobalMessages globalMessage;
-    private Converter<Experience,ExperienceDto> experienceDtoConverter;
 
     @Transactional(rollbackFor = Exception.class)
     public ExperienceDto save(ExperienceDto experienceDto) {
 
         try {
-            Experience experience = experiencePopulator.populate(experienceDto);
-
+            Experience experience = experienceConverter.convert(experienceDto);
             experienceService.save(experience);
 
             CategoryDto categoryDto = experienceDto.getCategoryDto();
@@ -61,6 +61,8 @@ public class ExperienceFacade {
 
             cat2ExFacade.saveCat2ExRel(experience, category);
             setSuccessGlobalMessage(experienceDto);
+
+            experienceDto = experienceDtoConverter.convert(experience);
 
         } catch (Exception e) {
             e.getMessage();
@@ -73,7 +75,7 @@ public class ExperienceFacade {
         return experienceDto;
     }
 
-    private void setSuccessGlobalMessage (ExperienceDto experienceDto){
+    private void setSuccessGlobalMessage(ExperienceDto experienceDto) {
         globalMessage = new GlobalMessages();
         globalMessage.setConfMessage(EnumSuccessMessage.EXPERIENCE_SAVE_SUCCESS.getDisplayValue());
         experienceDto.setGlobalMessage(globalMessage);
@@ -82,13 +84,9 @@ public class ExperienceFacade {
 
     public List<ExperienceDto> findAllExperiences() {
         List<Experience> experienceList = experienceService.findAllExperiences();
-
-        experienceDtoConverter = new Converter<>(experienceDtoPopulator);
-
-        List<ExperienceDto> experienceDtoList = experienceDtoConverter.convertToTargetList(experienceList);
+        List<ExperienceDto> experienceDtoList = experienceDtoConverter.convertToList(experienceList);
 
         return experienceDtoList;
-
     }
 
     public List<ExperienceDto> findAllExperienceByCategoryId(Long id) {
@@ -100,10 +98,7 @@ public class ExperienceFacade {
             Experience experience = cat2Ex.getExperience();
             experienceList.add(experience);
         }
-
-        experienceDtoConverter = new Converter<>(new ExperienceDtoPopulator());
-        List<ExperienceDto> experienceDtoList = experienceDtoConverter.convertToTargetList(experienceList);
-
+        List<ExperienceDto> experienceDtoList = experienceDtoConverter.convertToList(experienceList);
         return experienceDtoList;
     }
 }

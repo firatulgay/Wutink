@@ -1,7 +1,5 @@
 package com.fulgay.bilenyum.domain;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
@@ -21,7 +19,6 @@ public class Experience {
     @Column
     private Long id;
 
-    @NotBlank
     @Size(max = 50)
     @Column(length = 50)
     private String header;

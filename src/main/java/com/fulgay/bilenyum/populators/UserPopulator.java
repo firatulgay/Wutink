@@ -5,24 +5,17 @@ import com.fulgay.bilenyum.dtos.UserDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserPopulator implements Populator<UserDto,User> {
-
-
-    private User user;
+public class UserPopulator implements Populator<UserDto, User> {
 
     @Override
-    public User populate(UserDto source) {
-        user = new User();
-
+    public void populate(UserDto source, User target) {
         if (source != null) {
 
-            user.setUserName(source.getUserName());
-            user.setUserType(source.getUserType());
-            user.setName(source.getName());
-            user.setPassword(source.getPassword());
-            user.setSurname(source.getSurname());
+            target.setUserName(source.getUserName());
+            target.setUserType(source.getUserType());
+            target.setName(source.getName());
+            target.setPassword(source.getPassword());
+            target.setSurname(source.getSurname());
         }
-
-        return user;
     }
 }

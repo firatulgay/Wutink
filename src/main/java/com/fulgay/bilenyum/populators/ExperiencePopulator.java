@@ -7,24 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExperiencePopulator implements Populator<ExperienceDto,Experience> {
-
-    private Experience experience;
-    private ExperienceDto experienceDto;
+public class ExperiencePopulator implements Populator<ExperienceDto, Experience> {
 
     @Autowired
     UserService userService;
 
     @Override
-    public Experience populate(ExperienceDto source) {
-        experience = new Experience();
+    public void populate(ExperienceDto source, Experience target) {
 
         if (source != null) {
-            experience.setHeader(source.getHeader());
-            experience.setUser(userService.findUserByUserName(source.getUserDto().getUserName()));
-            experience.setDescription(source.getDescription());
+            target.setHeader(source.getHeader());
+            target.setUser(userService.findUserByUserName(source.getUserDto().getUserName()));
+            target.setDescription(source.getDescription());
         }
-        return experience;
-
     }
 }

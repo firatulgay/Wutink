@@ -7,15 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryPopulator implements Populator<CategoryDto, Category> {
 
-    private Category category;
-
     @Override
-    public Category populate(CategoryDto source) {
-        category = new Category();
+    public void populate(CategoryDto source,Category category) {
         if (source != null) {
             category.setId(source.getId());
             category.setName(source.getName());
         }
-        return category;
     }
 }

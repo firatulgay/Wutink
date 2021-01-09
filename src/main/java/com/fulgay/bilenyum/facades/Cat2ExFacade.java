@@ -16,11 +16,9 @@ public class Cat2ExFacade {
     @Autowired
     private Cat2ExService cat2ExService;
 
-
     private GlobalMessages globalMessage;
 
     public void saveCat2ExRel(Experience experience, Category category){
-
 
         Cat2Ex cat2Ex = new Cat2Ex();
         cat2Ex.setCategory(category);
