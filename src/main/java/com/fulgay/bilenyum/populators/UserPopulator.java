@@ -4,49 +4,23 @@ import com.fulgay.bilenyum.domain.User;
 import com.fulgay.bilenyum.dtos.UserDto;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
-public class UserPopulator {
+public class UserPopulator implements Populator<UserDto,User> {
 
-    private UserDto userDto;
+
     private User user;
-    private List<UserDto> userDtoList;
 
-    public List<UserDto> populateUserDtoList(List<User> userList) {
-
-        if (userList != null && userList.size() > 0) {
-            userDtoList = new ArrayList<>();
-//            userList.stream().forEach(user -> userDtoList.add(populateUserDto(user)));
-        }
-        return userDtoList;
-    }
-
-    public UserDto populateUserDto(User user) {
-        userDto = new UserDto();
-
-        if (user != null) {
-            userDto.setUserName(user.getUserName());
-            userDto.setId(user.getId());
-            userDto.setUserType(user.getUserType());
-            userDto.setName(user.getName());
-            userDto.setPassword(user.getPassword());
-            userDto.setSurname(user.getSurname());
-        }
-        return userDto;
-    }
-
-    public User populateUser(UserDto userDto) {
+    @Override
+    public User populate(UserDto source) {
         user = new User();
 
-        if (userDto != null) {
+        if (source != null) {
 
-            user.setUserName(userDto.getUserName());
-            user.setUserType(userDto.getUserType());
-            user.setName(userDto.getName());
-            user.setPassword(userDto.getPassword());
-            user.setSurname(userDto.getSurname());
+            user.setUserName(source.getUserName());
+            user.setUserType(source.getUserType());
+            user.setName(source.getName());
+            user.setPassword(source.getPassword());
+            user.setSurname(source.getSurname());
         }
 
         return user;

@@ -1,10 +1,12 @@
-package com.fulgay.bilenyum.Converter;
+package com.fulgay.bilenyum.converter;
 
 import com.fulgay.bilenyum.populators.Populator;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Converter<S,T> {
     private List<T> targetList;
 

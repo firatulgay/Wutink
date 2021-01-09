@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class Cat2ExService {
     @Autowired
@@ -18,5 +20,9 @@ public class Cat2ExService {
             cat2ExDao.save(cat2Ex);
         } catch (UnexpectedRollbackException e) {
         }
+    }
+
+    public List<Cat2Ex> findCat2ExRelByCategoryId(Long id) {
+        return cat2ExDao.findCat2ExRelByCategoryId(id);
     }
 }

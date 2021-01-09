@@ -4,6 +4,7 @@ import com.fulgay.bilenyum.domain.Category;
 import com.fulgay.bilenyum.dtos.CategoryDto;
 import org.springframework.stereotype.Component;
 
+@Component
 public class CategoryDtoPopulator implements Populator<Category,CategoryDto> {
 
     private CategoryDto categoryDto;

@@ -3,8 +3,10 @@ package com.fulgay.bilenyum.facades;
 import com.fulgay.bilenyum.commons.EnumErrorMessage;
 import com.fulgay.bilenyum.commons.EnumSuccessMessage;
 import com.fulgay.bilenyum.commons.GlobalMessages;
+import com.fulgay.bilenyum.converter.Converter;
 import com.fulgay.bilenyum.domain.User;
 import com.fulgay.bilenyum.dtos.UserDto;
+import com.fulgay.bilenyum.populators.UserDtoPopulator;
 import com.fulgay.bilenyum.populators.UserPopulator;
 import com.fulgay.bilenyum.service.UserService;
 import com.fulgay.bilenyum.utils.validators.UserValidator;
@@ -21,27 +23,32 @@ public class UserFacade {
     private UserValidator userValidator;
 
     @Autowired
-    private UserPopulator userPopulator;
-
-    @Autowired
     private UserService userService;
 
     private static final Logger LOG = Logger.getLogger(UserFacade.class);
-
     private GlobalMessages globalMessage;
     private UserDto userDto;
-
+    private Converter<User, UserDto> userDtoConverter;
+    private Converter<UserDto,User> userConverter;
+    private UserPopulator userPopulator;
+    private UserDtoPopulator userDtoPopulator;
 
     public List<UserDto> findAllUsers() {
         List<User> userList = userService.findAllUsers();
-        List<UserDto> userDtoList = userPopulator.populateUserDtoList(userList);
+
+        userDtoPopulator = new UserDtoPopulator();
+        userDtoConverter = new Converter<>(userDtoPopulator);
+
+        List<UserDto> userDtoList = userDtoConverter.convertToTargetList(userList);
 
         return userDtoList;
     }
 
     public UserDto findUserById(Long id) {
         User user = userService.findUserById(id);
-        UserDto userDto = userPopulator.populateUserDto(user);
+
+        userDtoPopulator = new UserDtoPopulator();
+        UserDto userDto = userDtoPopulator.populate(user);
 
         if (user == null) {
             GlobalMessages globalMessage = new GlobalMessages();
@@ -57,15 +64,12 @@ public class UserFacade {
             boolean isUserNameValid = userValidator.validateUserByUserName(userDto.getUserName());
 
             if (isUserNameValid) {
-                User user = userPopulator.populateUser(userDto);
+                userPopulator = new UserPopulator();
+                User user = userPopulator.populate(userDto);
                 Long userId = userService.save(user);
 
                 userDto.setId(userId);
-
-                globalMessage = new GlobalMessages();
-                globalMessage.setConfMessage(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
-                userDto.setGlobalMessage(globalMessage);
-                LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
+                setSuccessGlobalMessage(userDto);
 
             } else {
                 GlobalMessages globalMessage = new GlobalMessages();
@@ -84,10 +88,14 @@ public class UserFacade {
 
     }
 
+
+
     public UserDto findUserByUserName(String userName) {
         try {
             User user = userService.findUserByUserName(userName);
-            userDto = userPopulator.populateUserDto(user);
+
+            userDtoPopulator = new UserDtoPopulator();
+            userDto = userDtoPopulator.populate(user);
 
             if (user == null) {
                 globalMessage = new GlobalMessages();
@@ -106,7 +114,17 @@ public class UserFacade {
 
     public UserDto findUserByNameAndPassword(String userName, String password) {
         User user = userService.findUserByUserNameAndPassword(userName, password);
-        UserDto userDto = userPopulator.populateUserDto(user);
+
+        userDtoPopulator = new UserDtoPopulator();
+        UserDto userDto = userDtoPopulator.populate(user);
+
         return userDto;
+    }
+
+    private void setSuccessGlobalMessage(UserDto userDto) {
+        globalMessage = new GlobalMessages();
+        globalMessage.setConfMessage(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
+        userDto.setGlobalMessage(globalMessage);
+        LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
     }
 }

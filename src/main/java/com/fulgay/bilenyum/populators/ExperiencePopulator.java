@@ -2,56 +2,29 @@ package com.fulgay.bilenyum.populators;
 
 import com.fulgay.bilenyum.domain.Experience;
 import com.fulgay.bilenyum.dtos.ExperienceDto;
+import com.fulgay.bilenyum.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
-public class ExperiencePopulator {
+public class ExperiencePopulator implements Populator<ExperienceDto,Experience> {
 
-    private List<ExperienceDto> experienceDtoList;
     private Experience experience;
     private ExperienceDto experienceDto;
-    private List<Experience> experienceList;
 
-    public List<ExperienceDto> populateExperienceDtoList(List<Experience> experienceList) {
-        if (experienceList != null && experienceList.size() > 0) {
-            experienceDtoList = new ArrayList<>();
+    @Autowired
+    UserService userService;
 
-            for (Experience experience : experienceList) {
-                ExperienceDto experienceDto = populateExperienceDto(experience);
-                experienceDtoList.add(experienceDto);
-            }
-        }
-        return experienceDtoList;
-    }
-
-    public ExperienceDto populateExperienceDto(Experience experience) {
-        experienceDto = new ExperienceDto();
-
-        if (experience != null) {
-        }
-        return experienceDto;
-    }
-
-    public Experience populateExperience(ExperienceDto experienceDto) {
+    @Override
+    public Experience populate(ExperienceDto source) {
         experience = new Experience();
-        if (experienceDto != null) {
-            experience.setId(experienceDto.getId());
+
+        if (source != null) {
+            experience.setHeader(source.getHeader());
+            experience.setUser(userService.findUserByUserName(source.getUserDto().getUserName()));
+            experience.setDescription(source.getDescription());
         }
         return experience;
-    }
 
-    public List<Experience> populateExperienceList(List<ExperienceDto> experienceDtoList) {
-        if (experienceDtoList != null && experienceDtoList.size() > 0) {
-            experienceList = new ArrayList<>();
-
-            for (ExperienceDto experienceDto : experienceDtoList) {
-                Experience experience = populateExperience(experienceDto);
-                this.experienceList.add(experience);
-            }
-        }
-        return experienceList;
     }
 }

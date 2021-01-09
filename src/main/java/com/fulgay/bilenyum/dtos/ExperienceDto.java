@@ -6,7 +6,7 @@ public class ExperienceDto extends BaseDto {
     private String header;
     private String description;
     private CategoryDto categoryDto;
-    private ExperienceDto experienceDto;
+    private UserDto userDto;
 
     public Long getId() {
         return id;
@@ -40,11 +40,11 @@ public class ExperienceDto extends BaseDto {
         this.categoryDto = categoryDto;
     }
 
-    public ExperienceDto getExperienceDto() {
-        return experienceDto;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public void setExperienceDto(ExperienceDto experienceDto) {
-        this.experienceDto = experienceDto;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 }
