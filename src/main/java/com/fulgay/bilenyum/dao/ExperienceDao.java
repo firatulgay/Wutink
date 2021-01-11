@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,41 +17,35 @@ public class ExperienceDao extends BaseDao<Experience> {
         super(Experience.class);
     }
 
-    public List<Experience> findExperienceByHeader(String header){
+    public List<Experience> findExperienceByHeader(String header) {
 
         Session session = getSession();
-        CriteriaBuilder criteriaBuilder =session.getCriteriaBuilder();
+
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Experience> query = criteriaBuilder.createQuery(Experience.class);
         Root<Experience> root = query.from(Experience.class);
-        query.select(root).where(criteriaBuilder.like(root.get("header"),"%"+header+"%"));
-        try {
-            List<Experience> list = session.createQuery(query).list();
-            return list;
-        }catch (NoResultException ex){
-            return null;
-        }
+        query.select(root)
+                .where(criteriaBuilder
+                        .like(root.get("header"), "%" + header + "%"));
 
-//        Session session = getSession();
-//        Query query = session.createQuery("select experience from Experience experience where header like :header");
-//        query.setParameter("header",header);
-//
-//        return (Experience) query.uniqueResult();
+        List<Experience> list = session.createQuery(query).list();
+        return list;
     }
 
-    public List<Experience> findAllExperiencesByCategoryId(Long id){
+    public List<Experience> findAllExperiencesByCategoryId(Long id) {
 
         Session session = getSession();
         Query query = session.createQuery("select ex from Experience ex left join ex.category cat  where cat.id = :id");
-        query.setParameter("id",id);
+        query.setParameter("id", id);
 
         return query.list();
     }
 
-    public List<Experience> findAllExperiencesByUserName(String userName){
+    public List<Experience> findAllExperiencesByUserName(String userName) {
 
         Session session = getSession();
         Query query = session.createQuery("select ex from Experience ex left join ex.user user  where user.userName = :userName");
-        query.setParameter("userName",userName);
+        query.setParameter("userName", userName);
 
         return query.list();
     }
