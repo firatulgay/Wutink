@@ -33,7 +33,7 @@ public class ExperienceService {
         return experienceDao.findById(id);
     }
 
-    public Experience findExperienceByName(String experienceName) {
+    public List<Experience> findExperienceHeader(String experienceName) {
         return experienceDao.findExperienceByHeader(experienceName);
     }
 }

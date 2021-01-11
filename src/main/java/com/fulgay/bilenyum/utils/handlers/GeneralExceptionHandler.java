@@ -24,6 +24,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
         bodyOfResponse.setErrorMessage(EnumErrorMessage.USER_COULDNT_SAVE.getDisplayValue());
         LOG.error(ex.getMessage());
+        ex.printStackTrace();
 
         return new ResponseEntity<GlobalMessages>(bodyOfResponse,HttpStatus.CONFLICT);
     }
@@ -34,6 +35,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
         bodyOfResponse.setErrorMessage(ex.getMessage());
         LOG.error(ex.getMessage());
+        ex.printStackTrace();
 
         return new ResponseEntity<GlobalMessages>(bodyOfResponse,HttpStatus.BAD_REQUEST);
     }

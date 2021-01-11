@@ -7,12 +7,11 @@ import java.util.List;
 
 @Component
 public abstract class Converter<S,T> {
-    private List<T> targetList;
 
     public List<T> convertToList(List<S> sourceList){
+        List<T> targetList = new ArrayList<>();
 
         if (sourceList != null && sourceList.size() > 0) {
-            targetList = new ArrayList<>();
 
             for (S source : sourceList) {
                 T targetDto = convert(source);

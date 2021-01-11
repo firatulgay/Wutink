@@ -23,23 +23,17 @@ public class ExperienceController {
         return savedExperience;
     }
 
-    @GetMapping("/getExperiences")
+    @GetMapping("/getAllExperiences")
     public List<ExperienceDto> findAllExperiences(){
         List<ExperienceDto> allExperiences = experienceFacade.findAllExperiences();
         return allExperiences;
     }
 
-//    @GetMapping("/getExperienceById/{id}")
-//    public ExperienceDto findExperienceById(@PathVariable("id") Long id){
-//        ExperienceDto experienceById = experienceFacade.findExperienceById(id);
-//        return experienceById;
-//    }
-//
-//    @GetMapping("/getExperienceByExperienceName")
-//    public ExperienceDto findExperienceByExperienceName(@PathParam("experienceName") String experienceName){
-//        ExperienceDto experienceDto = experienceFacade.findExperienceByExperienceName(experienceName);
-//        return experienceDto;
-//    }
+    @GetMapping("/getAllExperiencesByHeader/{header}")
+    public List<ExperienceDto> findExperienceByExperienceName(@PathVariable("header") String header){
+        List<ExperienceDto> experienceDtoList = experienceFacade.findExperienceByHeader(header);
+        return experienceDtoList;
+    }
 
     @GetMapping("/getAllExperienceByCategoryId/{id}")
     public List<ExperienceDto> findAllExperienceByCategoryId(@PathVariable("id") Long id){

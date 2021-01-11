@@ -101,4 +101,10 @@ public class ExperienceFacade {
         List<ExperienceDto> experienceDtoList = experienceDtoConverter.convertToList(experienceList);
         return experienceDtoList;
     }
+
+    public List<ExperienceDto> findExperienceByHeader(String header) {
+        List<Experience> experienceList = experienceService.findExperienceHeader(header);
+        List<ExperienceDto> experienceDtoList = experienceDtoConverter.convertToList(experienceList);
+        return experienceDtoList;
+    }
 }

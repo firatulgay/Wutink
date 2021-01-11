@@ -5,6 +5,10 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -14,13 +18,25 @@ public class ExperienceDao extends BaseDao<Experience> {
         super(Experience.class);
     }
 
-    public Experience findExperienceByHeader(String header){
+    public List<Experience> findExperienceByHeader(String header){
 
         Session session = getSession();
-        Query query = session.createQuery("select experience from Experience experience where header = :header");
-        query.setParameter("header",header);
+        CriteriaBuilder criteriaBuilder =session.getCriteriaBuilder();
+        CriteriaQuery<Experience> query = criteriaBuilder.createQuery(Experience.class);
+        Root<Experience> root = query.from(Experience.class);
+        query.select(root).where(criteriaBuilder.like(root.get("header"),"%"+header+"%"));
+        try {
+            List<Experience> list = session.createQuery(query).list();
+            return list;
+        }catch (NoResultException ex){
+            return null;
+        }
 
-        return (Experience) query.uniqueResult();
+//        Session session = getSession();
+//        Query query = session.createQuery("select experience from Experience experience where header like :header");
+//        query.setParameter("header",header);
+//
+//        return (Experience) query.uniqueResult();
     }
 
     public List<Experience> findAllExperiencesByCategoryId(Long id){
