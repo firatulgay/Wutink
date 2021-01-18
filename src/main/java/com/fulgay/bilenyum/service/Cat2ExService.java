@@ -1,28 +1,10 @@
 package com.fulgay.bilenyum.service;
 
-import com.fulgay.bilenyum.dao.Cat2ExDao;
 import com.fulgay.bilenyum.domain.Cat2Ex;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.UnexpectedRollbackException;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-public class Cat2ExService {
-    @Autowired
-    Cat2ExDao cat2ExDao;
+public interface Cat2ExService extends BaseService<Cat2Ex> {
+    List<Cat2Ex> findCat2ExRelByCategoryId(Long id);
 
-    @Transactional(rollbackFor = Exception.class)
-    public void save(Cat2Ex cat2Ex) {
-        try {
-            cat2ExDao.save(cat2Ex);
-        } catch (UnexpectedRollbackException e) {
-        }
-    }
-
-    public List<Cat2Ex> findCat2ExRelByCategoryId(Long id) {
-        return cat2ExDao.findCat2ExRelByCategoryId(id);
-    }
 }

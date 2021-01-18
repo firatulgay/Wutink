@@ -22,7 +22,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<GlobalMessages> handleMyException(JDBCException ex, WebRequest request) {
         GlobalMessages bodyOfResponse = new GlobalMessages();
 
-        bodyOfResponse.setErrorMessage(EnumErrorMessage.USER_COULDNT_SAVE.getDisplayValue());
+        bodyOfResponse.setErrorMessage(EnumErrorMessage.USER_COULDNT_SAVE.getValue());
         LOG.error(ex.getMessage());
         ex.printStackTrace();
 

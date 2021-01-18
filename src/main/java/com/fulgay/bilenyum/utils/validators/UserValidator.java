@@ -1,7 +1,7 @@
 package com.fulgay.bilenyum.utils.validators;
 
 import com.fulgay.bilenyum.domain.User;
-import com.fulgay.bilenyum.service.UserService;
+import com.fulgay.bilenyum.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 public class UserValidator {
 
     @Autowired
-    UserService userService;
+    UserServiceImpl userServiceImpl;
 
     public boolean validateUserByUserName(String userName)  {
 
-        User user = userService.findUserByUserName(userName);
+        User user = userServiceImpl.findUserByUserName(userName);
 
         if (user != null){
             return false;

@@ -17,7 +17,7 @@ public enum EnumUserType implements BaseEnum{
     }
 
     @Override
-    public String getDisplayValue(){
+    public String getValue(){
         return type;
     }
 }

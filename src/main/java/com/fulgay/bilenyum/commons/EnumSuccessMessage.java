@@ -16,7 +16,7 @@ public enum EnumSuccessMessage implements BaseEnum {
     }
 
     @Override
-    public String getDisplayValue() {
+    public String getValue() {
         return type;
     }
 }

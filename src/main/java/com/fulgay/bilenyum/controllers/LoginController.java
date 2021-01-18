@@ -17,7 +17,7 @@ public class LoginController {
 
 
     @Autowired
-    UserFacade userFacade;
+    private UserFacade userFacade;
 
     private static final Logger LOG = Logger.getLogger(UserFacade.class);
 
@@ -29,11 +29,11 @@ public class LoginController {
         GlobalMessages globalMessages = new GlobalMessages();
 
         if (userDto.getId() == null){
-            globalMessages.setErrorMessage(EnumErrorMessage.LOGIN_ERROR.getDisplayValue());
-            LOG.info(userName + " --> " + EnumErrorMessage.LOGIN_ERROR.getDisplayValue());
+            globalMessages.setErrorMessage(EnumErrorMessage.LOGIN_ERROR.getValue());
+            LOG.info(userName + " --> " + EnumErrorMessage.LOGIN_ERROR.getValue());
         }else{
-            globalMessages.setConfMessage(EnumSuccessMessage.LOGIN_SUCCESS.getDisplayValue());
-            LOG.info(userName + " --> " + EnumSuccessMessage.LOGIN_SUCCESS.getDisplayValue());
+            globalMessages.setConfMessage(EnumSuccessMessage.LOGIN_SUCCESS.getValue());
+            LOG.info(userName + " --> " + EnumSuccessMessage.LOGIN_SUCCESS.getValue());
         }
         userDto.setGlobalMessage(globalMessages);
         return userDto;

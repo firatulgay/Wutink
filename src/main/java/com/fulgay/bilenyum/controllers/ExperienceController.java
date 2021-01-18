@@ -12,10 +12,10 @@ import java.util.List;
 public class ExperienceController {
 
     @Autowired
-    ExperienceService experienceService;
+    private ExperienceService experienceService;
 
     @Autowired
-    ExperienceFacade experienceFacade;
+    private ExperienceFacade experienceFacade;
 
     @PostMapping("/saveExperience")
     public ExperienceDto saveExperience(@RequestBody ExperienceDto experienceDto){

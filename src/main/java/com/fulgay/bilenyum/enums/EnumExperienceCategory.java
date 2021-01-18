@@ -24,7 +24,7 @@ public enum EnumExperienceCategory implements BaseEnum {
     }
 
     @Override
-    public String getDisplayValue(){
+    public String getValue(){
         return type;
     }
 

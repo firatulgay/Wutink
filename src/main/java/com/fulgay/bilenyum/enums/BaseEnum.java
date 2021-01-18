@@ -7,5 +7,5 @@ package com.fulgay.bilenyum.enums;
  * @since 5.230.0
  */
 public interface BaseEnum {
-    String getDisplayValue();
+    String getValue();
 }

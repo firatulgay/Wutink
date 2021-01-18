@@ -21,9 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.fulgay.bilenyum.populators.ExperienceDtoPopulator;
-//import com.fulgay.bilenyum.populators.ExperiencePopulator;
-
 @Component
 public class ExperienceFacade {
 
@@ -31,19 +28,14 @@ public class ExperienceFacade {
 
     @Autowired
     private ExperienceService experienceService;
-
     @Autowired
     private CategoryService categoryService;
-
     @Autowired
-    Cat2ExFacade cat2ExFacade;
-
+    private Cat2ExFacade cat2ExFacade;
     @Autowired
-    Cat2ExService cat2ExService;
-
+    private Cat2ExService cat2ExService;
     @Autowired
     private ExperienceDtoConverter experienceDtoConverter;
-
     @Autowired
     private ExperienceConverter experienceConverter;
 
@@ -57,7 +49,7 @@ public class ExperienceFacade {
             experienceService.save(experience);
 
             CategoryDto categoryDto = experienceDto.getCategoryDto();
-            Category category = categoryService.findCategoryById(categoryDto.getId());
+            Category category = categoryService.findById(categoryDto.getId());
 
             cat2ExFacade.saveCat2ExRel(experience, category);
             setSuccessGlobalMessage(experienceDto);
@@ -68,7 +60,7 @@ public class ExperienceFacade {
             e.getMessage();
             e.printStackTrace();
             globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.CATEGORY_COULDNT_SAVE.getDisplayValue());
+            globalMessage.setErrorMessage(EnumErrorMessage.CATEGORY_COULDNT_SAVE.getValue());
             experienceDto.setGlobalMessage(globalMessage);
         }
 
@@ -77,13 +69,13 @@ public class ExperienceFacade {
 
     private void setSuccessGlobalMessage(ExperienceDto experienceDto) {
         globalMessage = new GlobalMessages();
-        globalMessage.setConfMessage(EnumSuccessMessage.EXPERIENCE_SAVE_SUCCESS.getDisplayValue());
+        globalMessage.setConfMessage(EnumSuccessMessage.EXPERIENCE_SAVE_SUCCESS.getValue());
         experienceDto.setGlobalMessage(globalMessage);
-        LOG.info(experienceDto.getHeader() + " " + EnumSuccessMessage.EXPERIENCE_SAVE_SUCCESS.getDisplayValue());
+        LOG.info(experienceDto.getHeader() + " " + EnumSuccessMessage.EXPERIENCE_SAVE_SUCCESS.getValue());
     }
 
     public List<ExperienceDto> findAllExperiences() {
-        List<Experience> experienceList = experienceService.findAllExperiences();
+        List<Experience> experienceList = experienceService.findAll();
         List<ExperienceDto> experienceDtoList = experienceDtoConverter.convertToList(experienceList);
 
         return experienceDtoList;
@@ -103,7 +95,7 @@ public class ExperienceFacade {
     }
 
     public List<ExperienceDto> findExperienceByHeader(String header) {
-        List<Experience> experienceList = experienceService.findExperienceHeader(header);
+        List<Experience> experienceList = experienceService.findExperienceByHeader(header);
         List<ExperienceDto> experienceDtoList = experienceDtoConverter.convertToList(experienceList);
         return experienceDtoList;
     }

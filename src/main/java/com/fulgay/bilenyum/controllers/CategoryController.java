@@ -11,7 +11,7 @@ import java.util.List;
 public class CategoryController {
 
     @Autowired
-    CategoryFacade categoryFacade;
+    private CategoryFacade categoryFacade;
 
     @GetMapping("/categoryById/{id}")
     public CategoryDto getCategoryById(@PathVariable Long id){

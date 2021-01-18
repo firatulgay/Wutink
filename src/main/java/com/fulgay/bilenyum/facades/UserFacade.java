@@ -15,20 +15,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-//import com.fulgay.bilenyum.populators.UserPopulator;
-
 @Component
 public class UserFacade {
 
     @Autowired
     private UserValidator userValidator;
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private UserDtoConverter userDtoConverter;
-
     @Autowired
     private UserConverter userConverter;
 
@@ -37,19 +32,19 @@ public class UserFacade {
     private UserDto userDto;
 
     public List<UserDto> findAllUsers() {
-        List<User> userList = userService.findAllUsers();
+        List<User> userList = userService.findAll();
         List<UserDto> userDtoList = userDtoConverter.convertToList(userList);
 
         return userDtoList;
     }
 
     public UserDto findUserById(Long id) {
-        User user = userService.findUserById(id);
+        User user = userService.findById(id);
         UserDto userDto = userDtoConverter.convert(user);
 
         if (user == null) {
             GlobalMessages globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.USER_NOT_FOUND.getDisplayValue());
+            globalMessage.setErrorMessage(EnumErrorMessage.USER_NOT_FOUND.getValue());
             userDto.setGlobalMessage(globalMessage);
         }
         return userDto;
@@ -68,7 +63,7 @@ public class UserFacade {
                 setSuccessGlobalMessage(userDto);
             } else {
                 GlobalMessages globalMessage = new GlobalMessages();
-                globalMessage.setErrorMessage(userDto.getUserName() + " " + EnumErrorMessage.USERNAME_ALREADY_EXIST.getDisplayValue());
+                globalMessage.setErrorMessage(userDto.getUserName() + " " + EnumErrorMessage.USERNAME_ALREADY_EXIST.getValue());
                 userDto.setGlobalMessage(globalMessage);
             }
 
@@ -76,7 +71,7 @@ public class UserFacade {
             e.getMessage();
             e.printStackTrace();
             globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.USER_COULDNT_SAVE.getDisplayValue());
+            globalMessage.setErrorMessage(EnumErrorMessage.USER_COULDNT_SAVE.getValue());
             userDto.setGlobalMessage(globalMessage);
         }
         return userDto;
@@ -92,13 +87,13 @@ public class UserFacade {
 
             if (user == null) {
                 globalMessage = new GlobalMessages();
-                globalMessage.setErrorMessage(EnumErrorMessage.USER_NOT_FOUND.getDisplayValue());
+                globalMessage.setErrorMessage(EnumErrorMessage.USER_NOT_FOUND.getValue());
                 userDto.setGlobalMessage(globalMessage);
             }
 
         } catch (Exception e) {
             globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.GENERAL_ERROR.getDisplayValue());
+            globalMessage.setErrorMessage(EnumErrorMessage.GENERAL_ERROR.getValue());
             userDto.setGlobalMessage(globalMessage);
             e.printStackTrace();
         }
@@ -114,8 +109,8 @@ public class UserFacade {
 
     private void setSuccessGlobalMessage(UserDto userDto) {
         globalMessage = new GlobalMessages();
-        globalMessage.setConfMessage(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
+        globalMessage.setConfMessage(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getValue());
         userDto.setGlobalMessage(globalMessage);
-        LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getDisplayValue());
+        LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getValue());
     }
 }
