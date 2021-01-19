@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Bilenyum.iml" filepath="$PROJECT_DIR$/Bilenyum.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Wutink.iml" filepath="$PROJECT_DIR$/Wutink.iml" />
     </modules>
   </component>
 </project>

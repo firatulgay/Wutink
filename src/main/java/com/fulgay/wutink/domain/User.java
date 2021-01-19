@@ -1,0 +1,99 @@
+package com.fulgay.wutink.domain;
+
+import com.fulgay.wutink.enums.EnumUserType;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+
+
+/**
+ * User
+ *
+ * @author Fırat ÜLGAY
+ * @since 5.230.0
+ */
+
+@Entity
+@Table(name = "USER", indexes = {
+        @Index(name = "IX_USER_NAME_SURNAME",columnList = "name, surname, user_Name", unique = true)})
+public class User {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column
+    private Long id;
+
+    @NotBlank
+    @Size(max = 50)
+    @Column(length = 50)
+    private String name;
+
+    @NotBlank
+    @Size(max = 50)
+    @Column(length = 50)
+    private String surname;
+
+    @NotBlank
+    @Size(max = 50)
+    @Column(length = 50)
+    private String password;
+
+    @NotBlank
+    @Size(max = 50)
+    @Column(name = "user_name",length = 50)
+    private String userName;
+
+    @Column(name = "user_type",length = 50)
+    @Enumerated(EnumType.STRING)
+    private EnumUserType userType;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public EnumUserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(EnumUserType userType) {
+        this.userType = userType;
+    }
+
+}

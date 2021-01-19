@@ -14,11 +14,11 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <mapping class="com.fulgay.bilenyum.domain.User" />
-        <mapping class="com.fulgay.bilenyum.domain.Experience" />
-        <mapping class="com.fulgay.bilenyum.domain.Category" />
-        <mapping class="com.fulgay.bilenyum.domain.Cat2Ex" />
-        <mapping class="com.fulgay.bilenyum.domain.Cat2Cat" />
+        <mapping class="com.fulgay.wutink.domain.User" />
+        <mapping class="com.fulgay.wutink.domain.Experience" />
+        <mapping class="com.fulgay.wutink.domain.Category" />
+        <mapping class="com.fulgay.wutink.domain.Cat2Ex" />
+        <mapping class="com.fulgay.wutink.domain.Cat2Cat" />
 
     </session-factory>
 </hibernate-configuration>

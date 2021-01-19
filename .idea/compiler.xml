@@ -8,10 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Bilenyum" />
+        <module name="Wutink" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
-      <module name="Bilenyum" target="8" />
+      <module name="Bilenyum" target="1.7" />
+      <module name="Wutink" target="1.7" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
