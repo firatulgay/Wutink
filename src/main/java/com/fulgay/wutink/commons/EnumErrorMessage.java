@@ -12,7 +12,10 @@ public enum EnumErrorMessage implements BaseEnum {
 
     CATEGORY_NOT_FOUND("Kategori bulunamadı!","200"),
     CATEGORY_COULDNT_SAVE("Kategori kaydedilirken bir hata oluştu!","201"),
-    CATEGORY_ALREADY_EXIST("bu isimde bir kategori zaten var!","202");
+    CATEGORY_ALREADY_EXIST("bu isimde bir kategori zaten var!","202"),
+
+    EXPERIENCE_COULDNT_SAVE("Deneyim kaydedilirken bir hata oluştu!","301");
+
 
 
     private String type;

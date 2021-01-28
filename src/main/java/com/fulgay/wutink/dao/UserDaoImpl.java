@@ -1,5 +1,6 @@
 package com.fulgay.wutink.dao;
 
+import com.fulgay.wutink.dao.impl.UserDao;
 import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.enums.EnumUserType;
 import org.hibernate.Session;
@@ -20,7 +21,7 @@ import java.util.List;
  * @since 8/12/2020
  */
 @Repository
-public class UserDaoImpl extends BaseUserDao {
+public class UserDaoImpl extends UserDao {
 
 
     public UserDaoImpl() {

@@ -59,7 +59,7 @@ public abstract class BaseDao<T> {
         }
     }
 
-    Session getSession(){
+    public Session getSession(){
         sessionFactory = HibernateUtil.getSessionFactory();
         return sessionFactory.openSession();
     }

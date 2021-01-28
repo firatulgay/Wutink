@@ -1,5 +1,6 @@
 package com.fulgay.wutink.dao;
 
+import com.fulgay.wutink.dao.impl.ExperienceDao;
 import com.fulgay.wutink.domain.Experience;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -8,12 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ExperienceDao extends BaseDao<Experience> {
+public class ExperienceDaoImpl extends ExperienceDao {
 
-    public ExperienceDao() {
-        super(Experience.class);
-    }
-
+    @Override
     public List<Experience> findExperienceByHeader(String header) {
 
         /**
@@ -34,6 +32,7 @@ public class ExperienceDao extends BaseDao<Experience> {
         return query.list();
     }
 
+    @Override
     public List<Experience> findAllExperiencesByCategoryId(Long id) {
 
         Session session = getSession();
@@ -43,6 +42,7 @@ public class ExperienceDao extends BaseDao<Experience> {
         return query.list();
     }
 
+    @Override
     public List<Experience> findAllExperiencesByUserName(String userName) {
 
         Session session = getSession();

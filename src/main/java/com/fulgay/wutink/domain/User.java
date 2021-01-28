@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "USER", indexes = {
-        @Index(name = "IX_USER_NAME_SURNAME",columnList = "name, surname, user_Name", unique = true)})
+        @Index(name = "IX_USER_NAME",columnList = "user_Name", unique = true)})
 public class User {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

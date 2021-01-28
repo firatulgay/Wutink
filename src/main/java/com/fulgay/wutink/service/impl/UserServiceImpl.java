@@ -1,12 +1,10 @@
 package com.fulgay.wutink.service.impl;
 
-import com.fulgay.wutink.dao.UserDaoImpl;
+import com.fulgay.wutink.dao.impl.UserDao;
 import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.UnexpectedRollbackException;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,16 +18,10 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDaoImpl userDao;
+    private UserDao userDao;
 
-    @Transactional(rollbackFor = Exception.class)
     public Long save(User user) {
-        try {
-            Long userId = userDao.save(user);
-            return userId;
-        } catch (UnexpectedRollbackException e) {
-            return null;
-        }
+        return userDao.save(user);
     }
 
     @Override

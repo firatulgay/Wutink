@@ -16,7 +16,6 @@ import com.fulgay.wutink.service.ExperienceService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ import java.util.List;
 @Component
 public class ExperienceFacade {
 
-    private static final Logger LOG = Logger.getLogger(CategoryFacade.class);
+    private static final Logger LOG = Logger.getLogger(ExperienceFacade.class);
 
     @Autowired
     private ExperienceService experienceService;
@@ -41,7 +40,6 @@ public class ExperienceFacade {
 
     private GlobalMessages globalMessage;
 
-    @Transactional(rollbackFor = Exception.class)
     public ExperienceDto save(ExperienceDto experienceDto) {
 
         try {
@@ -57,10 +55,9 @@ public class ExperienceFacade {
             experienceDto = experienceDtoConverter.convert(experience);
 
         } catch (Exception e) {
-            e.getMessage();
-            e.printStackTrace();
+            LOG.error(EnumErrorMessage.EXPERIENCE_COULDNT_SAVE.getValue() + " -> " + e.getMessage());
             globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.CATEGORY_COULDNT_SAVE.getValue());
+            globalMessage.setErrorMessage(EnumErrorMessage.EXPERIENCE_COULDNT_SAVE.getValue());
             experienceDto.setGlobalMessage(globalMessage);
         }
 
