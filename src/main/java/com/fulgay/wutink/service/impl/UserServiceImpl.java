@@ -1,6 +1,6 @@
 package com.fulgay.wutink.service.impl;
 
-import com.fulgay.wutink.dao.impl.UserDao;
+import com.fulgay.wutink.dao.UserDao;
 import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

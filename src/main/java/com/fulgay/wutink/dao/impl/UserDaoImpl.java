@@ -1,6 +1,6 @@
-package com.fulgay.wutink.dao;
+package com.fulgay.wutink.dao.impl;
 
-import com.fulgay.wutink.dao.impl.UserDao;
+import com.fulgay.wutink.dao.UserDao;
 import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.enums.EnumUserType;
 import org.hibernate.Session;

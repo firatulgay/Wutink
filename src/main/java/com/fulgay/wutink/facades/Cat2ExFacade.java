@@ -20,15 +20,13 @@ public class Cat2ExFacade {
 
     public void saveCat2ExRel(Experience experience, Category category){
 
-        Cat2Ex cat2Ex = new Cat2Ex();
-        cat2Ex.setCategory(category);
-        cat2Ex.setExperience(experience);
+            Cat2Ex cat2Ex = new Cat2Ex();
 
-        cat2ExService.save(cat2Ex);
+            cat2Ex.setCategory(category);
+            cat2Ex.setExperience(experience);
 
+            cat2ExService.save(cat2Ex);
+
+            LOG.info("Cat2Ex relation saved successfully! Category = " + category.getId() + " and Experience = " +   experience.getId());
     }
-
-
-
-
 }

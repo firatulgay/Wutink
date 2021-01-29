@@ -5,8 +5,6 @@ import com.fulgay.wutink.domain.Category;
 import com.fulgay.wutink.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.UnexpectedRollbackException;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,13 +15,8 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryDao categoryDao;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public Long save(Category category) {
-        try {
-            return categoryDao.save(category);
-        } catch (UnexpectedRollbackException e) {
-            return null;
-        }
+        return categoryDao.save(category);
     }
 
     @Override

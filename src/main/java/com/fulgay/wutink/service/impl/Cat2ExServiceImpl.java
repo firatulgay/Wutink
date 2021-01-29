@@ -5,8 +5,6 @@ import com.fulgay.wutink.domain.Cat2Ex;
 import com.fulgay.wutink.service.Cat2ExService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.UnexpectedRollbackException;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,13 +14,8 @@ public class Cat2ExServiceImpl implements Cat2ExService {
     private Cat2ExDao cat2ExDao;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public Long save(Cat2Ex cat2Ex) {
-        try {
-            return cat2ExDao.save(cat2Ex);
-        } catch (UnexpectedRollbackException e) {
-            return null;
-        }
+        return cat2ExDao.save(cat2Ex);
     }
 
     @Override

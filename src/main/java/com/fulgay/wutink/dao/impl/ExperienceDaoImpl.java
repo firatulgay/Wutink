@@ -1,6 +1,6 @@
-package com.fulgay.wutink.dao;
+package com.fulgay.wutink.dao.impl;
 
-import com.fulgay.wutink.dao.impl.ExperienceDao;
+import com.fulgay.wutink.dao.ExperienceDao;
 import com.fulgay.wutink.domain.Experience;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

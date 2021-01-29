@@ -1,4 +1,4 @@
-package com.fulgay.wutink.dao.impl;
+package com.fulgay.wutink.dao;
 
 import com.fulgay.wutink.dao.BaseDao;
 import com.fulgay.wutink.domain.Experience;

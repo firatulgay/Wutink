@@ -1,6 +1,6 @@
 package com.fulgay.wutink.service.impl;
 
-import com.fulgay.wutink.dao.ExperienceDaoImpl;
+import com.fulgay.wutink.dao.impl.ExperienceDaoImpl;
 import com.fulgay.wutink.domain.Experience;
 import com.fulgay.wutink.service.ExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
