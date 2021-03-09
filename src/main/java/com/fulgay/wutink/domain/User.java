@@ -27,16 +27,6 @@ public class User {
     @NotBlank
     @Size(max = 50)
     @Column(length = 50)
-    private String name;
-
-    @NotBlank
-    @Size(max = 50)
-    @Column(length = 50)
-    private String surname;
-
-    @NotBlank
-    @Size(max = 50)
-    @Column(length = 50)
     private String password;
 
     @NotBlank
@@ -54,22 +44,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getPassword() {
