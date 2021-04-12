@@ -25,7 +25,7 @@ public class IdGuardAspect {
 	private EncryptionManager encryptionManager;
 	
 
-	@Before("@annotation(idGuard)")
+	@Before("@annotation(idGuard)") // idGuard annotation gördüğün metodda metoda girmeden burası çalışacak.
 	public void execute(JoinPoint joinPoint, IdGuard idGuard) {
 	
 		int argIndex = idGuard.parameterIndex();
@@ -50,7 +50,12 @@ public class IdGuardAspect {
 		if(!StringUtils.hasText(token)) {
 			throw new RuntimeException("ACCESS ERROR FOR INVALID RESOURCE");
 		}
-		
+
+		/**
+		 * Burası herhangi bir csrf zaafiyetine önlem olarak kullanılıyor.
+		 * For ex : Cookiedeki jwt çalınsa veya kullanıcı findUserById endpointine
+		 * farklı bir id gönderse bile kendi id sinin dışında bir id gönderdiğini anlıyor ve isteği geri çeviriyor.
+		 */
 		String realTicket = tokenManager.extractTicket(token);
 		if(!(StringUtils.hasText(expectedTicket) && expectedTicket.contains(realTicket)) ) {
 			throw new RuntimeException("ACCESS ERROR FOR INVALID RESOURCE");

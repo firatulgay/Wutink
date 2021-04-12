@@ -1,11 +1,6 @@
 
-V	java:S1250"<This block of commented-out lines of code should be removed.(­èûäøÿÿÿÿ
-V	java:S125"<This block of commented-out lines of code should be removed.(àºÌáûÿÿÿÿ
-Q	java:S125#"<This block of commented-out lines of code should be removed.(ÖÇ¨Ñ
-Q	java:S125-"<This block of commented-out lines of code should be removed.(òõ¶“
-K
-java:S1481+"0Remove this unused "transaction" local variable.(¹æ¢üÿÿÿÿ
-`
-java:S2095*"EUse try-with-resources or close this "Session" in a "finally" clause.(íÊ‹ƒúÿÿÿÿ
-Z
-java:S1854+"?Remove this useless assignment to local variable "transaction".(¹æ¢üÿÿÿÿ
+Q	java:S1256"<This block of commented-out lines of code should be removed.(ÖÇ¨Ñ
+V	java:S125C"<This block of commented-out lines of code should be removed.(­èûäøÿÿÿÿ
+V	java:S125,"<This block of commented-out lines of code should be removed.(àºÌáûÿÿÿÿ
+y
+java:S1192"\Define a constant instead of duplicating this literal "Access-Control-Allow-Origin" 3 times.(¡±á8¦Ò¬‘Œ/

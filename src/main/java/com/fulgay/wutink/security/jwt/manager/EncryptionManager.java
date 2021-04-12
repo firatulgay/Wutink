@@ -7,13 +7,13 @@ import org.springframework.util.StringUtils;
 @Component
 public class EncryptionManager {
 
-	private final String salt = "DEVTECH-SECRET*!>>";
+	private final String salt = "WH@TYOUT!NK-SECRET";
 	
 	public String encrypt(String payload) {
 		
 		if(!StringUtils.hasText(payload)) {
 			return "";
 		}
-		return DigestUtils.sha256Hex(payload + salt);
+		return DigestUtils.sha256Hex(payload + salt); // Burada ticket dediğimiz yani kullanıcıyı tanıyacağımız encrypted bir değer döndürüyorum.
 	}
 }

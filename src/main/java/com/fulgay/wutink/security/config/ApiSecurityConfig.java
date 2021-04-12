@@ -56,7 +56,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/rest/api/v1/user").permitAll()
 				.anyRequest().authenticated()
 			.and()
-			.addFilter(new JwtAuthorizationFilter(authenticationManager(), tokenManager));
+			.addFilter(new JwtAuthorizationFilter(authenticationManager(), tokenManager)); // kendi hazırladığımız filter ı yerleştiriyoruz
 	}
 
 	@Override
