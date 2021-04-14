@@ -52,7 +52,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/v2/api-docs", "/api-docs",
 						 "/configuration/ui", "/configuration/security",
 						 "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/rest/api/v1/login").permitAll()
+				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				.antMatchers(HttpMethod.POST, "/rest/api/v1/user").permitAll()
 				.anyRequest().authenticated()
 			.and()

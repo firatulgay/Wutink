@@ -52,7 +52,7 @@ public class IdGuardAspect {
 		}
 
 		/**
-		 * Burası herhangi bir csrf zaafiyetine önlem olarak kullanılıyor.
+		 * Burası herhangi bir idor zaafiyetine önlem olarak kullanılıyor.
 		 * For ex : Cookiedeki jwt çalınsa veya kullanıcı findUserById endpointine
 		 * farklı bir id gönderse bile kendi id sinin dışında bir id gönderdiğini anlıyor ve isteği geri çeviriyor.
 		 */

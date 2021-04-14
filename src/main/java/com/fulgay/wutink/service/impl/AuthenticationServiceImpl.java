@@ -2,6 +2,7 @@ package com.fulgay.wutink.service.impl;
 
 import com.fulgay.wutink.security.jwt.manager.JwtTokenManager;
 import com.fulgay.wutink.security.model.AuthenticationResponse;
+import com.fulgay.wutink.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +16,7 @@ import java.util.Base64;
 
 
 @Service
-public class AuthenticationService {
+public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private UserServiceImpl userService;
@@ -26,7 +27,7 @@ public class AuthenticationService {
     @Autowired
     private JwtTokenManager tokenManager;
 
-
+    @Override
     public AuthenticationResponse authenticate(String authorization) {
 
         if(!StringUtils.hasText(authorization)) {
