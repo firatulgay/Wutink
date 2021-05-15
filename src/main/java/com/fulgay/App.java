@@ -1,6 +1,8 @@
 package com.fulgay;
 
-import com.fulgay.wutink.security.config.ApiSecurityConfig;
+import com.fulgay.wutink.security.config.SecurityConfiguration;
+import com.fulgay.wutink.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,9 +19,13 @@ import java.util.Arrays;
  *
  */
 @SpringBootApplication
-@Import( { ApiSecurityConfig.class } )
+@Import( { SecurityConfiguration.class } )
 public class App implements CommandLineRunner
 {
+
+    @Autowired
+    UserService userService;
+
     public static void main( String[] args )
     {
         SpringApplication.run(App.class, args);
@@ -55,17 +61,19 @@ public class App implements CommandLineRunner
 
 
 //        User user = new User();
-//        user.setName("Doruk");
-//        user.setSurname("Aşan");
-//        user.setPassword("234jdlg834");
-//        user.setUserName("dAsan");
-//        user.setUserType(EnumUserType.USER);
+//        user.setPassword("12345");
+//        user.setUserName("firat");
+//        user.setActive(true);
+//        user.setUserPermissions("ACCESS_TEST1,ACCESS_TEST2");
+//        user.setUserRoles("ADMIN");
 //
 //        Session session = HibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction = session.beginTransaction();
 //
 //        User userSaved = (User)session.merge(user);
 //        transaction.commit();
+
+//        userService.save(user);
 
 //        Experience experience = new Experience();
 //        experience.setDescription("Bu bir açıklama");

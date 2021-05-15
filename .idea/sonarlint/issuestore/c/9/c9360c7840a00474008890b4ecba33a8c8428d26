@@ -1,6 +1,6 @@
 
-Q	java:S1256"<This block of commented-out lines of code should be removed.(ÖÇ¨Ñ
-V	java:S125C"<This block of commented-out lines of code should be removed.(­èûäøÿÿÿÿ
-V	java:S125,"<This block of commented-out lines of code should be removed.(àºÌáûÿÿÿÿ
 y
-java:S1192"\Define a constant instead of duplicating this literal "Access-Control-Allow-Origin" 3 times.(¡±á8¦Ò¬‘Œ/
+java:S1192)"\Define a constant instead of duplicating this literal "Access-Control-Allow-Origin" 3 times.(¡±á8˜ê‡/
+V	java:S1256"<This block of commented-out lines of code should be removed.(àºÌáûÿÿÿÿ
+V	java:S125O"<This block of commented-out lines of code should be removed.(­èûäøÿÿÿÿ
+]	java:S125G"<This block of commented-out lines of code should be removed.(É®â›ùÿÿÿÿ8³–™ú’/

@@ -12,7 +12,7 @@ public class UserDtoPopulator implements Populator<User, UserDto> {
         if (source != null) {
             target.setUserName(source.getUserName());
             target.setId(source.getId());
-            target.setUserType(source.getUserType());
+//            target.setUserType(source.getUserType());
             target.setPassword(source.getPassword());
         }
     }
