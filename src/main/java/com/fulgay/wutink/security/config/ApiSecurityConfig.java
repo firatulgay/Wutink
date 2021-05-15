@@ -51,11 +51,10 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	            .and();
 		
 		http.authorizeRequests()
-				.antMatchers("/v2/api-docs", "/api-docs",
+				.antMatchers(
 						 "/configuration/ui", "/configuration/security",
-						 "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**").permitAll()
+						 "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**","/getUserById").permitAll()
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
-				.antMatchers(HttpMethod.POST, "/rest/api/v1/user").permitAll()
 				.anyRequest().authenticated()
 			.and()
 			.addFilter(new JwtAuthorizationFilter(authenticationManager(), tokenManager)); // kendi hazırladığımız filter ı yerleştiriyoruz

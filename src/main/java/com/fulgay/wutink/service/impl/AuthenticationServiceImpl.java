@@ -48,9 +48,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new RuntimeException("USER NOT FOUND");
         }
 
-        com.fulgay.wutink.domain.User userByUserName = userService.findUserByUserName(username);
-        String jwtToken = tokenManager.generateToken(user, userByUserName.getId());
-        return new AuthenticationResponse(userByUserName.getId(), jwtToken);
+        com.fulgay.wutink.domain.User userFromDb = userService.findUserByUserName(username);
+        String jwtToken = tokenManager.generateToken(user, userFromDb.getId());
+        return new AuthenticationResponse(userFromDb.getId(), jwtToken);
     }
 
     private String[] parseHttpBasicPayload(String authorization) {
