@@ -7,6 +7,7 @@ public class UserDto extends BaseDto {
     private String password;
     private String userName;
     private EnumUserType userType;
+    private String authToken;
 
     public Long getId() {
         return id;
@@ -40,4 +41,11 @@ public class UserDto extends BaseDto {
         this.userType = userType;
     }
 
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
 }

@@ -1,4 +1,4 @@
-package com.fulgay.wutink.commons;
+package com.fulgay.wutink.commons.notificationMessages;
 
 public class GlobalMessages {
     private  String ERROR_MESSAGE;

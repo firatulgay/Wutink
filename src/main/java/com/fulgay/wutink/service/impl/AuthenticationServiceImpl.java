@@ -38,10 +38,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String username = httpBasicAuthPayload[0];
         String password = httpBasicAuthPayload[1];
 
-        Authentication authenticate = authenticationManager
-                .authenticate(
-                        new UsernamePasswordAuthenticationToken(username, password)
-                );
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
         User user = (User) authenticate.getPrincipal();
         if(user == null) {

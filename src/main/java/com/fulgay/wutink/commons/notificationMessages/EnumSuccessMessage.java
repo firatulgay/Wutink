@@ -1,4 +1,4 @@
-package com.fulgay.wutink.commons;
+package com.fulgay.wutink.commons.notificationMessages;
 
 import com.fulgay.wutink.enums.BaseEnum;
 

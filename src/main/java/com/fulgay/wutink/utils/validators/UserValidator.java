@@ -1,5 +1,7 @@
 package com.fulgay.wutink.utils.validators;
 
+import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
+import com.fulgay.wutink.commons.wutinkExceptions.WutinkUserSaveException;
 import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +13,10 @@ public class UserValidator {
     @Autowired
     UserServiceImpl userServiceImpl;
 
-    public boolean validateUserByUserName(String userName)  {
-
+    public void validateUserByUserName(String userName)  {
         User user = userServiceImpl.findUserByUserName(userName);
 
-        if (user != null){
-            return false;
-        }else {
-            return true;
-        }
+        if (user != null)
+            throw new WutinkUserSaveException(EnumErrorMessage.USERNAME_ALREADY_EXIST.getValue());
     }
 }

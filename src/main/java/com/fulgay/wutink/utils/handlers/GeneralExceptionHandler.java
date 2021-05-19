@@ -1,7 +1,7 @@
 package com.fulgay.wutink.utils.handlers;
 
-import com.fulgay.wutink.commons.EnumErrorMessage;
-import com.fulgay.wutink.commons.GlobalMessages;
+import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
+import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import org.apache.log4j.Logger;
 import org.hibernate.JDBCException;
 import org.springframework.http.HttpStatus;

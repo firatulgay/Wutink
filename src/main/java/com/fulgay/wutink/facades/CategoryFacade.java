@@ -1,8 +1,8 @@
 package com.fulgay.wutink.facades;
 
-import com.fulgay.wutink.commons.EnumErrorMessage;
-import com.fulgay.wutink.commons.EnumSuccessMessage;
-import com.fulgay.wutink.commons.GlobalMessages;
+import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
+import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
+import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.converter.CategoryConverter;
 import com.fulgay.wutink.converter.CategoryDtoConverter;
 import com.fulgay.wutink.domain.Category;

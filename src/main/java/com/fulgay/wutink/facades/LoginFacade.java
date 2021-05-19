@@ -1,8 +1,8 @@
 package com.fulgay.wutink.facades;
 
-import com.fulgay.wutink.commons.EnumErrorMessage;
-import com.fulgay.wutink.commons.EnumSuccessMessage;
-import com.fulgay.wutink.commons.GlobalMessages;
+import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
+import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
+import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.dtos.UserDto;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

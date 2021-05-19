@@ -1,6 +1,6 @@
 package com.fulgay.wutink.facades;
 
-import com.fulgay.wutink.commons.GlobalMessages;
+import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.domain.Cat2Ex;
 import com.fulgay.wutink.domain.Category;
 import com.fulgay.wutink.domain.Experience;

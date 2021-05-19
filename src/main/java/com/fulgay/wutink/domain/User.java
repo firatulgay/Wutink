@@ -25,7 +25,6 @@ public class User {
     private Long id;
 
     @NotBlank
-    @Size(max = 50)
     @Column(length = 50)
     private String password;
 

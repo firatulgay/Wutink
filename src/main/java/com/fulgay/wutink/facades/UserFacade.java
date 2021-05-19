@@ -1,12 +1,13 @@
 package com.fulgay.wutink.facades;
 
-import com.fulgay.wutink.commons.EnumErrorMessage;
-import com.fulgay.wutink.commons.EnumSuccessMessage;
-import com.fulgay.wutink.commons.GlobalMessages;
+import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
+import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
+import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.converter.UserConverter;
 import com.fulgay.wutink.converter.UserDtoConverter;
 import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.dtos.UserDto;
+import com.fulgay.wutink.service.AuthenticationService;
 import com.fulgay.wutink.service.UserService;
 import com.fulgay.wutink.utils.validators.UserValidator;
 import org.apache.log4j.Logger;
@@ -26,6 +27,8 @@ public class UserFacade {
     private UserDtoConverter userDtoConverter;
     @Autowired
     private UserConverter userConverter;
+    @Autowired
+    private AuthenticationService authenticationService;
 
     private static final Logger LOG = Logger.getLogger(UserFacade.class);
     private GlobalMessages globalMessage;
@@ -51,31 +54,13 @@ public class UserFacade {
     }
 
     public UserDto save(UserDto userDto) {
+            userValidator.validateUserByUserName(userDto.getUserName());
 
-        try {
-            boolean isUserNameValid = userValidator.validateUserByUserName(userDto.getUserName());
+            User user = userConverter.convert(userDto);
+            userService.save(user);
 
-            if (isUserNameValid) {
-                User user = userConverter.convert(userDto);
-                Long userId = userService.save(user);
-
-                userDto.setId(userId);
-                setSuccessGlobalMessage(userDto);
-            } else {
-                GlobalMessages globalMessage = new GlobalMessages();
-                globalMessage.setErrorMessage(userDto.getUserName() + " " + EnumErrorMessage.USERNAME_ALREADY_EXIST.getValue());
-                userDto.setGlobalMessage(globalMessage);
-            }
-
-        } catch (Exception e) {
-            e.getMessage();
-            e.printStackTrace();
-            globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.USER_COULDNT_SAVE.getValue());
-            userDto.setGlobalMessage(globalMessage);
-        }
+            LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getValue());
         return userDto;
-
     }
 
 
@@ -107,10 +92,5 @@ public class UserFacade {
         return userDto;
     }
 
-    private void setSuccessGlobalMessage(UserDto userDto) {
-        globalMessage = new GlobalMessages();
-        globalMessage.setConfMessage(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getValue());
-        userDto.setGlobalMessage(globalMessage);
-        LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getValue());
-    }
+
 }
