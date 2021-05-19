@@ -1,12 +1,12 @@
 package com.fulgay.wutink.dtos;
 
-import com.fulgay.wutink.enums.EnumUserType;
+import java.util.List;
 
 public class UserDto extends BaseDto {
     private Long id;
     private String password;
     private String userName;
-    private EnumUserType userType;
+    private List<String> userRoles;
     private String authToken;
 
     public Long getId() {
@@ -33,12 +33,12 @@ public class UserDto extends BaseDto {
         this.userName = userName;
     }
 
-    public EnumUserType getUserType() {
-        return userType;
+    public List<String> getUserRoles() {
+        return userRoles;
     }
 
-    public void setUserType(EnumUserType userType) {
-        this.userType = userType;
+    public void setUserRoles(List<String> userRoles) {
+        this.userRoles = userRoles;
     }
 
     public String getAuthToken() {

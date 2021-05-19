@@ -1,10 +1,12 @@
 package com.fulgay.wutink.domain;
 
-import com.fulgay.wutink.enums.EnumUserType;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -25,7 +27,7 @@ public class User {
     private Long id;
 
     @NotBlank
-    @Column(length = 50)
+    @Column()
     private String password;
 
     @NotBlank
@@ -33,9 +35,17 @@ public class User {
     @Column(name = "user_name",length = 50)
     private String userName;
 
-    @Column(name = "user_type",length = 50)
-    @Enumerated(EnumType.STRING)
-    private EnumUserType userType;
+    @Column(name = "user_roles",length = 50)
+    private String userRoles;
+
+    @Column(name = "user_permisson",length = 50)
+    private String userPermissions;
+
+    @Column(name = "active")
+    private boolean isActive;
+
+    public User() {
+    }
 
     public Long getId() {
         return id;
@@ -61,12 +71,33 @@ public class User {
         this.userName = userName;
     }
 
-    public EnumUserType getUserType() {
-        return userType;
+    public List<String> getUserPermissions() {
+        return convertToList(userPermissions);
     }
 
-    public void setUserType(EnumUserType userType) {
-        this.userType = userType;
+    public void setUserPermissions(String userPermissions) {
+        this.userPermissions = userPermissions;
     }
 
+    public List<String> getUserRoles() {
+        return convertToList(userRoles);   }
+
+    public void setUserRoles(String userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    private List<String> convertToList(String obj){
+        if (obj.length() > 0){
+            return Arrays.asList(obj.split(","));
+        }
+        return new ArrayList<String>();
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }

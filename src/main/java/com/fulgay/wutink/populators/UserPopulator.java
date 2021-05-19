@@ -15,9 +15,7 @@ public class UserPopulator implements Populator<UserDto, User> {
     @Override
     public void populate(UserDto source, User target) {
         if (source != null) {
-
             target.setUserName(source.getUserName());
-            target.setUserType(source.getUserType());
             target.setPassword(passwordEncoder.encode(source.getPassword()));
         }
     }
