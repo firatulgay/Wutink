@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-
 @RestController
 public class LoginController {
 
@@ -24,10 +22,11 @@ public class LoginController {
     private static final Logger LOG = Logger.getLogger(LoginController.class);
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<AuthenticationResponse> login(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization, HttpServletResponse httpServletResponse){
+    public ResponseEntity<AuthenticationResponse> login(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization){
         try {
             AuthenticationResponse response = authenticationService.authenticate(authorization);
             LOG.info("LOGIN SUCCESSFUL!");
+
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, response.getToken())
                     .body(response);

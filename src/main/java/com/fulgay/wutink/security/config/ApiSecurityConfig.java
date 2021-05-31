@@ -56,6 +56,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 						 "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**","/getUserById").permitAll()
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
+				.antMatchers(HttpMethod.POST, "/saveCategory").permitAll()
 				.anyRequest().authenticated()
 			.and()
 			.addFilter(new JwtAuthorizationFilter(authenticationManager(), tokenManager)); // kendi hazırladığımız filter ı yerleştiriyoruz

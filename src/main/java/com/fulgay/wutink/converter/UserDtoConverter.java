@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDtoConverter extends Converter<User, UserDto> {
     @Autowired
-    UserDtoPopulator userDtoPopulator;
+    private UserDtoPopulator userDtoPopulator;
 
     @Override
     public UserDto convert(User source) {

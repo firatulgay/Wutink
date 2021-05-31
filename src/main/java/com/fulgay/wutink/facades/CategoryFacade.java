@@ -74,8 +74,7 @@ public class CategoryFacade {
             }
 
         } catch (Exception e) {
-            e.getMessage();
-            e.printStackTrace();
+            LOG.error(e.getMessage(),e);
             globalMessage = new GlobalMessages();
             globalMessage.setErrorMessage(EnumErrorMessage.CATEGORY_COULDNT_SAVE.getValue());
             categoryDto.setGlobalMessage(globalMessage);

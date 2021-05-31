@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class CategoryConverter extends Converter<CategoryDto, Category> {
 
     @Autowired
-    CategoryPopulator categoryPopulator;
+    private CategoryPopulator categoryPopulator;
 
     @Override
     public Category convert(CategoryDto source) {

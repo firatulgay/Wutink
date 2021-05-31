@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExperienceConverter extends Converter<ExperienceDto , Experience>{
     @Autowired
-    ExperiencePopulator experiencePopulator;
+    private ExperiencePopulator experiencePopulator;
 
     @Override
     public Experience convert(ExperienceDto source) {
