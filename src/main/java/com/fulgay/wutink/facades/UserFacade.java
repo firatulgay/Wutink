@@ -59,7 +59,7 @@ public class UserFacade {
             User user = userConverter.convert(userDto);
             userService.save(user);
 
-            LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getValue());
+            LOG.info(userDto.getUserName() + " " + EnumSuccessMessage.REGISTER_SUCCESS.getValue());
         return userDto;
     }
 

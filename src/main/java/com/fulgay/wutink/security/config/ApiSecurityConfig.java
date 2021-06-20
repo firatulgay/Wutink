@@ -57,6 +57,8 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
 				.antMatchers(HttpMethod.POST, "/saveCategory").permitAll()
+				.antMatchers(HttpMethod.GET, "/getCategories").permitAll()
+
 				.anyRequest().authenticated()
 			.and()
 			.addFilter(new JwtAuthorizationFilter(authenticationManager(), tokenManager)); // kendi hazırladığımız filter ı yerleştiriyoruz

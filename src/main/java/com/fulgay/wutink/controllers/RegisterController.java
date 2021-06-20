@@ -2,6 +2,7 @@ package com.fulgay.wutink.controllers;
 
 import com.fulgay.wutink.dtos.UserDto;
 import com.fulgay.wutink.facades.RegisterFacade;
+import com.fulgay.wutink.security.model.RegistrationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ public class RegisterController {
     private RegisterFacade registerFacade;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public UserDto register (@RequestBody UserDto userDto){
+    public RegistrationResponse register (@RequestBody UserDto userDto){
         return registerFacade.doRegister(userDto);
     }
 }

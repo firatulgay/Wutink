@@ -4,7 +4,7 @@ import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.commons.wutinkExceptions.WutinkUserSaveException;
 import com.fulgay.wutink.dtos.UserDto;
-import com.fulgay.wutink.security.model.AuthenticationResponse;
+import com.fulgay.wutink.security.model.RegistrationResponse;
 import com.fulgay.wutink.service.AuthenticationService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,35 +29,33 @@ public class RegisterFacade {
     private static final Logger LOG = Logger.getLogger(UserFacade.class);
     private GlobalMessages globalMessage;
 
-    public UserDto doRegister(UserDto userDto) {
+    public RegistrationResponse doRegister(UserDto userDto) {
+        RegistrationResponse registrationResponse = new RegistrationResponse();
 
         try {
             userFacade.save(userDto);
 
-            AuthenticationResponse authenticate = authenticationService.authenticate(
-                    "Basic " +
-                            Base64.getEncoder().encodeToString
-                                    ((userDto.getUserName() + ":" + userDto.getPassword()).getBytes()));
+            authenticationService.authenticate("Basic " + Base64.getEncoder().encodeToString(
+                    (userDto.getUserName() + ":" + userDto.getPassword()).getBytes()));
 
-            userDto.setAuthToken(authenticate.getToken());
-            userDto.setSuccess(true);
-            setSuccessGlobalMessage(userDto);
-
+            setSuccessGlobalMessage(registrationResponse);
             LOG.info("Registration successful with username : " + userDto.getUserName());
 
         } catch (WutinkUserSaveException ex) {
             globalMessage = new GlobalMessages();
             globalMessage.setErrorMessage(userDto.getUserName() + " " + ex.getMessage());
-            userDto.setGlobalMessage(globalMessage);
+            registrationResponse.setGlobalMessage(globalMessage);
+            registrationResponse.setSuccess(false);
             LOG.warn("Registration failed with username : " + userDto.getUserName() + " " + ex.getMessage());
         }
 
-        return userDto;
+        return registrationResponse;
     }
 
-    private void setSuccessGlobalMessage(UserDto userDto) {
+    private void setSuccessGlobalMessage(RegistrationResponse registrationResponse) {
         globalMessage = new GlobalMessages();
-        globalMessage.setConfMessage(userDto.getUserName() + " " + EnumSuccessMessage.USER_SAVE_SUCCESS.getValue());
-        userDto.setGlobalMessage(globalMessage);
+        globalMessage.setConfMessage(EnumSuccessMessage.REGISTER_SUCCESS.getValue());
+        registrationResponse.setGlobalMessage(globalMessage);
+        registrationResponse.setSuccess(true);
     }
 }

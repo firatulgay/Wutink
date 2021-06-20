@@ -4,7 +4,7 @@ import com.fulgay.wutink.enums.BaseEnum;
 
 public enum EnumSuccessMessage implements BaseEnum {
 
-    USER_SAVE_SUCCESS("Kullanıcısı başarıyla kaydedildi!"),
+    REGISTER_SUCCESS("Kayıt olduğunuz için teşekkür ederiz!"),
     LOGIN_SUCCESS("Hoş Geldiniz!"),
     CATEGORY_SAVE_SUCCESS("Kategorisi başarıyla kaydedildi!"),
     EXPERIENCE_SAVE_SUCCESS("Deneyim başarıyla kaydedildi!");
