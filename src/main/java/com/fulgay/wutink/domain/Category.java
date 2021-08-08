@@ -21,6 +21,8 @@ public class Category {
     @Column(length = 50)
     private String name;
 
+    private Long likes;
+
     public Category() {
     }
 

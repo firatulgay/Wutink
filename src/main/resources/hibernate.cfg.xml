@@ -19,6 +19,7 @@
         <mapping class="com.fulgay.wutink.domain.Category" />
         <mapping class="com.fulgay.wutink.domain.Cat2Ex" />
         <mapping class="com.fulgay.wutink.domain.Cat2Cat" />
+        <mapping class="com.fulgay.wutink.domain.Like2Experience" />
 
     </session-factory>
 </hibernate-configuration>

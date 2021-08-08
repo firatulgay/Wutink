@@ -35,6 +35,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public void delete(Category obj) {
+
+    }
+
+    @Override
     public Category findCategoryByName(String categoryName) {
         return categoryDao.findCategoryByName(categoryName);
     }

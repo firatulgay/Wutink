@@ -7,5 +7,6 @@ public interface BaseService<T> {
     public List<T> findAll();
     public T findById(Long id);
     public void update(T obj);
+    public void delete(T obj);
 
 }

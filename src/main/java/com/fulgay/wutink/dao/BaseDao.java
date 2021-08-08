@@ -3,6 +3,7 @@ package com.fulgay.wutink.dao;
 import com.fulgay.wutink.utils.hibernate.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
@@ -30,30 +31,43 @@ public abstract class BaseDao<T> {
     private SessionFactory sessionFactory;
 
     public Long save(T var) {
-        return  (Long)getSession().save(var);
+        Transaction transaction = getSession().beginTransaction();
+        Long id = (Long) getSession().save(var);
+        transaction.commit();
+
+        return id;
     }
 
     public void delete(T var){
-     getSession().delete(var);
+        Transaction transaction = getSession().beginTransaction();
+        getSession().delete(var);
+        transaction.commit();
     }
 
     public List<T> findAll(){
 
         Session session = getSession();
+        Transaction transaction = session.beginTransaction();
         CriteriaBuilder criteriaBuilder =session.getCriteriaBuilder();
         CriteriaQuery<T> query = criteriaBuilder.createQuery(clazz);
         query.from(clazz);
-        return session.createQuery(query).getResultList();
+        List<T> resultList = session.createQuery(query).getResultList();
+        transaction.commit();
+
+        return resultList;
     }
 
     public T findById(Long id){
         Session session = getSession();
+        Transaction transaction = session.beginTransaction();
         CriteriaBuilder criteriaBuilder =session.getCriteriaBuilder();
         CriteriaQuery<T> query = criteriaBuilder.createQuery(clazz);
         Root<T> root = query.from(clazz);
         query.select(root).where(criteriaBuilder.equal(root.get("id"),id));
         try {
-            return session.createQuery(query).getSingleResult();
+            T singleResult = session.createQuery(query).getSingleResult();
+            transaction.commit();
+            return singleResult;
         }catch (NoResultException ex){
             return null;
         }
@@ -61,6 +75,9 @@ public abstract class BaseDao<T> {
 
     public Session getSession(){
         sessionFactory = HibernateUtil.getSessionFactory();
-        return sessionFactory.openSession();
+        if (!sessionFactory.isOpen()){
+            return sessionFactory.openSession();
+        }
+        return sessionFactory.getCurrentSession();
     }
 }

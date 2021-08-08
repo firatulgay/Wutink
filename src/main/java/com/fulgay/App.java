@@ -55,11 +55,8 @@ public class App implements CommandLineRunner
 
 
 //        User user = new User();
-//        user.setName("Doruk");
-//        user.setSurname("Aşan");
 //        user.setPassword("234jdlg834");
 //        user.setUserName("dAsan");
-//        user.setUserType(EnumUserType.USER);
 //
 //        Session session = HibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction = session.beginTransaction();
@@ -72,10 +69,10 @@ public class App implements CommandLineRunner
 //        experience.setExperienceCategory(EnumExperienceCategory.TECHNOLOGY);
 //        experience.setHeader("KONU BAŞLIĞI");
 //        experience.setUser(userSaved);
-//
+
 //        Session session2 = HibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction2 = session2.beginTransaction();
-//
+
 //
 //        session2.merge(experience);
 //        transaction2.commit();

@@ -58,6 +58,8 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
 				.antMatchers(HttpMethod.POST, "/saveCategory").permitAll()
 				.antMatchers(HttpMethod.GET, "/getCategories").permitAll()
+				.antMatchers(HttpMethod.GET, "/operations/like").permitAll()
+				.antMatchers(HttpMethod.GET, "/operations/unlike").permitAll()
 
 				.anyRequest().authenticated()
 			.and()

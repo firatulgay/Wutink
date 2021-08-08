@@ -18,9 +18,9 @@ public class HibernateUtil {
 
         try {
 
+
             Configuration cfg = new Configuration();
             SessionFactory sessionFactory = cfg.configure("hibernate.cfg.xml").buildSessionFactory();
-
             return sessionFactory;
 
         }catch (Exception e){
@@ -30,6 +30,9 @@ public class HibernateUtil {
     }
 
     public static SessionFactory getSessionFactory() {
+//        if (sessionFactory.isOpen()){
+//            sessionFactory.close();
+//        }
         return sessionFactory;
     }
 }

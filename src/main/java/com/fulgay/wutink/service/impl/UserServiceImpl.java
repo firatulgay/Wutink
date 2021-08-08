@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void delete(User obj) {
+
+    }
+
+    @Override
     public User findUserByUserName(String userName) {
         User user = userDao.findUserByUserName(userName);
         return user;

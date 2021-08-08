@@ -35,6 +35,11 @@ public class Cat2ExServiceImpl implements Cat2ExService {
     }
 
     @Override
+    public void delete(Cat2Ex obj) {
+
+    }
+
+    @Override
     public List<Cat2Ex> findCat2ExRelByCategoryId(Long id) {
         return cat2ExDao.findCat2ExRelByCategoryId(id);
     }
