@@ -18,7 +18,7 @@ public class ExperienceDtoPopulator implements Populator<Experience,ExperienceDt
             target.setDescription(source.getDescription());
             target.setHeader(source.getHeader());
             target.setId(source.getId());
-            target.setUserDto(userDtoConverter.convert(source.getUser()));
+            target.setUserName(source.getUser().getUserName());
         }
 
     }

@@ -33,9 +33,7 @@ public class Like2ExperienceDaoImpl extends Like2ExperienceDao {
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("select like2Ex from Like2Experience like2Ex where like2Ex.experience.id = :experienceId and like2Ex.user.userName = :username");
         query.setParameter("username", username);
-        query.setParameter(
-
-                "experienceId", experienceId);
+        query.setParameter("experienceId", experienceId);
 
 
         Like2Experience like2Experience = (Like2Experience) query.uniqueResult();

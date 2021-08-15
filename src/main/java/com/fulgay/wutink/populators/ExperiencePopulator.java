@@ -17,7 +17,7 @@ public class ExperiencePopulator implements Populator<ExperienceDto, Experience>
 
         if (source != null) {
             target.setHeader(source.getHeader());
-            target.setUser(userServiceImpl.findUserByUserName(source.getUserDto().getUserName()));
+            target.setUser(userServiceImpl.findUserByUserName(source.getUserName()));
             target.setDescription(source.getDescription());
         }
     }

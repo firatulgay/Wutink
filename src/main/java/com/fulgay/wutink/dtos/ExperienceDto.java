@@ -5,8 +5,8 @@ public class ExperienceDto extends BaseDto {
     private Long id;
     private String header;
     private String description;
-    private CategoryDto categoryDto;
-    private UserDto userDto;
+    private Long categoryId;
+    private String userName; ;
 
     public Long getId() {
         return id;
@@ -32,19 +32,19 @@ public class ExperienceDto extends BaseDto {
         this.description = description;
     }
 
-    public CategoryDto getCategoryDto() {
-        return categoryDto;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryDto(CategoryDto categoryDto) {
-        this.categoryDto = categoryDto;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public UserDto getUserDto() {
-        return userDto;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserDto(UserDto userDto) {
-        this.userDto = userDto;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

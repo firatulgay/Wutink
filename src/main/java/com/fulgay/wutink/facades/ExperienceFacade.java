@@ -8,7 +8,6 @@ import com.fulgay.wutink.converter.ExperienceDtoConverter;
 import com.fulgay.wutink.domain.Cat2Ex;
 import com.fulgay.wutink.domain.Category;
 import com.fulgay.wutink.domain.Experience;
-import com.fulgay.wutink.dtos.CategoryDto;
 import com.fulgay.wutink.dtos.ExperienceDto;
 import com.fulgay.wutink.service.Cat2ExService;
 import com.fulgay.wutink.service.CategoryService;
@@ -46,8 +45,8 @@ public class ExperienceFacade {
             Experience experience = experienceConverter.convert(experienceDto);
             experienceService.save(experience);
 
-            CategoryDto categoryDto = experienceDto.getCategoryDto();
-            Category category = categoryService.findById(categoryDto.getId());
+            Long categoryId = experienceDto.getCategoryId();
+            Category category = categoryService.findById(categoryId);
 
             cat2ExFacade.saveCat2ExRel(experience, category);
             setSuccessGlobalMessage(experienceDto);
