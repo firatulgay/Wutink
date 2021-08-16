@@ -3,9 +3,11 @@ package com.fulgay.wutink.dao.impl;
 import com.fulgay.wutink.dao.ExperienceDao;
 import com.fulgay.wutink.domain.Experience;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
@@ -26,29 +28,54 @@ public class ExperienceDaoImpl extends ExperienceDao {
          */
 
         Session session = getSession();
-        Query query = session.createQuery("select ex from Experience ex where ex.header like :parameter");
-        query.setParameter("parameter", "%"+header+"%");
+        Transaction transaction = session.beginTransaction();
 
-        return query.list();
+        try {
+            Query query = session.createQuery("select ex from Experience ex where ex.header like :parameter");
+            query.setParameter("parameter", "%" + header + "%");
+
+            return query.list();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            transaction.commit();
+        }
+
     }
 
     @Override
     public List<Experience> findAllExperiencesByCategoryId(Long id) {
-
         Session session = getSession();
-        Query query = session.createQuery("select ex from Experience ex left join ex.category cat  where cat.id = :id");
-        query.setParameter("id", id);
+        Transaction transaction = session.beginTransaction();
 
-        return query.list();
+        try {
+            Query query = session.createQuery("select ex from Experience ex JOIN FETCH ex.category cat  where cat.id = :id");
+            query.setParameter("id", id);
+
+            return query.list();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            transaction.commit();
+        }
     }
 
     @Override
     public List<Experience> findAllExperiencesByUserName(String userName) {
-
         Session session = getSession();
-        Query query = session.createQuery("select ex from Experience ex left join ex.user user  where user.userName = :userName");
-        query.setParameter("userName", userName);
+        Transaction transaction = session.beginTransaction();
 
-        return query.list();
+        try {
+            Query query = session.createQuery("select ex from Experience ex JOIN FETCH ex.user user  where user.userName = :userName");
+            query.setParameter("userName", userName);
+
+            return query.list();
+
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            transaction.commit();
+        }
+
     }
 }

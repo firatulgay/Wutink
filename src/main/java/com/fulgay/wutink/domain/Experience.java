@@ -1,7 +1,6 @@
 package com.fulgay.wutink.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 /**
  * Experience
@@ -19,15 +18,13 @@ public class Experience {
     @Column
     private Long id;
 
-    @Size(max = 50)
-    @Column(length = 50)
+    @Column(length = 255)
     private String header;
 
-    @Size(max = 50)
-    @Column(length = 50)
+    @Column(length = 255)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_USER", foreignKey = @ForeignKey(name = "FK_EXPERIENCE_USER"))
     private User user;
 

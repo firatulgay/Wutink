@@ -2,6 +2,7 @@ package com.fulgay.wutink.service.impl;
 
 import com.fulgay.wutink.dao.Cat2ExDao;
 import com.fulgay.wutink.domain.Cat2Ex;
+import com.fulgay.wutink.domain.Experience;
 import com.fulgay.wutink.service.Cat2ExService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class Cat2ExServiceImpl implements Cat2ExService {
     }
 
     @Override
-    public List<Cat2Ex> findCat2ExRelByCategoryId(Long id) {
-        return cat2ExDao.findCat2ExRelByCategoryId(id);
+    public List<Experience> findExperienceByCategoryId(Long id) {
+        return cat2ExDao.findExperienceByCategoryId(id);
     }
 }

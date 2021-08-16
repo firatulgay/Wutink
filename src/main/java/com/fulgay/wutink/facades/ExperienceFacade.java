@@ -5,7 +5,6 @@ import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.converter.ExperienceConverter;
 import com.fulgay.wutink.converter.ExperienceDtoConverter;
-import com.fulgay.wutink.domain.Cat2Ex;
 import com.fulgay.wutink.domain.Category;
 import com.fulgay.wutink.domain.Experience;
 import com.fulgay.wutink.dtos.ExperienceDto;
@@ -16,7 +15,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -78,16 +76,8 @@ public class ExperienceFacade {
     }
 
     public List<ExperienceDto> findAllExperienceByCategoryId(Long id) {
-        List<Cat2Ex> cat2ExList = cat2ExService.findCat2ExRelByCategoryId(id);
-
-        List<Experience> experienceList = new ArrayList<>();
-
-        for (Cat2Ex cat2Ex : cat2ExList) {
-            Experience experience = cat2Ex.getExperience();
-            experienceList.add(experience);
-        }
-        List<ExperienceDto> experienceDtoList = experienceDtoConverter.convertToList(experienceList);
-        return experienceDtoList;
+        List<Experience> experienceList = cat2ExService.findExperienceByCategoryId(id);
+        return experienceDtoConverter.convertToList(experienceList);
     }
 
     public List<ExperienceDto> findExperienceByHeader(String header) {

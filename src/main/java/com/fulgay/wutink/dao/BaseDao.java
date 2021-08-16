@@ -51,10 +51,14 @@ public abstract class BaseDao<T> {
         CriteriaBuilder criteriaBuilder =session.getCriteriaBuilder();
         CriteriaQuery<T> query = criteriaBuilder.createQuery(clazz);
         query.from(clazz);
-        List<T> resultList = session.createQuery(query).getResultList();
-        transaction.commit();
-
-        return resultList;
+        try {
+            List<T> resultList = session.createQuery(query).getResultList();
+            return resultList;
+        } catch (NoResultException ex){
+            return null;
+        }finally {
+            transaction.commit();
+        }
     }
 
     public T findById(Long id){
@@ -66,15 +70,16 @@ public abstract class BaseDao<T> {
         query.select(root).where(criteriaBuilder.equal(root.get("id"),id));
         try {
             T singleResult = session.createQuery(query).getSingleResult();
-            transaction.commit();
             return singleResult;
         }catch (NoResultException ex){
             return null;
+        }finally {
+            transaction.commit();
         }
     }
 
     public Session getSession(){
-        sessionFactory = HibernateUtil.getSessionFactory();
+         sessionFactory = HibernateUtil.getSessionFactory();
         if (!sessionFactory.isOpen()){
             return sessionFactory.openSession();
         }

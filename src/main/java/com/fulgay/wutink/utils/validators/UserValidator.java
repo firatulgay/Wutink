@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class UserValidator {
 
     @Autowired
-    UserServiceImpl userServiceImpl;
+    private UserServiceImpl userServiceImpl;
 
     public void validateUserByUserName(String userName)  {
         User user = userServiceImpl.findUserByUserName(userName);

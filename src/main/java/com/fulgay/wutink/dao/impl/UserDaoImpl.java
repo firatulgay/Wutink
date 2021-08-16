@@ -40,11 +40,11 @@ public class UserDaoImpl extends UserDao {
 
         try {
             User singleResult = session.createQuery(query).getSingleResult();
-            transaction.commit();
             return singleResult;
-
         } catch (NoResultException ex) {
             return null;
+        }finally {
+            transaction.commit();
         }
     }
 

@@ -1,7 +1,7 @@
 package com.fulgay.wutink.dao;
 
-import com.fulgay.wutink.dao.BaseDao;
 import com.fulgay.wutink.domain.Cat2Ex;
+import com.fulgay.wutink.domain.Experience;
 
 import java.util.List;
 
@@ -16,6 +16,6 @@ public abstract class Cat2ExDao extends BaseDao<Cat2Ex> {
         super(Cat2Ex.class);
     }
 
-    public abstract List<Cat2Ex> findCat2ExRelByCategoryId(Long id);
+    public abstract List<Experience> findExperienceByCategoryId(Long id);
 }
 
