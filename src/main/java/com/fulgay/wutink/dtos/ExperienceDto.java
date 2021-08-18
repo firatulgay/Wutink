@@ -1,11 +1,13 @@
 package com.fulgay.wutink.dtos;
 
+import java.util.List;
+
 public class ExperienceDto extends BaseDto {
 
     private Long id;
     private String header;
     private String description;
-    private Long categoryId;
+    private List<Long> categoryIdList;
     private String userName; ;
 
     public Long getId() {
@@ -32,12 +34,12 @@ public class ExperienceDto extends BaseDto {
         this.description = description;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public List<Long> getCategoryIdList() {
+        return categoryIdList;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryIdList(List<Long> categoryIdList) {
+        this.categoryIdList = categoryIdList;
     }
 
     public String getUserName() {

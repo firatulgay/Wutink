@@ -40,4 +40,14 @@ public class ExperienceController {
         List<ExperienceDto> experienceDtoList = experienceFacade.findAllExperienceByCategoryId(id);
         return experienceDtoList;
     }
+
+    @GetMapping("/deleteExperienceById/{id}")
+    public void deleteExperienceById(@PathVariable("id") Long id){
+        experienceFacade.deleteExperienceById(id);
+    }
+
+    @PostMapping("/updateExperience")
+    public void updateExperience(@RequestBody ExperienceDto experienceDto){
+        experienceFacade.updateExperience(experienceDto);
+    }
 }

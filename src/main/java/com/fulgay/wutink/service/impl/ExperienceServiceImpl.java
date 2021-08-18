@@ -30,12 +30,12 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     @Override
     public void update(Experience obj) {
-
+        experienceDao.update(obj);
     }
 
     @Override
     public void delete(Experience obj) {
-
+        experienceDao.delete(obj);
     }
 
     @Override

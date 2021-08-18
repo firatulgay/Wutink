@@ -78,6 +78,12 @@ public abstract class BaseDao<T> {
         }
     }
 
+    public void update(T obj){
+        Transaction transaction = getSession().beginTransaction();
+        getSession().update(obj);
+        transaction.commit();
+    }
+
     public Session getSession(){
          sessionFactory = HibernateUtil.getSessionFactory();
         if (!sessionFactory.isOpen()){
