@@ -44,6 +44,7 @@ public class ExperienceFacade {
 
     private GlobalMessages globalMessage;
 
+    @Transactional(rollbackFor = Exception.class)
     public ExperienceDto save(ExperienceDto experienceDto) {
 
         try {
@@ -61,7 +62,7 @@ public class ExperienceFacade {
             experienceDto = experienceDtoConverter.convert(experience);
 
         } catch (Exception e) {
-            LOG.error(EnumErrorMessage.EXPERIENCE_COULDNT_SAVE.getValue() + " -> " + e.getMessage());
+            LOG.error(EnumErrorMessage.EXPERIENCE_COULDNT_SAVE.getValue(), e);
             globalMessage = new GlobalMessages();
             globalMessage.setErrorMessage(EnumErrorMessage.EXPERIENCE_COULDNT_SAVE.getValue());
             experienceDto.setGlobalMessage(globalMessage);

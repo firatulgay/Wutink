@@ -1,6 +1,7 @@
 package com.fulgay.wutink.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Experience
@@ -18,10 +19,16 @@ public class Experience {
     @Column
     private Long id;
 
-    @Column(length = 255)
+    @Column
+    private Date creationTime;
+
+    @Column
+    private Date modifiedTime;
+
+    @Column
     private String header;
 
-    @Column(length = 255)
+    @Column
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -61,4 +68,19 @@ public class Experience {
         this.user = user;
     }
 
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public Date getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(Date modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
 }

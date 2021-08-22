@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +18,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     @Transactional(rollbackFor = Exception.class)
     public Long save(Experience experience) {
+        experience.setCreationTime(new Date());
         return experienceDao.save(experience);
     }
 
@@ -30,6 +32,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     @Override
     public void update(Experience obj) {
+        obj.setModifiedTime(new Date());
         experienceDao.update(obj);
     }
 

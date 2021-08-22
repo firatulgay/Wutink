@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "LIKE2EXPERIENCE", indexes = {
         @Index(name = "IX_LIKE2EX_ID",columnList = "id", unique = true)})
-public class Like2Experience {
+public class Like2Experience{
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

@@ -9,6 +9,7 @@ public class ExperienceDto extends BaseDto {
     private String description;
     private List<Long> categoryIdList;
     private String userName; ;
+    private String creationTime;
 
     public Long getId() {
         return id;
@@ -48,5 +49,13 @@ public class ExperienceDto extends BaseDto {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
     }
 }
