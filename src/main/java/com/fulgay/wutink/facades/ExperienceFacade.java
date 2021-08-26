@@ -133,10 +133,16 @@ public class ExperienceFacade {
         }
     }
 
+    public ExperienceDto findExperienceById(Long id) {
+        return experienceDtoConverter.convert(experienceService.findById(id));
+    }
+
     private void setSuccessGlobalMessage(ExperienceDto experienceDto) {
         globalMessage = new GlobalMessages();
         globalMessage.setConfMessage(EnumSuccessMessage.EXPERIENCE_SAVE_SUCCESS.getValue());
         experienceDto.setGlobalMessage(globalMessage);
         LOG.info(experienceDto.getHeader() + " " + EnumSuccessMessage.EXPERIENCE_SAVE_SUCCESS.getValue());
     }
+
+
 }

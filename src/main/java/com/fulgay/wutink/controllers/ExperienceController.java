@@ -35,6 +35,12 @@ public class ExperienceController {
         return experienceDtoList;
     }
 
+    @GetMapping("/getExperienceById/{id}")
+    public ExperienceDto findExperienceById(@PathVariable("id") Long id){
+        ExperienceDto experienceDto = experienceFacade.findExperienceById(id);
+        return experienceDto;
+    }
+
     @GetMapping("/getAllExperienceByCategoryId/{id}")
     public List<ExperienceDto> findAllExperienceByCategoryId(@PathVariable("id") Long id){
         List<ExperienceDto> experienceDtoList = experienceFacade.findAllExperienceByCategoryId(id);
