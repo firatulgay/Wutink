@@ -1,13 +1,13 @@
 package com.fulgay.wutink.controllers;
 
+import com.fulgay.wutink.dtos.CommentDto;
+import com.fulgay.wutink.facades.CommentFacade;
 import com.fulgay.wutink.facades.ExperienceOperationsFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 /**
  * @author Fırat ÜLGAY
@@ -21,19 +21,37 @@ public class ExperienceOperationsController {
     @Autowired
     private ExperienceOperationsFacade experienceOperationsFacade;
 
+    @Autowired
+    private CommentFacade commentFacade;
+
     @GetMapping("/like")
-    public boolean likeExprience(@PathParam("experienceId") Long experienceId,@PathParam("username") String username) {
+    public boolean likeExperience(@PathParam("experienceId") Long experienceId, @PathParam("username") String username) {
         experienceOperationsFacade.likeExprience(experienceId, username);
         return true;
     }
 
     @GetMapping("/unlike")
-    public void unlikeExprience(@PathParam("experienceId") Long experienceId,@PathParam("username") String username) {
+    public void unlikeExperience(@PathParam("experienceId") Long experienceId,@PathParam("username") String username) {
         experienceOperationsFacade.unlikeExperience(experienceId, username);
     }
 
-    @PostMapping("/comment")
-    public void commentExprience(Long experienceId, Long userId, String comment) {
+    @PostMapping("/doComment")
+    public void commentExperience(@RequestBody CommentDto commentDto) {
+        commentFacade.saveComment(commentDto);
+    }
 
+    @GetMapping("/deleteComment")
+    public void deleteCommentExperience(@PathParam("commentId") Long commentId) {
+        commentFacade.deleteCommentById(commentId);
+    }
+
+    @GetMapping("/getCommentsByExperienceId")
+    public List<CommentDto> getCommentsByExperienceId(@PathParam("experienceId") Long experienceId) {
+        return commentFacade.findCommentsByExperienceId(experienceId);
+    }
+
+    @PostMapping("/updateComment")
+    public void updateComment(@RequestBody CommentDto commentDto) {
+        commentFacade.updateComment(commentDto);
     }
 }

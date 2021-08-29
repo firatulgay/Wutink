@@ -28,7 +28,7 @@ public class Experience {
     @Column
     private String header;
 
-    @Column
+    @Column(name = "description",length = 1500)
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)

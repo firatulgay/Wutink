@@ -20,6 +20,7 @@
         <mapping class="com.fulgay.wutink.domain.Cat2Ex" />
         <mapping class="com.fulgay.wutink.domain.Cat2Cat" />
         <mapping class="com.fulgay.wutink.domain.Like2Experience" />
+        <mapping class="com.fulgay.wutink.domain.Comment" />
 
     </session-factory>
 </hibernate-configuration>
