@@ -6,6 +6,8 @@ import com.fulgay.wutink.service.ExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * @author Fırat ÜLGAY
  * @since 28.08.2021
@@ -24,6 +26,7 @@ public class CommentPopulator implements Populator<CommentDto,Comment> {
             target.setUsername(source.getUsername());
             target.setDescription(source.getDescription());
             target.setExperience(experienceService.findById(source.getExperienceId()));
+            target.setCreationTime(new Date());
         }
     }
 }

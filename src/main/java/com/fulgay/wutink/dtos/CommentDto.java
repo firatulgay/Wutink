@@ -15,6 +15,8 @@ public class CommentDto extends BaseDto {
 
     private String description;
 
+    private String creationTime;
+
     public Long getId() {
         return id;
     }
@@ -45,5 +47,13 @@ public class CommentDto extends BaseDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
     }
 }

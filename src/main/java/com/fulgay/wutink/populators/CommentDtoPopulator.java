@@ -4,6 +4,9 @@ import com.fulgay.wutink.domain.Comment;
 import com.fulgay.wutink.dtos.CommentDto;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 /**
  * @author Fırat ÜLGAY
  * @since 28.08.2021
@@ -20,6 +23,9 @@ public class CommentDtoPopulator implements Populator<Comment, CommentDto> {
             target.setExperienceId(source.getExperience().getId());
             target.setId(source.getId());
             target.setUsername(source.getUsername());
+
+            String pattern = "dd MMMMM yyyy";
+            target.setCreationTime(new SimpleDateFormat(pattern, new Locale("tr", "TR")).format(source.getCreationTime()));
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.fulgay.wutink.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author Fırat ÜLGAY
@@ -21,6 +22,9 @@ public class Comment {
 
     @Column
     private String username;
+
+    @Column
+    private Date creationTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_EXPERIENCE", foreignKey = @ForeignKey(name = "FK_COMMENT_USER"))
@@ -57,5 +61,13 @@ public class Comment {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
     }
 }
