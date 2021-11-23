@@ -1,31 +1,31 @@
 package com.fulgay.wutink.commons.notificationMessages;
 
 public class GlobalMessages {
-    private  String ERROR_MESSAGE;
-    private  String INFO_MESSAGE;
-    private String CONF_MESSAGE;
+    private EnumMessageType messageType;
+    private String message;
 
-    public String getErrorMessage() {
-        return ERROR_MESSAGE;
+
+    public GlobalMessages() {
     }
 
-    public void setErrorMessage(String errorMessage) {
-        ERROR_MESSAGE = errorMessage;
+    public GlobalMessages(EnumMessageType messageType, String message) {
+        this.messageType = messageType;
+        this.message = message;
     }
 
-    public String getInfoMessage() {
-        return INFO_MESSAGE;
+    public EnumMessageType getMessageType() {
+        return messageType;
     }
 
-    public void setInfoMessage(String infoMessage) {
-        INFO_MESSAGE = infoMessage;
+    public void setMessageType(EnumMessageType messageType) {
+        this.messageType = messageType;
     }
 
-    public String getConfMessage() {
-        return CONF_MESSAGE;
+    public String getMessage() {
+        return message;
     }
 
-    public void setConfMessage(String CONF_MESSAGE) {
-        this.CONF_MESSAGE = CONF_MESSAGE;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

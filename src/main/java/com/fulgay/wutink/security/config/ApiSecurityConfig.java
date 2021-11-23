@@ -60,8 +60,10 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/getCategories").permitAll()
 				.antMatchers(HttpMethod.GET, "/operations/like").permitAll()
 				.antMatchers(HttpMethod.GET, "/operations/unlike").permitAll()
-
-				.anyRequest().authenticated()
+				.antMatchers(HttpMethod.POST, "/saveUser").permitAll()
+				.antMatchers(HttpMethod.GET, "/operations/doComment").permitAll()
+				.antMatchers(HttpMethod.GET, "/operations/getCommentsByExperienceId").permitAll()
+//				.anyRequest().authenticated()
 			.and()
 			.addFilter(new JwtAuthorizationFilter(authenticationManager(), tokenManager)); // kendi hazırladığımız filter ı yerleştiriyoruz
 	}

@@ -1,5 +1,7 @@
 package com.fulgay.wutink.controllers;
 
+import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
+import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.security.model.AuthenticationResponse;
 import com.fulgay.wutink.service.AuthenticationService;
 import org.apache.log4j.Logger;
@@ -23,8 +25,11 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<AuthenticationResponse> login(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization){
+
+        AuthenticationResponse response = null;
+
         try {
-            AuthenticationResponse response = authenticationService.authenticate(authorization);
+            response = authenticationService.authenticate(authorization);
             LOG.info("LOGIN SUCCESSFUL!");
 
             return ResponseEntity.ok()
@@ -33,7 +38,9 @@ public class LoginController {
 
         } catch (BadCredentialsException ex) {
             LOG.error("LOGIN FAIL --> " + ex.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            response = new AuthenticationResponse(0L,"");
+            response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE,"login.error"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 }

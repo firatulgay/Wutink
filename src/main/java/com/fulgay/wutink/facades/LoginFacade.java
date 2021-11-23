@@ -1,6 +1,7 @@
 package com.fulgay.wutink.facades;
 
 import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
+import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
 import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.dtos.UserDto;
@@ -27,10 +28,12 @@ public class LoginFacade {
         GlobalMessages globalMessages = new GlobalMessages();
 
         if (userDto.getId() == null){
-            globalMessages.setErrorMessage(EnumErrorMessage.LOGIN_ERROR.getValue());
+            globalMessages.setMessageType(EnumMessageType.ERROR_MESSAGE);
+            globalMessages.setMessage(EnumErrorMessage.LOGIN_ERROR.getValue());
             LOG.info(userName + " --> " + EnumErrorMessage.LOGIN_ERROR.getValue());
         }else{
-            globalMessages.setConfMessage(EnumSuccessMessage.LOGIN_SUCCESS.getValue());
+            globalMessages.setMessageType(EnumMessageType.CONF_MESSAGE);
+            globalMessages.setMessage(EnumSuccessMessage.LOGIN_SUCCESS.getValue());
             LOG.info(userName + " --> " + EnumSuccessMessage.LOGIN_SUCCESS.getValue());
         }
         userDto.setGlobalMessage(globalMessages);

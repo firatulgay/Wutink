@@ -1,6 +1,7 @@
 package com.fulgay.wutink.facades;
 
 import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
+import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
 import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.converter.ExperienceConverter;
@@ -63,8 +64,7 @@ public class ExperienceFacade {
 
         } catch (Exception e) {
             LOG.error(EnumErrorMessage.EXPERIENCE_COULDNT_SAVE.getValue(), e);
-            globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.EXPERIENCE_COULDNT_SAVE.getValue());
+            GlobalMessages globalMessage = new GlobalMessages(EnumMessageType.ERROR_MESSAGE,EnumErrorMessage.EXPERIENCE_COULDNT_SAVE.getValue());
             experienceDto.setGlobalMessage(globalMessage);
         }
 
@@ -138,8 +138,7 @@ public class ExperienceFacade {
     }
 
     private void setSuccessGlobalMessage(ExperienceDto experienceDto) {
-        globalMessage = new GlobalMessages();
-        globalMessage.setConfMessage(EnumSuccessMessage.EXPERIENCE_SAVE_SUCCESS.getValue());
+        globalMessage = new GlobalMessages(EnumMessageType.CONF_MESSAGE,EnumSuccessMessage.EXPERIENCE_SAVE_SUCCESS.getValue());
         experienceDto.setGlobalMessage(globalMessage);
         LOG.info(experienceDto.getHeader() + " " + EnumSuccessMessage.EXPERIENCE_SAVE_SUCCESS.getValue());
     }

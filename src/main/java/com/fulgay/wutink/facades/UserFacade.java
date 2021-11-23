@@ -1,6 +1,7 @@
 package com.fulgay.wutink.facades;
 
 import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
+import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
 import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.converter.UserConverter;
@@ -46,8 +47,7 @@ public class UserFacade {
         UserDto userDto = userDtoConverter.convert(user);
 
         if (user == null) {
-            GlobalMessages globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.USER_NOT_FOUND.getValue());
+            GlobalMessages globalMessage = new GlobalMessages(EnumMessageType.ERROR_MESSAGE,EnumErrorMessage.USER_NOT_FOUND.getValue());
             userDto.setGlobalMessage(globalMessage);
         }
         return userDto;
@@ -71,14 +71,12 @@ public class UserFacade {
             userDto = userDtoConverter.convert(user);
 
             if (user == null) {
-                globalMessage = new GlobalMessages();
-                globalMessage.setErrorMessage(EnumErrorMessage.USER_NOT_FOUND.getValue());
+                GlobalMessages globalMessage = new GlobalMessages(EnumMessageType.ERROR_MESSAGE,EnumErrorMessage.USER_NOT_FOUND.getValue());
                 userDto.setGlobalMessage(globalMessage);
             }
 
         } catch (Exception e) {
-            globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.GENERAL_ERROR.getValue());
+            GlobalMessages globalMessage = new GlobalMessages(EnumMessageType.ERROR_MESSAGE,EnumErrorMessage.GENERAL_ERROR.getValue());
             userDto.setGlobalMessage(globalMessage);
             e.printStackTrace();
         }

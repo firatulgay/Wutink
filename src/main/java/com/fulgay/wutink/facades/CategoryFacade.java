@@ -1,6 +1,7 @@
 package com.fulgay.wutink.facades;
 
 import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
+import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
 import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.converter.CategoryConverter;
@@ -43,8 +44,7 @@ public class CategoryFacade {
         CategoryDto categoryDto = categoryDtoConverter.convert(category);
 
         if (category == null) {
-            GlobalMessages globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.CATEGORY_NOT_FOUND.getValue());
+            GlobalMessages globalMessage = new GlobalMessages(EnumMessageType.ERROR_MESSAGE,EnumErrorMessage.CATEGORY_NOT_FOUND.getValue());
             categoryDto.setGlobalMessage(globalMessage);
         }
         return categoryDto;
@@ -62,21 +62,19 @@ public class CategoryFacade {
 
                 categoryDto.setId(categoryId);
 
-                globalMessage = new GlobalMessages();
-                globalMessage.setConfMessage(categoryDto.getName() + " " + EnumSuccessMessage.CATEGORY_SAVE_SUCCESS.getValue());
+                globalMessage = new GlobalMessages(EnumMessageType.CONF_MESSAGE,EnumSuccessMessage.CATEGORY_SAVE_SUCCESS.getValue());
                 categoryDto.setGlobalMessage(globalMessage);
                 LOG.info(categoryDto.getName() + " " + EnumSuccessMessage.CATEGORY_SAVE_SUCCESS.getValue());
 
             } else {
-                GlobalMessages globalMessage = new GlobalMessages();
-                globalMessage.setErrorMessage(categoryDto.getName() + " " + EnumErrorMessage.CATEGORY_ALREADY_EXIST.getValue());
+                GlobalMessages globalMessage = new GlobalMessages(EnumMessageType.ERROR_MESSAGE,
+                        categoryDto.getName() + " " + EnumErrorMessage.CATEGORY_ALREADY_EXIST.getValue());
                 categoryDto.setGlobalMessage(globalMessage);
             }
 
         } catch (Exception e) {
             LOG.error(e.getMessage(),e);
-            globalMessage = new GlobalMessages();
-            globalMessage.setErrorMessage(EnumErrorMessage.CATEGORY_COULDNT_SAVE.getValue());
+            GlobalMessages globalMessage = new GlobalMessages(EnumMessageType.ERROR_MESSAGE, EnumErrorMessage.CATEGORY_COULDNT_SAVE.getValue());
             categoryDto.setGlobalMessage(globalMessage);
         }
         return categoryDto;
