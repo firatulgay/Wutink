@@ -5,13 +5,19 @@ import com.fulgay.wutink.dtos.BaseDto;
 import java.io.Serializable;
 
 
-public class RegistrationResponse extends BaseDto implements Serializable {
+public class WutinkAuthenticationResponse extends BaseDto implements Serializable  {
 
     private static final long serialVersionUID = 8929499253726531083L;
 
     private Long userId;
     private String accessToken;
     private String refreshToken;
+
+    public WutinkAuthenticationResponse(Long userId, String accessToken, String refreshToken) {
+        this.userId = userId;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+    }
 
     public Long getUserId() {
         return userId;

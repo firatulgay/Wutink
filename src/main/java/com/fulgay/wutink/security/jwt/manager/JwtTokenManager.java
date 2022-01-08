@@ -3,7 +3,6 @@ package com.fulgay.wutink.security.jwt.manager;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -20,14 +20,17 @@ public class JwtTokenManager {
 	@Value("${jwt.token.secret}")
 	private String secret;
 	
-	@Value("${jwt.token.expiration.duration}")
-	private long expirationDurationInMs;
+	@Value("${jwt.access.token.expiration.duration}")
+	private long expirationDurationInMsForAccess;
+
+	@Value("${jwt.refresh.token.expiration.duration}")
+	private long expirationDurationInMsForRefresh;
 	
 	@Autowired
 	private EncryptionManager encryptionManager;
 
 	
-	public String generateToken(UserDetails userDetails, Long userId) {
+	public String [] generateToken(UserDetails userDetails, Long userId) {
 		
 		Map<String, Object> claims = new HashMap<>();
 
@@ -92,23 +95,45 @@ public class JwtTokenManager {
 	}
 	
 	public String extractJwtFromRequest(HttpServletRequest request) {
-		String data = request.getHeader(HttpHeaders.AUTHORIZATION);
-		if (StringUtils.hasText(data) && data.startsWith("Bearer ")) {
-			return data.substring(7, data.length());
+		Cookie[] cookies = request.getCookies();
+		String jwtSessionId = null;
+
+		if (cookies != null){
+			for (Cookie cookie : cookies) {
+				if ("jwtSessionId".equals(cookie.getName())){
+					jwtSessionId = cookie.getValue();
+				}
+			}
+		}
+
+		if (StringUtils.hasText(jwtSessionId)) {
+			return jwtSessionId;
 		}
 		return null;
 	}
 	
-	private String doGenerateToken(Map<String, Object> claims, String subject) {
+	private String[] doGenerateToken(Map<String, Object> claims, String subject) {
+
 
 		long currentTimeMillis = System.currentTimeMillis();
-		return Jwts.builder()
+		String accessToken = Jwts.builder()
 				.setClaims(claims)
 				.setSubject(subject)
 				.setIssuedAt(new Date(currentTimeMillis))
-				.setExpiration(new Date(currentTimeMillis + expirationDurationInMs))
+				.setExpiration(new Date(currentTimeMillis + expirationDurationInMsForAccess))
 				.signWith(SignatureAlgorithm.HS512, secret)
 				.compact();
 
+		String refreshToken = Jwts.builder()
+				.setClaims(claims)
+				.setSubject(subject)
+				.setIssuedAt(new Date(currentTimeMillis))
+				.setExpiration(new Date(currentTimeMillis + expirationDurationInMsForRefresh))
+				.signWith(SignatureAlgorithm.HS512, secret)
+				.compact();
+
+		String[] tokenArray = {accessToken,refreshToken};
+
+		return tokenArray;
 	}
 }

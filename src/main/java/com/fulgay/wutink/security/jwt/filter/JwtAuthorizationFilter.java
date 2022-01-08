@@ -27,9 +27,17 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
-		
+
 		try {
-			
+			if (isBasicAuthRequest(request)) {
+				SecurityContextHolder.clearContext();
+				chain.doFilter(request, response);
+				return;
+			}else if (isLogoutRequest(request)){
+				chain.doFilter(request, response);
+				return;
+			}
+
 			String jwtToken = tokenManager.extractJwtFromRequest(request);
 			if(jwtToken == null) {
 				chain.doFilter(request, response);
@@ -48,16 +56,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 				chain.doFilter(request, response);
 				return;
 			}
-			else {
-				if(isBasicAuthRequest(request)) {
-					SecurityContextHolder.clearContext();
-					chain.doFilter(request, response);
-					return;
-				}
-				prepareInvalidAuthResponse(response);
-				return;
-			}
-		} 
+			prepareInvalidAuthResponse(response);
+			return;
+		}
 		catch (ExpiredJwtException | BadCredentialsException ex) {
 			prepareInvalidAuthResponse(response);
 			return;
@@ -67,7 +68,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 			return;
 		}
 	}
-	
+
+	private boolean isLogoutRequest(HttpServletRequest request) {
+		return request.getRequestURL().toString().contains("/doLogout");
+	}
+
 	private boolean isBasicAuthRequest(HttpServletRequest request) {
 		String data = request.getHeader(HttpHeaders.AUTHORIZATION);
 		return (StringUtils.hasText(data) && data.startsWith("Basic "));

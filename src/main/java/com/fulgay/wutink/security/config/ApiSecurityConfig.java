@@ -54,16 +54,18 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(
 						 "/configuration/ui", "/configuration/security",
 						 "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**","/getUserById").permitAll()
-				.antMatchers(HttpMethod.POST, "/login").permitAll()
+				.antMatchers(HttpMethod.POST, "/doLogin").permitAll()
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
-				.antMatchers(HttpMethod.POST, "/saveCategory").permitAll()
-				.antMatchers(HttpMethod.GET, "/getCategories").permitAll()
-				.antMatchers(HttpMethod.GET, "/operations/like").permitAll()
-				.antMatchers(HttpMethod.GET, "/operations/unlike").permitAll()
-				.antMatchers(HttpMethod.POST, "/saveUser").permitAll()
-				.antMatchers(HttpMethod.GET, "/operations/doComment").permitAll()
-				.antMatchers(HttpMethod.GET, "/operations/getCommentsByExperienceId").permitAll()
-//				.anyRequest().authenticated()
+//				.antMatchers(HttpMethod.POST, "/saveCategory").permitAll()
+//				.antMatchers(HttpMethod.GET, "/getCategories").permitAll()
+//				.antMatchers(HttpMethod.GET, "/operations/like").permitAll()
+//				.antMatchers(HttpMethod.GET, "/operations/unlike").permitAll()
+//				.antMatchers(HttpMethod.POST, "/saveUser").permitAll()
+//				.antMatchers(HttpMethod.GET, "/operations/doComment").permitAll()
+//				.antMatchers(HttpMethod.GET, "/operations/getCommentsByExperienceId").permitAll()
+				.antMatchers(HttpMethod.POST, "/doLogout").permitAll()
+
+				.anyRequest().authenticated()
 			.and()
 			.addFilter(new JwtAuthorizationFilter(authenticationManager(), tokenManager)); // kendi hazırladığımız filter ı yerleştiriyoruz
 	}

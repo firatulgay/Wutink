@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 public class RegisterController {
 
@@ -16,7 +19,19 @@ public class RegisterController {
     private RegisterFacade registerFacade;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public RegistrationResponse register (@RequestBody UserDto userDto){
-        return registerFacade.doRegister(userDto);
+    public RegistrationResponse register (@RequestBody UserDto userDto, HttpServletResponse httpResponse){
+        RegistrationResponse registrationResponse = registerFacade.doRegister(userDto);
+
+        Cookie cookieAccess = new Cookie("jwtSessionId", registrationResponse.getAccessToken());
+        cookieAccess.setHttpOnly(Boolean.TRUE);
+        cookieAccess.setSecure(Boolean.TRUE);
+        httpResponse.addCookie(cookieAccess);
+
+        Cookie cookieRefresh = new Cookie("refreshToken", registrationResponse.getRefreshToken());
+        cookieRefresh.setHttpOnly(Boolean.TRUE);
+        cookieRefresh.setSecure(Boolean.TRUE);
+        httpResponse.addCookie(cookieRefresh);
+
+        return registrationResponse;
     }
 }

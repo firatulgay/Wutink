@@ -20,12 +20,12 @@ public class ConfigurationUtil {
     private static final Logger LOG = Logger.getLogger(ConfigurationUtil.class);
 
 
-    public Properties getGeneralMessagesProperty(){
-        Resource resource = new ClassPathResource("/globalmessage_TR.properties");
+    public Properties getGeneralMessagesProperty() {
+        Resource resource = new ClassPathResource("/generalMessages-tr.properties");
         try {
             return PropertiesLoaderUtils.loadProperties(resource);
         } catch (IOException e) {
-            LOG.error("Error while loading properties file",e);
+            LOG.error("Error while loading properties file", e);
             return null;
         }
     }

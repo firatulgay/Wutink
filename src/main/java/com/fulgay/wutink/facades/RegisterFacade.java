@@ -6,6 +6,7 @@ import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.commons.wutinkExceptions.WutinkUserSaveException;
 import com.fulgay.wutink.dtos.UserDto;
 import com.fulgay.wutink.security.model.RegistrationResponse;
+import com.fulgay.wutink.security.model.WutinkAuthenticationResponse;
 import com.fulgay.wutink.service.AuthenticationService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,11 @@ public class RegisterFacade {
         try {
             userFacade.save(userDto);
 
-            authenticationService.authenticate("Basic " + Base64.getEncoder().encodeToString(
+            WutinkAuthenticationResponse authResponse = authenticationService.authenticate("Basic " + Base64.getEncoder().encodeToString(
                     (userDto.getUserName() + ":" + userDto.getPassword()).getBytes()));
+
+            registrationResponse.setAccessToken(authResponse.getAccessToken());
+            registrationResponse.setRefreshToken(authResponse.getRefreshToken());
 
             setSuccessGlobalMessage(registrationResponse);
             LOG.info("Registration successful with username : " + userDto.getUserName());

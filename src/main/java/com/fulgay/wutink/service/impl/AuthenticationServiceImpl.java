@@ -1,7 +1,7 @@
 package com.fulgay.wutink.service.impl;
 
 import com.fulgay.wutink.security.jwt.manager.JwtTokenManager;
-import com.fulgay.wutink.security.model.AuthenticationResponse;
+import com.fulgay.wutink.security.model.WutinkAuthenticationResponse;
 import com.fulgay.wutink.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +28,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private JwtTokenManager tokenManager;
 
     @Override
-    public AuthenticationResponse authenticate(String authorization) {
+    public WutinkAuthenticationResponse authenticate(String authorization) {
 
         if(!StringUtils.hasText(authorization)) {
             throw new RuntimeException("INVALID AUTH PAYLOAD");
@@ -46,8 +46,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         com.fulgay.wutink.domain.User userFromDb = userService.findUserByUserName(username);
-        String jwtToken = tokenManager.generateToken(user, userFromDb.getId());
-        return new AuthenticationResponse(userFromDb.getId(), jwtToken);
+        String[] tokenArray = tokenManager.generateToken(user, userFromDb.getId());
+        return new WutinkAuthenticationResponse(userFromDb.getId(), tokenArray[0],tokenArray[1]);
     }
 
     private String[] parseHttpBasicPayload(String authorization) {

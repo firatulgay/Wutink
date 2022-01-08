@@ -1,9 +1,6 @@
 package com.fulgay;
 
 import com.fulgay.wutink.security.config.ApiSecurityConfig;
-import com.fulgay.wutink.utils.hibernate.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -60,9 +57,9 @@ public class App implements CommandLineRunner
 //        User user = new User();
 //        user.setPassword("234jdlg834");
 //        user.setUserName("dAsan");
-//
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+////
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        Transaction transaction = session.beginTransaction();
 //
 //        User userSaved = (User)session.merge(user);
 //        transaction.commit();
