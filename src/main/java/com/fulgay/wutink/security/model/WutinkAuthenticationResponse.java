@@ -13,10 +13,11 @@ public class WutinkAuthenticationResponse extends BaseDto implements Serializabl
     private String accessToken;
     private String refreshToken;
 
-    public WutinkAuthenticationResponse(Long userId, String accessToken, String refreshToken) {
+    public WutinkAuthenticationResponse(Long userId, String accessToken, String refreshToken,boolean isSuccess) {
         this.userId = userId;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+        setSuccess(isSuccess);
     }
 
     public Long getUserId() {

@@ -47,7 +47,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         com.fulgay.wutink.domain.User userFromDb = userService.findUserByUserName(username);
         String[] tokenArray = tokenManager.generateToken(user, userFromDb.getId());
-        return new WutinkAuthenticationResponse(userFromDb.getId(), tokenArray[0],tokenArray[1]);
+        return new WutinkAuthenticationResponse(userFromDb.getId(), tokenArray[0],tokenArray[1],Boolean.TRUE);
     }
 
     private String[] parseHttpBasicPayload(String authorization) {

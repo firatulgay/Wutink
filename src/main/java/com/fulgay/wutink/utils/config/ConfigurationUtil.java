@@ -1,12 +1,12 @@
 package com.fulgay.wutink.utils.config;
 
 import org.apache.log4j.Logger;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PropertiesLoaderUtils;
-import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.Properties;
 
 /**
@@ -14,17 +14,19 @@ import java.util.Properties;
  * @since 27.11.2021
  */
 
-@Component
 public class ConfigurationUtil {
 
     private static final Logger LOG = Logger.getLogger(ConfigurationUtil.class);
 
 
-    public Properties getGeneralMessagesProperty() {
-        Resource resource = new ClassPathResource("/generalMessages-tr.properties");
+    public static Properties getGeneralMessagesProperty() {
+        Properties p = new Properties();
+
         try {
-            return PropertiesLoaderUtils.loadProperties(resource);
-        } catch (IOException e) {
+            FileInputStream input = new FileInputStream(new File("src/main/resources/generalMessages-tr.properties"));
+            p.load(new InputStreamReader(input, Charset.forName("UTF-8")));
+            return p;
+        }catch (IOException e ){
             LOG.error("Error while loading properties file", e);
             return null;
         }

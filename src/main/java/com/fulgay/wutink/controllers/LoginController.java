@@ -11,7 +11,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +24,6 @@ public class LoginController {
 
     @Autowired
     private AuthenticationService authenticationService;
-
-    @Autowired
-    private ConfigurationUtil configurationUtil;
 
     private static final Logger LOG = Logger.getLogger(LoginController.class);
 
@@ -46,15 +46,16 @@ public class LoginController {
             httpResponse.addCookie(cookieRefresh);
 
             LOG.info("LOGIN SUCCESSFUL!");
+            response.setGlobalMessage(new GlobalMessages(EnumMessageType.CONF_MESSAGE, ConfigurationUtil.getGeneralMessagesProperty().getProperty("login.success")));
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, response.getAccessToken())
                     .body(response);
 
         } catch (BadCredentialsException ex) {
-            LOG.error("LOGIN FAIL --> " + ex.getMessage());
-            response = new WutinkAuthenticationResponse(0L, "","");
-            response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE,configurationUtil.getGeneralMessagesProperty().getProperty("login.error")));
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            LOG.error("LOGIN FAIL :: " + ex.getMessage());
+            response = new WutinkAuthenticationResponse(0L, "","", Boolean.FALSE);
+            response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE,ConfigurationUtil.getGeneralMessagesProperty().getProperty("login.error")));
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         }
     }
 
