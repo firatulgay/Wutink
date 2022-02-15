@@ -33,17 +33,7 @@ public class LoginController {
         WutinkAuthenticationResponse response = null;
 
         try {
-            response = authenticationService.authenticate(authorization);
-
-            Cookie cookieAccess = new Cookie("jwtSessionId", response.getAccessToken());
-            cookieAccess.setHttpOnly(Boolean.TRUE);
-            cookieAccess.setSecure(Boolean.TRUE);
-            httpResponse.addCookie(cookieAccess);
-
-            Cookie cookieRefresh = new Cookie("refreshToken", response.getRefreshToken());
-            cookieRefresh.setHttpOnly(Boolean.TRUE);
-            cookieRefresh.setSecure(Boolean.TRUE);
-            httpResponse.addCookie(cookieRefresh);
+            response = authenticationService.authenticate(authorization,httpResponse);
 
             LOG.info("LOGIN SUCCESSFUL!");
             response.setGlobalMessage(new GlobalMessages(EnumMessageType.CONF_MESSAGE, ConfigurationUtil.getGeneralMessagesProperty().getProperty("login.success")));

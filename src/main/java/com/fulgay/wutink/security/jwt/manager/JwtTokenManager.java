@@ -1,17 +1,21 @@
 package com.fulgay.wutink.security.jwt.manager;
 
+import com.fulgay.wutink.service.AuthenticationService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @Component
@@ -28,6 +32,9 @@ public class JwtTokenManager {
 	
 	@Autowired
 	private EncryptionManager encryptionManager;
+
+	@Autowired
+	private AuthenticationService authenticationService;
 
 	
 	public String [] generateToken(UserDetails userDetails, Long userId) {
@@ -51,7 +58,7 @@ public class JwtTokenManager {
 		return doGenerateToken(claims, userDetails.getUsername());
 	}
 	
-	public boolean validate(String authToken) {
+	public boolean validateJwtAccessToken(String authToken, String refreshToken, HttpServletResponse httpResponse) {
 		
 		try {
 			Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
@@ -62,6 +69,31 @@ public class JwtTokenManager {
 		} 
 		catch (ExpiredJwtException ex) {
 			throw ex;
+		}
+	}
+
+	public boolean validateJwtRefreshToken(String refreshToken) {
+		try {
+			Jwts.parser().setSigningKey(secret).parseClaimsJws(refreshToken);
+			return true;
+		}
+		catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+			throw new BadCredentialsException("INVALID_CREDENTIALS", ex);
+		}
+		catch (ExpiredJwtException ex) {
+			throw ex;
+		}
+	}
+
+	public void doGenerateRefreshedAccessToken(String refreshToken, HttpServletResponse httpResponse,ExpiredJwtException ex){
+		if (validateJwtRefreshToken(refreshToken)){
+			String usernameFromToken = getUsernameFromToken(refreshToken);
+			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+					null, null, null);
+
+			SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+			String[] tokens = doGenerateToken(ex.getClaims(), usernameFromToken);
+			authenticationService.addAuthCookies(tokens,httpResponse);
 		}
 	}
 
@@ -111,8 +143,26 @@ public class JwtTokenManager {
 		}
 		return null;
 	}
+
+	public String extractRefreshTokenFromRequest(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		String refreshToken = null;
+
+		if (cookies != null){
+			for (Cookie cookie : cookies) {
+				if ("refreshToken".equals(cookie.getName())){
+					refreshToken = cookie.getValue();
+				}
+			}
+		}
+
+		if (StringUtils.hasText(refreshToken)) {
+			return refreshToken;
+		}
+		return null;
+	}
 	
-	private String[] doGenerateToken(Map<String, Object> claims, String subject) {
+	public String[] doGenerateToken(Map<String, Object> claims, String subject) {
 
 
 		long currentTimeMillis = System.currentTimeMillis();

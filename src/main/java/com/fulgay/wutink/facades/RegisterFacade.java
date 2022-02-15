@@ -6,12 +6,12 @@ import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.commons.wutinkExceptions.WutinkUserSaveException;
 import com.fulgay.wutink.dtos.UserDto;
 import com.fulgay.wutink.security.model.RegistrationResponse;
-import com.fulgay.wutink.security.model.WutinkAuthenticationResponse;
 import com.fulgay.wutink.service.AuthenticationService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Base64;
 
 /**
@@ -31,17 +31,13 @@ public class RegisterFacade {
     private static final Logger LOG = Logger.getLogger(UserFacade.class);
     private GlobalMessages globalMessage;
 
-    public RegistrationResponse doRegister(UserDto userDto) {
+    public RegistrationResponse doRegister(UserDto userDto, HttpServletResponse httpServletResponse) {
         RegistrationResponse registrationResponse = new RegistrationResponse();
 
         try {
             userFacade.save(userDto);
-
-            WutinkAuthenticationResponse authResponse = authenticationService.authenticate("Basic " + Base64.getEncoder().encodeToString(
-                    (userDto.getUserName() + ":" + userDto.getPassword()).getBytes()));
-
-            registrationResponse.setAccessToken(authResponse.getAccessToken());
-            registrationResponse.setRefreshToken(authResponse.getRefreshToken());
+            authenticationService.authenticate("Basic " + Base64.getEncoder().encodeToString(
+                    (userDto.getUserName() + ":" + userDto.getPassword()).getBytes()),httpServletResponse);
 
             setSuccessGlobalMessage(registrationResponse);
             LOG.info("Registration successful with username : " + userDto.getUserName());

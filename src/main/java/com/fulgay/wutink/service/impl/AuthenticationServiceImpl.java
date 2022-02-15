@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
@@ -28,13 +30,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private JwtTokenManager tokenManager;
 
     @Override
-    public WutinkAuthenticationResponse authenticate(String authorization) {
+    public WutinkAuthenticationResponse authenticate(String authorizationHeader,HttpServletResponse httpResponse) {
 
-        if(!StringUtils.hasText(authorization)) {
+        if(!StringUtils.hasText(authorizationHeader)) {
             throw new RuntimeException("INVALID AUTH PAYLOAD");
         }
 
-        String[] httpBasicAuthPayload = parseHttpBasicPayload(authorization);
+        String[] httpBasicAuthPayload = parseHttpBasicPayload(authorizationHeader);
         String username = httpBasicAuthPayload[0];
         String password = httpBasicAuthPayload[1];
 
@@ -47,6 +49,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         com.fulgay.wutink.domain.User userFromDb = userService.findUserByUserName(username);
         String[] tokenArray = tokenManager.generateToken(user, userFromDb.getId());
+        addAuthCookies(tokenArray,httpResponse);
         return new WutinkAuthenticationResponse(userFromDb.getId(), tokenArray[0],tokenArray[1],Boolean.TRUE);
     }
 
@@ -60,5 +63,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return credentials.split(":", 2);
         }
         return null;
+    }
+
+    @Override
+    public void addAuthCookies(String[] tokens, HttpServletResponse httpResponse){
+        Cookie cookieAccess = new Cookie("jwtSessionId", tokens[0]);
+        cookieAccess.setHttpOnly(Boolean.TRUE);
+        cookieAccess.setSecure(Boolean.TRUE);
+        httpResponse.addCookie(cookieAccess);
+
+        Cookie cookieRefresh = new Cookie("refreshToken", tokens[1]);
+        cookieRefresh.setHttpOnly(Boolean.TRUE);
+        cookieRefresh.setSecure(Boolean.TRUE);
+        httpResponse.addCookie(cookieRefresh);
     }
 }
