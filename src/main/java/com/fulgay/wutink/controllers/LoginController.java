@@ -45,7 +45,7 @@ public class LoginController {
             LOG.error("LOGIN FAIL :: " + ex.getMessage());
             response = new WutinkAuthenticationResponse(0L, "","", Boolean.FALSE);
             response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE,ConfigurationUtil.getGeneralMessagesProperty().getProperty("login.error")));
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 

@@ -31,4 +31,17 @@ public class ConfigurationUtil {
             return null;
         }
     }
+
+    public static Properties getAppProperties() {
+        Properties p = new Properties();
+
+        try {
+            FileInputStream input = new FileInputStream(new File("src/main/resources/application.properties"));
+            p.load(new InputStreamReader(input, Charset.forName("UTF-8")));
+            return p;
+        }catch (IOException e ){
+            LOG.error("Error while loading properties file", e);
+            return null;
+        }
+    }
 }
