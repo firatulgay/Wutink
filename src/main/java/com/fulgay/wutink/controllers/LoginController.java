@@ -1,5 +1,6 @@
 package com.fulgay.wutink.controllers;
 
+import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
 import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.security.model.WutinkAuthenticationResponse;
@@ -46,6 +47,11 @@ public class LoginController {
             response = new WutinkAuthenticationResponse(0L, "","", Boolean.FALSE);
             response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE,ConfigurationUtil.getGeneralMessagesProperty().getProperty("login.error")));
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }catch (Exception e){
+            LOG.error("Error occurred during login process ! ",e);
+            response = new WutinkAuthenticationResponse(0L, "","", Boolean.FALSE);
+            response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE, EnumErrorMessage.GENERAL_ERROR.getValue()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 

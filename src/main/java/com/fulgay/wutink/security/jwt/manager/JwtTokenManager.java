@@ -58,7 +58,7 @@ public class JwtTokenManager {
 		return doGenerateToken(claims, userDetails.getUsername());
 	}
 	
-	public boolean validateJwtAccessToken(String authToken, String refreshToken, HttpServletResponse httpResponse) {
+	public boolean validateJwtAccessToken(String authToken) {
 		
 		try {
 			Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);

@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 /**
  * @author Fırat ÜLGAY
@@ -36,6 +38,7 @@ public class RegisterFacade {
         RegistrationResponse registrationResponse = new RegistrationResponse();
 
         try {
+            addUserRoles(userDto);
             userFacade.save(userDto);
             authenticationService.authenticate("Basic " + Base64.getEncoder().encodeToString(
                     (userDto.getUserName() + ":" + userDto.getPassword()).getBytes()),httpServletResponse);
@@ -56,6 +59,12 @@ public class RegisterFacade {
         }
 
         return registrationResponse;
+    }
+
+    private void addUserRoles(UserDto userDto) {
+        List<String> userRoles = new ArrayList<>();
+        userRoles.add("USER");
+        userDto.setUserRoles(userRoles);
     }
 
     private void setSuccessGlobalMessage(RegistrationResponse registrationResponse) {

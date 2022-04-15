@@ -47,8 +47,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 return;
             }
 
-            String refreshToken = tokenManager.extractRefreshTokenFromRequest(request);
-            if (StringUtils.hasText(jwtToken) && tokenManager.validateJwtAccessToken(jwtToken, refreshToken, response)) {
+            if (StringUtils.hasText(jwtToken) && tokenManager.validateJwtAccessToken(jwtToken)) {
 
                 if (BooleanUtils.isFalse(request.getRequestURI().contains("/refreshToken"))) {
                     String principal = tokenManager.getUsernameFromToken(jwtToken);
