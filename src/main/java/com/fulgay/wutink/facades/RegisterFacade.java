@@ -1,5 +1,6 @@
 package com.fulgay.wutink.facades;
 
+import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
 import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
 import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
@@ -43,10 +44,15 @@ public class RegisterFacade {
             LOG.info("Registration successful with username : " + userDto.getUserName());
 
         } catch (WutinkUserSaveException ex) {
-            globalMessage = new GlobalMessages(EnumMessageType.ERROR_MESSAGE,userDto.getUserName() + " " + ex.getMessage());
+            globalMessage = new GlobalMessages(EnumMessageType.WARN_MESSAGE,userDto.getUserName() + " " + ex.getMessage());
             registrationResponse.setGlobalMessage(globalMessage);
             registrationResponse.setSuccess(false);
             LOG.warn("Registration failed with username : " + userDto.getUserName() + " " + ex.getMessage());
+        }catch (Exception e){
+            LOG.error("Error while doing registration : " + userDto.getUserName(),e);
+            globalMessage = new GlobalMessages(EnumMessageType.ERROR_MESSAGE, EnumErrorMessage.GENERAL_ERROR.getValue());
+            registrationResponse.setGlobalMessage(globalMessage);
+            registrationResponse.setSuccess(false);
         }
 
         return registrationResponse;

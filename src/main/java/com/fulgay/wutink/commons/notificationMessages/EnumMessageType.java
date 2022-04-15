@@ -10,7 +10,9 @@ import com.fulgay.wutink.enums.BaseEnum;
 public enum EnumMessageType implements BaseEnum {
     ERROR_MESSAGE,
     INFO_MESSAGE,
-    CONF_MESSAGE;
+    CONF_MESSAGE,
+    WARN_MESSAGE;
+
 
     @Override
     public String getValue() {
