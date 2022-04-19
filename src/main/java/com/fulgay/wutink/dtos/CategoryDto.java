@@ -4,6 +4,7 @@ public class CategoryDto extends BaseDto {
 
     private Long id;
     private String name;
+    private String icon;
 
     public Long getId() {
         return id;
@@ -19,5 +20,13 @@ public class CategoryDto extends BaseDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

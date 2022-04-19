@@ -13,6 +13,7 @@ public class CategoryDtoPopulator implements Populator<Category,CategoryDto> {
         if (source != null) {
             target.setName(source.getName());
             target.setId(source.getId());
+            target.setIcon(source.getIconBase64());
         }
     }
 }

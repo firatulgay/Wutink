@@ -21,6 +21,11 @@ public class Category {
     @Column(length = 50)
     private String name;
 
+    @NotBlank
+    @Lob
+    @Column(length = 60000)
+    private String iconBase64;
+
     public Category() {
     }
 
@@ -57,5 +62,13 @@ public class Category {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    public String getIconBase64() {
+        return iconBase64;
+    }
+
+    public void setIconBase64(String iconBase64) {
+        this.iconBase64 = iconBase64;
     }
 }
