@@ -1,5 +1,6 @@
 package com.fulgay.wutink.controllers;
 
+import com.fulgay.wutink.dtos.CategoryDropdownDto;
 import com.fulgay.wutink.dtos.CategoryDto;
 import com.fulgay.wutink.facades.CategoryFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,11 @@ public class CategoryController {
     @GetMapping("/getCategories")
     public List<CategoryDto> findAllCategories(){
         return categoryFacade.findAllCategories();
+    }
 
+    @GetMapping("/getCategoriesForDropdown")
+    public List<CategoryDropdownDto> findAllCategoriesForDropdown(){
+        return categoryFacade.findAllCategoriesForDropdown();
     }
 
 }

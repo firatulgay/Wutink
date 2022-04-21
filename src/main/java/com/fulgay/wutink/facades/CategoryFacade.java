@@ -5,8 +5,10 @@ import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
 import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.converter.CategoryConverter;
+import com.fulgay.wutink.converter.CategoryDropDownDtoConverter;
 import com.fulgay.wutink.converter.CategoryDtoConverter;
 import com.fulgay.wutink.domain.Category;
+import com.fulgay.wutink.dtos.CategoryDropdownDto;
 import com.fulgay.wutink.dtos.CategoryDto;
 import com.fulgay.wutink.service.CategoryService;
 import com.fulgay.wutink.utils.validators.CategoryValidator;
@@ -29,6 +31,8 @@ public class CategoryFacade {
     private CategoryDtoConverter categoryDtoConverter;
     @Autowired
     private CategoryConverter categoryConverter;
+    @Autowired
+    private CategoryDropDownDtoConverter categoryDropDownDtoConverter;
 
     private GlobalMessages globalMessage;
 
@@ -37,6 +41,13 @@ public class CategoryFacade {
         List<CategoryDto> categoryDtoList = categoryDtoConverter.convertToList(categoryList);
 
         return categoryDtoList;
+    }
+
+    public List<CategoryDropdownDto> findAllCategoriesForDropdown() {
+        List<Category> categoryList = categoryService.findAll();
+        List<CategoryDropdownDto> categoryDropdownDtoList = categoryDropDownDtoConverter.convertToList(categoryList);
+
+        return categoryDropdownDtoList;
     }
 
     public CategoryDto findCategoryById(Long id) {

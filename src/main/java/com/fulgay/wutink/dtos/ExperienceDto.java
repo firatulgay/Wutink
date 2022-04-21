@@ -8,7 +8,7 @@ public class ExperienceDto extends BaseDto {
     private String header;
     private String description;
     private List<Long> categoryIdList;
-    private String userName; ;
+    private String userName;
     private String creationTime;
 
     public Long getId() {
