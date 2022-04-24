@@ -25,14 +25,14 @@ public class ExperienceOperationsController {
     private CommentFacade commentFacade;
 
     @GetMapping("/like")
-    public boolean likeExperience(@PathParam("experienceId") Long experienceId, @PathParam("username") String username) {
-        experienceOperationsFacade.likeExprience(experienceId, username);
+    public boolean likeExperience(@PathParam("experienceId") Long experienceId) {
+        experienceOperationsFacade.likeExprience(experienceId);
         return true;
     }
 
     @GetMapping("/unlike")
-    public void unlikeExperience(@PathParam("experienceId") Long experienceId,@PathParam("username") String username) {
-        experienceOperationsFacade.unlikeExperience(experienceId, username);
+    public void unlikeExperience(@PathParam("experienceId") Long experienceId) {
+        experienceOperationsFacade.unlikeExperience(experienceId);
     }
 
     @PostMapping("/doComment")
