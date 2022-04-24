@@ -44,12 +44,12 @@ public class LoginController {
 
         } catch (BadCredentialsException ex) {
             LOG.error("LOGIN FAIL :: " + ex.getMessage());
-            response = new WutinkAuthenticationResponse(0L, "","", Boolean.FALSE);
+            response = new WutinkAuthenticationResponse("", "","", Boolean.FALSE);
             response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE,ConfigurationUtil.getGeneralMessagesProperty().getProperty("login.error")));
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }catch (Exception e){
             LOG.error("Error occurred during login process ! ",e);
-            response = new WutinkAuthenticationResponse(0L, "","", Boolean.FALSE);
+            response = new WutinkAuthenticationResponse("", "","", Boolean.FALSE);
             response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE, EnumErrorMessage.GENERAL_ERROR.getValue()));
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

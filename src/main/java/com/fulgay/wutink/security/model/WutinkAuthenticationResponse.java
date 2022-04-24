@@ -9,24 +9,17 @@ public class WutinkAuthenticationResponse extends BaseDto implements Serializabl
 
     private static final long serialVersionUID = 8929499253726531083L;
 
-    private Long userId;
+    private String userName;
     private String accessToken;
     private String refreshToken;
 
-    public WutinkAuthenticationResponse(Long userId, String accessToken, String refreshToken,boolean isSuccess) {
-        this.userId = userId;
+    public WutinkAuthenticationResponse(String userName, String accessToken, String refreshToken, boolean isSuccess) {
+        this.userName = userName;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         setSuccess(isSuccess);
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public String getAccessToken() {
         return accessToken;
@@ -42,5 +35,13 @@ public class WutinkAuthenticationResponse extends BaseDto implements Serializabl
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

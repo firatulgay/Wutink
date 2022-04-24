@@ -1,15 +1,19 @@
 package com.fulgay.wutink.facades;
 
+import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
+import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
+import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
+import com.fulgay.wutink.domain.Comment;
 import com.fulgay.wutink.domain.Experience;
 import com.fulgay.wutink.domain.Like2Experience;
 import com.fulgay.wutink.domain.User;
-import com.fulgay.wutink.service.ExperienceService;
-import com.fulgay.wutink.service.Like2ExperienceService;
-import com.fulgay.wutink.service.SessionService;
-import com.fulgay.wutink.service.UserService;
+import com.fulgay.wutink.dtos.BaseDto;
+import com.fulgay.wutink.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
  * @author Fırat ÜLGAY
@@ -56,10 +60,6 @@ public class ExperienceOperationsFacade {
         like2ExperienceService.delete(like2Experience);
 
         LOG.info(userName +"  unliked an experience with id : " + experienceId );
-    }
-
-    public void commentExperience(Long experienceId, Long userId, String comment) {
-        //TODO Comment
     }
 
 }

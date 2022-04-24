@@ -21,13 +21,14 @@ public class Comment {
     private String description;
 
     @Column
-    private String username;
-
-    @Column
     private Date creationTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_EXPERIENCE", foreignKey = @ForeignKey(name = "FK_COMMENT_USER"))
+    @JoinColumn(name = "ID_USER", foreignKey = @ForeignKey(name = "FK_COMMENT_USER"))
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_EXPERIENCE", foreignKey = @ForeignKey(name = "FK_COMMENT_EXPERIENCE"))
     private Experience experience;
 
 
@@ -55,19 +56,19 @@ public class Comment {
         this.experience = experience;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public Date getCreationTime() {
         return creationTime;
     }
 
     public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

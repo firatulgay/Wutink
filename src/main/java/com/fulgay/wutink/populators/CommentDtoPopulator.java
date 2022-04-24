@@ -22,7 +22,7 @@ public class CommentDtoPopulator implements Populator<Comment, CommentDto> {
             target.setDescription(source.getDescription());
             target.setExperienceId(source.getExperience().getId());
             target.setId(source.getId());
-            target.setUsername(source.getUsername());
+            target.setUsername(source.getUser().getUserName());
 
             String pattern = "dd MMMMM yyyy";
             target.setCreationTime(new SimpleDateFormat(pattern, new Locale("tr", "TR")).format(source.getCreationTime()));
