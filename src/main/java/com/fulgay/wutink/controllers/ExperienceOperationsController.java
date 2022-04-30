@@ -1,6 +1,7 @@
 package com.fulgay.wutink.controllers;
 
 import com.fulgay.wutink.dtos.CommentDto;
+import com.fulgay.wutink.dtos.PageSizeDto;
 import com.fulgay.wutink.facades.CommentFacade;
 import com.fulgay.wutink.facades.ExperienceOperationsFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,10 @@ public class ExperienceOperationsController {
     }
 
     @GetMapping("/getCommentsByExperienceId")
-    public List<CommentDto> getCommentsByExperienceId(@PathParam("experienceId") Long experienceId) {
-        return commentFacade.findCommentsByExperienceId(experienceId);
+    public List<CommentDto> getCommentsByExperienceId(@PathParam("experienceId") Long experienceId,
+                                                      @PathParam("firstIndexOfPage") int firstIndexOfPage,
+                                                      @PathParam("offsetSize") int offsetSize) {
+        return commentFacade.findCommentsByExperienceId(experienceId,firstIndexOfPage,offsetSize);
     }
 
     @PostMapping("/updateComment")

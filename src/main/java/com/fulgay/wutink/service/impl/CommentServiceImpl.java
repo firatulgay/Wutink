@@ -2,6 +2,7 @@ package com.fulgay.wutink.service.impl;
 
 import com.fulgay.wutink.dao.CommentDao;
 import com.fulgay.wutink.domain.Comment;
+import com.fulgay.wutink.dtos.PageSizeDto;
 import com.fulgay.wutink.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
 
     @Override
-    public List<Comment> findCommentsByExperienceId(Long id) {
-        return commentDao.findCommentsByExperienceId(id);
+    public List<Comment> findCommentsByExperienceId(Long id, PageSizeDto pageSizeDto) {
+        return commentDao.findCommentsByExperienceId(id,pageSizeDto);
     }
 
     @Override

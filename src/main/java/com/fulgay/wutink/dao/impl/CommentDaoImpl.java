@@ -2,6 +2,7 @@ package com.fulgay.wutink.dao.impl;
 
 import com.fulgay.wutink.dao.CommentDao;
 import com.fulgay.wutink.domain.Comment;
+import com.fulgay.wutink.dtos.PageSizeDto;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -20,7 +21,7 @@ public class CommentDaoImpl extends CommentDao {
 
 
     @Override
-    public List<Comment> findCommentsByExperienceId(Long id) {
+    public List<Comment> findCommentsByExperienceId(Long id, PageSizeDto pageSizeDto) {
         Session session = getSession();
         Transaction transaction = session.beginTransaction();
 
@@ -29,6 +30,12 @@ public class CommentDaoImpl extends CommentDao {
                     " left join com.experience ex" +
                     "  where ex.id = :id");
             query.setParameter("id", id);
+
+            if (pageSizeDto != null){
+                query.setFirstResult(pageSizeDto.getFirstIndex());
+                query.setMaxResults(pageSizeDto.getOffsetSize());
+            }
+
             return query.list();
 
         } catch (NoResultException e) {

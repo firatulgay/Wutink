@@ -1,6 +1,7 @@
 package com.fulgay.wutink.dao;
 
 import com.fulgay.wutink.domain.Comment;
+import com.fulgay.wutink.dtos.PageSizeDto;
 
 import java.util.List;
 
@@ -15,6 +16,6 @@ public abstract class CommentDao extends BaseDao<Comment> {
         super(Comment.class);
     }
 
-    public abstract List<Comment> findCommentsByExperienceId(Long id);
+    public abstract List<Comment> findCommentsByExperienceId(Long id, PageSizeDto pageSizeDto);
     public abstract List<Comment> findCommentsByUsername(String username);
 }

@@ -4,6 +4,7 @@ import com.fulgay.wutink.converter.CommentConverter;
 import com.fulgay.wutink.converter.CommentDtoConverter;
 import com.fulgay.wutink.domain.Comment;
 import com.fulgay.wutink.dtos.CommentDto;
+import com.fulgay.wutink.dtos.PageSizeDto;
 import com.fulgay.wutink.populators.CommentPopulator;
 import com.fulgay.wutink.service.CommentService;
 import org.apache.log4j.Logger;
@@ -35,9 +36,13 @@ public class CommentFacade {
     private static final Logger LOG = Logger.getLogger(ExperienceFacade.class);
 
 
-    public List<CommentDto> findCommentsByExperienceId(Long id) {
+    public List<CommentDto> findCommentsByExperienceId(Long id, int firstIndexOfPage,int offsetSize) {
 
-        List<Comment> commentList = commentService.findCommentsByExperienceId(id);
+        PageSizeDto pageSizeDto = new PageSizeDto();
+        pageSizeDto.setFirstIndex(firstIndexOfPage);
+        pageSizeDto.setOffsetSize(offsetSize);
+
+        List<Comment> commentList = commentService.findCommentsByExperienceId(id,pageSizeDto);
         return commentDtoConverter.convertToList(commentList);
 
     }
