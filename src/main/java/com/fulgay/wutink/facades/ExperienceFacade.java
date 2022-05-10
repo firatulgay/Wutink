@@ -144,4 +144,7 @@ public class ExperienceFacade {
     }
 
 
+    public List<ExperienceDto> findAllExperiencesByUsername(String username) {
+        return experienceDtoConverter.convertToList(experienceService.findAllExperiencesByUsername(username));
+    }
 }

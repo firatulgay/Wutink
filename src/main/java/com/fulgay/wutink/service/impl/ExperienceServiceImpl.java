@@ -45,4 +45,10 @@ public class ExperienceServiceImpl implements ExperienceService {
     public List<Experience> findExperienceByHeader(String experienceName) {
         return experienceDao.findExperienceByHeader(experienceName);
     }
+
+    @Override
+    public List<Experience> findAllExperiencesByUsername(String username) {
+        return experienceDao.findAllExperiencesByUserName(username);
+    }
+
 }

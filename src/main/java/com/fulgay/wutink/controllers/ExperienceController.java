@@ -12,9 +12,6 @@ import java.util.List;
 public class ExperienceController {
 
     @Autowired
-    private ExperienceService experienceService;
-
-    @Autowired
     private ExperienceFacade experienceFacade;
 
     @PostMapping("/saveExperience")
@@ -44,6 +41,12 @@ public class ExperienceController {
     @GetMapping("/getAllExperienceByCategoryId/{id}")
     public List<ExperienceDto> findAllExperienceByCategoryId(@PathVariable("id") Long id){
         List<ExperienceDto> experienceDtoList = experienceFacade.findAllExperienceByCategoryId(id);
+        return experienceDtoList;
+    }
+
+    @GetMapping("/getAllExperiencesByUsername/{username}")
+    public List<ExperienceDto> findAllExperienceByCategoryId(@PathVariable("username") String username){
+        List<ExperienceDto> experienceDtoList = experienceFacade.findAllExperiencesByUsername(username);
         return experienceDtoList;
     }
 

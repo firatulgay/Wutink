@@ -7,4 +7,5 @@ import java.util.List;
 public interface ExperienceService extends BaseService<Experience> {
     List<Experience> findExperienceByHeader(String experienceName);
 
+    List<Experience> findAllExperiencesByUsername(String username);
 }
