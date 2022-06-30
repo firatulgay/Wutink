@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
 
@@ -17,7 +18,9 @@ import java.util.Arrays;
  * Hello world!
  *
  */
+
 @SpringBootApplication
+@EnableSwagger2
 @Import( { ApiSecurityConfig.class } )
 public class App implements CommandLineRunner
 {

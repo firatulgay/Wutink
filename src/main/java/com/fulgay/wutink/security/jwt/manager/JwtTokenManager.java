@@ -4,6 +4,7 @@ import com.fulgay.wutink.service.AuthenticationService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.Cookie;
@@ -128,20 +130,25 @@ public class JwtTokenManager {
 	
 	public String extractJwtFromRequest(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
+		String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+
 		String jwtSessionId = null;
 
-		if (cookies != null){
+		if (Objects.nonNull(cookies)) {
+
 			for (Cookie cookie : cookies) {
-				if ("jwtSessionId".equals(cookie.getName())){
+				if (StringUtils.hasText(cookie.getName()) && "jwtSessionId".equals(cookie.getName())) {
 					jwtSessionId = cookie.getValue();
+					break;
 				}
 			}
+			return jwtSessionId;
+		} else if (StringUtils.hasText(authHeader)){
+			jwtSessionId = authHeader;
 		}
 
-		if (StringUtils.hasText(jwtSessionId)) {
-			return jwtSessionId;
-		}
-		return null;
+		return jwtSessionId;
+
 	}
 
 	public String extractRefreshTokenFromRequest(HttpServletRequest request) {

@@ -45,7 +45,7 @@ public class ExperienceController {
     }
 
     @GetMapping("/getAllExperiencesByUsername/{username}")
-    public List<ExperienceDto> findAllExperienceByCategoryId(@PathVariable("username") String username){
+    public List<ExperienceDto> findAllExperienceByUsername(@PathVariable("username") String username){
         List<ExperienceDto> experienceDtoList = experienceFacade.findAllExperiencesByUsername(username);
         return experienceDtoList;
     }
