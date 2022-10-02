@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -22,6 +23,7 @@ import java.util.Arrays;
 @SpringBootApplication
 @EnableSwagger2
 @Import( { ApiSecurityConfig.class } )
+@PropertySource("classpath:application.properties")
 public class App implements CommandLineRunner
 {
     public static void main( String[] args )

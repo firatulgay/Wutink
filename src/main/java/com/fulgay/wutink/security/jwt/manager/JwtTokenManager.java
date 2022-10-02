@@ -4,6 +4,7 @@ import com.fulgay.wutink.service.AuthenticationService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @Component
+@PropertySource("classpath:application.properties")
 public class JwtTokenManager {
 
 	@Value("${jwt.token.secret}")
