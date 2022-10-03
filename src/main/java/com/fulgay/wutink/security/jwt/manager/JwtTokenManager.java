@@ -13,7 +13,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.Cookie;
@@ -22,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @Component
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.prod.properties")
 public class JwtTokenManager {
 
 	@Value("${jwt.token.secret}")
