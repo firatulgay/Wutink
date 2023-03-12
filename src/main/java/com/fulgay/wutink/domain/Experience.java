@@ -10,8 +10,7 @@ import java.util.Date;
  * @since 5.230.0
  */
 @Entity
-@Table(name = "EXPERIENCE", indexes = {
-        @Index(name = "IX_EXPERIENCE_HEADER",columnList = "header,ID_USER", unique = true)})
+@Table(name = "EXPERIENCE", indexes = {@Index(name = "IX_EXPERIENCE_HEADER",columnList = "header,ID_USER", unique = true)})
 public class Experience {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
