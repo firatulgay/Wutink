@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @Component
-@PropertySource("classpath:application.prod.properties")
+@PropertySource("classpath:application.${spring.profiles.active}.properties")
 public class JwtTokenManager {
 
 	@Value("${jwt.token.secret}")
