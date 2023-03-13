@@ -2,6 +2,7 @@ package com.fulgay.wutink.dao;
 
 import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.enums.EnumUserType;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -12,15 +13,8 @@ import java.util.List;
  * @author Fırat ÜLGAY
  * @since 8/12/2020
  */
-public abstract class UserDao extends BaseDao<User> {
+public interface UserDao extends JpaRepository<User,Long> {
 
-    public UserDao() {
-        super(User.class);
-    }
-
-    public abstract User findUserByUserName(String userName);
-
-    public abstract List<User> findAllByUserType(EnumUserType userType);
-
-    public abstract User findUserByUserNameAndPassword(String userName, String password);
+    User findUserByUserName(String userName);
+    User findUserByUserNameAndPassword(String userName, String password);
 }

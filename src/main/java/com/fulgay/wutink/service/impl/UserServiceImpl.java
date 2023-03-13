@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     public Long save(User user) {
-        return userDao.save(user);
+        return userDao.save(user).getId();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        return userDao.findById(id);
+        return userDao.findOne(id);
     }
 
     @Override

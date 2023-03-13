@@ -16,7 +16,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Long save(Category category) {
-        return categoryDao.save(category);
+        return categoryDao.save(category).getId();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(Long id) {
-        return categoryDao.findById(id);
+        return categoryDao.findOne(id);
     }
 
     @Override

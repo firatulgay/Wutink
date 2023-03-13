@@ -1,6 +1,8 @@
 package com.fulgay.wutink.dao;
 
 import com.fulgay.wutink.domain.Like2Experience;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -9,12 +11,11 @@ import java.util.List;
  * @since 1.08.2021
  */
 
-public abstract class Like2ExperienceDao extends BaseDao<Like2Experience> {
-    public Like2ExperienceDao() {
-        super(Like2Experience.class);
-    }
+public interface Like2ExperienceDao extends JpaRepository<Like2Experience, Long> {
 
-    public abstract List<Like2Experience> findAllByExperienceId(Long experienceId);
+    @Query(value = "select like2Ex from Like2Experience like2Ex where like2Ex.experience.id = :id")
+    List<Like2Experience> findAllByExperienceId(Long experienceId);
 
-    public abstract Like2Experience findByExperienceIdAndUsername(Long experienceId, String username);
+    @Query(value = "select like2Ex from Like2Experience like2Ex where like2Ex.experience.id = :experienceId and like2Ex.user.userName = :username")
+    Like2Experience findByExperienceIdAndUsername(Long experienceId, String username);
 }

@@ -21,7 +21,7 @@ public class Like2Like2ExperienceServiceImpl implements Like2ExperienceService {
 
     @Override
     public Long save(Like2Experience obj) {
-        return like2ExperienceDao.save(obj);
+        return like2ExperienceDao.save(obj).getId();
     }
 
     @Override

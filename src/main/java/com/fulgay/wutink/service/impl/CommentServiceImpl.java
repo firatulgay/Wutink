@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Long save(Comment obj) {
-        return commentDao.save(obj);
+        return commentDao.save(obj).getId();
     }
 
     @Override
@@ -42,12 +42,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment findById(Long id) {
-        return commentDao.findById(id);
+        return commentDao.findOne(id);
     }
 
     @Override
     public void update(Comment obj) {
-        commentDao.update(obj);
+        commentDao.save(obj);
     }
 
     @Override

@@ -1,7 +1,8 @@
 package com.fulgay.wutink.dao;
 
-import com.fulgay.wutink.dao.BaseDao;
 import com.fulgay.wutink.domain.Experience;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -10,17 +11,13 @@ import java.util.List;
  * @since 29.01.2021
  */
 
-public abstract class ExperienceDao extends BaseDao<Experience> {
+public interface ExperienceDao extends JpaRepository<Experience,Long> {
 
-    public ExperienceDao() {
-        super(Experience.class);
-    }
+    @Query(value = "select ex from Experience ex where ex.header like :parameter")
+    List<Experience> findExperienceByHeader(String header);
 
-    public abstract List<Experience> findAllExperiencesByCategoryId(Long id);
-
-    public abstract List<Experience> findExperienceByHeader(String header);
-
-    public abstract List<Experience> findAllExperiencesByUserName(String userName);
+    @Query(value = "select ex from Experience ex JOIN FETCH ex.user user  where user.userName = :userName")
+    List<Experience> findAllExperienceByUserName(String userName);
 
 
     }

@@ -1,6 +1,6 @@
 package com.fulgay.wutink.service.impl;
 
-import com.fulgay.wutink.dao.impl.ExperienceDaoImpl;
+import com.fulgay.wutink.dao.ExperienceDao;
 import com.fulgay.wutink.domain.Experience;
 import com.fulgay.wutink.service.ExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ import java.util.List;
 public class ExperienceServiceImpl implements ExperienceService {
 
     @Autowired
-    private ExperienceDaoImpl experienceDao;
+    private ExperienceDao experienceDao;
 
     @Transactional(rollbackFor = Exception.class)
     public Long save(Experience experience) {
         experience.setCreationTime(new Date());
-        return experienceDao.save(experience);
+        return experienceDao.save(experience).getId();
     }
 
     @Override
@@ -28,12 +28,12 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     @Override
     public Experience findById(Long id) {
-        return experienceDao.findById(id);    }
+        return experienceDao.findOne(id);    }
 
     @Override
     public void update(Experience obj) {
         obj.setModifiedTime(new Date());
-        experienceDao.update(obj);
+        experienceDao.save(obj);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     @Override
     public List<Experience> findAllExperiencesByUsername(String username) {
-        return experienceDao.findAllExperiencesByUserName(username);
+        return null;
     }
 
 }

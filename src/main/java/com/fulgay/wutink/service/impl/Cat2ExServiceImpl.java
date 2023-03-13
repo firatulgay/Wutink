@@ -17,23 +17,22 @@ public class Cat2ExServiceImpl implements Cat2ExService {
 
     @Override
     public Long save(Cat2Ex cat2Ex) {
-        return cat2ExDao.save(cat2Ex);
+        return cat2ExDao.save(cat2Ex).getId();
     }
 
     @Override
     public List<Cat2Ex> findAll() {
-
         return cat2ExDao.findAll();
     }
 
     @Override
     public Cat2Ex findById(Long id) {
-        return cat2ExDao.findById(id);
+        return cat2ExDao.findOne(id);
     }
 
     @Override
     public void update(Cat2Ex obj) {
-        cat2ExDao.update(obj);
+        cat2ExDao.save(obj);
     }
 
     @Override

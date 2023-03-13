@@ -1,7 +1,11 @@
 package com.fulgay.wutink.dao;
 
+import com.fulgay.wutink.domain.Category;
 import com.fulgay.wutink.domain.Comment;
 import com.fulgay.wutink.dtos.PageSizeDto;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -10,12 +14,11 @@ import java.util.List;
  * @since 28.08.2021
  */
 
-public abstract class CommentDao extends BaseDao<Comment> {
+@Repository
+public interface CommentDao extends JpaRepository<Comment,Long> {
+    @Query(value = "select com from Comment com left join com.experience ex where ex.id = :id")
+    List<Comment> findCommentsByExperienceId(Long id, PageSizeDto pageSizeDto);
 
-    public CommentDao() {
-        super(Comment.class);
-    }
-
-    public abstract List<Comment> findCommentsByExperienceId(Long id, PageSizeDto pageSizeDto);
-    public abstract List<Comment> findCommentsByUsername(String username);
+    @Query(value = "select com from Comment com left join com.user user where user.userName = :username")
+    List<Comment> findCommentsByUsername(String username);
 }
