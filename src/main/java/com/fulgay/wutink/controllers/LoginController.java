@@ -5,7 +5,7 @@ import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.security.model.WutinkAuthenticationResponse;
 import com.fulgay.wutink.service.AuthenticationService;
-import com.fulgay.wutink.utils.config.ConfigurationUtil;
+import com.fulgay.wutink.utils.config.MessageConfig;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +25,8 @@ public class LoginController {
 
     @Autowired
     private AuthenticationService authenticationService;
+    @Autowired
+    private MessageConfig messageConfig;
 
     private static final Logger LOG = Logger.getLogger(LoginController.class);
 
@@ -37,7 +39,7 @@ public class LoginController {
             response = authenticationService.authenticate(authorization,httpResponse);
 
             LOG.info("LOGIN SUCCESSFUL!");
-            response.setGlobalMessage(new GlobalMessages(EnumMessageType.CONF_MESSAGE, ConfigurationUtil.getGeneralMessagesProperty().getProperty("login.success")));
+            response.setGlobalMessage(new GlobalMessages(EnumMessageType.CONF_MESSAGE, messageConfig.getLoginSuccessMessage()));
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, response.getAccessToken())
                     .body(response);
@@ -45,7 +47,7 @@ public class LoginController {
         } catch (BadCredentialsException ex) {
             LOG.error("LOGIN FAIL :: " + ex.getMessage());
             response = new WutinkAuthenticationResponse("", "","", Boolean.FALSE);
-            response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE,ConfigurationUtil.getGeneralMessagesProperty().getProperty("login.error")));
+            response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE,messageConfig.getLoginErrorMessage()));
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }catch (Exception e){
             LOG.error("Error occurred during login process ! ",e);

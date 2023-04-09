@@ -1,16 +1,20 @@
 package com.fulgay.wutink.security.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fulgay.wutink.dtos.BaseDto;
 
 import java.io.Serializable;
 
-
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class RegistrationResponse extends BaseDto implements Serializable {
 
     private static final long serialVersionUID = 8929499253726531083L;
 
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private Long userId;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private String accessToken;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private String refreshToken;
 
     public Long getUserId() {

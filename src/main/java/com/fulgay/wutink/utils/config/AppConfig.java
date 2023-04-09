@@ -18,11 +18,10 @@ import java.util.Properties;
  */
 
 @PropertySource("classpath:application.${spring.profiles.active}.properties")
-@PropertySource("classpath:generalMessages-tr.properties")
 @Configuration
-public class ConfigurationUtil {
+public class AppConfig {
 
-    private static final Logger LOG = Logger.getLogger(ConfigurationUtil.class);
+    private static final Logger LOG = Logger.getLogger(AppConfig.class);
 
     @Value("${allowed.origins:}")
     private String allowedOrigins;

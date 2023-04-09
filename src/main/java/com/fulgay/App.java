@@ -1,14 +1,13 @@
 package com.fulgay;
 
 import com.fulgay.wutink.security.config.ApiSecurityConfig;
-import com.fulgay.wutink.utils.config.ConfigurationUtil;
+import com.fulgay.wutink.utils.config.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -28,7 +27,7 @@ import java.util.Collections;
 public class App implements CommandLineRunner
 {
     @Autowired
-    private ConfigurationUtil configurationUtil;
+    private AppConfig appConfig;
 
     public static void main( String[] args )
     {
@@ -40,7 +39,7 @@ public class App implements CommandLineRunner
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(Collections.singletonList(configurationUtil.getAllowedOrigins()));
+        corsConfiguration.setAllowedOrigins(Collections.singletonList(appConfig.getAllowedOrigins()));
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
                 "Accept", "Authorization", "Origin, Accept", "X-Requested-With",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers"));
