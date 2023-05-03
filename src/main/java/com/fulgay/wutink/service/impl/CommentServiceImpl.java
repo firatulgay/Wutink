@@ -21,8 +21,8 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
 
     @Override
-    public List<Comment> findCommentsByExperienceId(Long id, PageSizeDto pageSizeDto) {
-        return commentDao.findCommentsByExperienceId(id,pageSizeDto);
+    public List<Comment> findCommentsByExperienceId(Long id) {
+        return commentDao.findCommentsByExperienceId(id);
     }
 
     @Override

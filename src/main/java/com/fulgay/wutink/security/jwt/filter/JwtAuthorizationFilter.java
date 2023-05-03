@@ -80,6 +80,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             prepareInvalidAuthResponse(response);
             return;
         } catch (Exception ex) {
+            LOG.error(ex.getMessage(),ex);
             prepareInvalidAuthResponse(response);
             return;
         }

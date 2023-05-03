@@ -42,7 +42,7 @@ public class CommentFacade {
         pageSizeDto.setFirstIndex(firstIndexOfPage);
         pageSizeDto.setOffsetSize(offsetSize);
 
-        List<Comment> commentList = commentService.findCommentsByExperienceId(id,pageSizeDto);
+        List<Comment> commentList = commentService.findCommentsByExperienceId(id);
         return commentDtoConverter.convertToList(commentList);
 
     }

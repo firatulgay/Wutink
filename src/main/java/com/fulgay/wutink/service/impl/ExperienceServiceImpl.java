@@ -48,7 +48,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     @Override
     public List<Experience> findAllExperiencesByUsername(String username) {
-        return null;
+        return experienceDao.findAllExperienceByUserName(username);
     }
 
 }

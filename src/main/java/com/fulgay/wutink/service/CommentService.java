@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CommentService extends BaseService<Comment> {
 
-    List<Comment> findCommentsByExperienceId(Long id, PageSizeDto pageSizeDto);
+    List<Comment> findCommentsByExperienceId(Long id);
 
     List<Comment> findCommentsByUsername(String username);
 }
