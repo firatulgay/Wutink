@@ -1,6 +1,6 @@
 package com.fulgay.wutink.service.impl;
 
-import com.fulgay.wutink.dao.CategoryDao;
+import com.fulgay.wutink.repository.CategoryRepository;
 import com.fulgay.wutink.domain.Category;
 import com.fulgay.wutink.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +12,21 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    private CategoryDao categoryDao;
+    private CategoryRepository categoryRepository;
 
     @Override
     public Long save(Category category) {
-        return categoryDao.save(category).getId();
+        return categoryRepository.save(category).getId();
     }
 
     @Override
     public List<Category> findAll() {
-        return categoryDao.findAll();
+        return (List<Category>) categoryRepository.findAll();
     }
 
     @Override
     public Category findById(Long id) {
-        return categoryDao.findOne(id);
+        return categoryRepository.findById(id).get();
     }
 
     @Override
@@ -41,6 +41,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findCategoryByName(String categoryName) {
-        return categoryDao.findCategoryByName(categoryName);
+        return categoryRepository.findCategoryByName(categoryName);
     }
 }

@@ -1,8 +1,9 @@
-package com.fulgay.wutink.dao;
+package com.fulgay.wutink.repository;
 
 import com.fulgay.wutink.domain.Experience;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @since 29.01.2021
  */
 
-public interface ExperienceDao extends JpaRepository<Experience,Long> {
+public interface ExperienceRepository extends CrudRepository<Experience,Long> {
 
     @Query(value = "select ex from Experience ex where ex.header like :header")
     List<Experience> findExperienceByHeader(@Param("header") String header);

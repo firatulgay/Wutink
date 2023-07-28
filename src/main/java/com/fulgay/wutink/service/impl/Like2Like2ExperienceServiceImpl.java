@@ -1,6 +1,6 @@
 package com.fulgay.wutink.service.impl;
 
-import com.fulgay.wutink.dao.Like2ExperienceDao;
+import com.fulgay.wutink.repository.Like2ExperienceRepository;
 import com.fulgay.wutink.domain.Like2Experience;
 import com.fulgay.wutink.service.Like2ExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,11 @@ import java.util.List;
 public class Like2Like2ExperienceServiceImpl implements Like2ExperienceService {
 
     @Autowired
-    private Like2ExperienceDao like2ExperienceDao;
+    private Like2ExperienceRepository like2ExperienceRepository;
 
     @Override
     public Long save(Like2Experience obj) {
-        return like2ExperienceDao.save(obj).getId();
+        return like2ExperienceRepository.save(obj).getId();
     }
 
     @Override
@@ -41,16 +41,16 @@ public class Like2Like2ExperienceServiceImpl implements Like2ExperienceService {
 
     @Override
     public void delete(Like2Experience obj) {
-        like2ExperienceDao.delete(obj);
+        like2ExperienceRepository.delete(obj);
     }
 
     @Override
     public List<Like2Experience> findAllByExperienceId(Long experienceId) {
-        return like2ExperienceDao.findAllByExperienceId(experienceId);
+        return like2ExperienceRepository.findAllByExperienceId(experienceId);
     }
 
     @Override
     public Like2Experience findByExperienceIdAndUsername(Long experienceId,String username) {
-        return like2ExperienceDao.findByExperienceIdAndUsername(experienceId,username);
+        return like2ExperienceRepository.findByExperienceIdAndUsername(experienceId,username);
     }
 }

@@ -1,8 +1,7 @@
 package com.fulgay.wutink.service.impl;
 
-import com.fulgay.wutink.dao.CommentDao;
+import com.fulgay.wutink.repository.CommentRepository;
 import com.fulgay.wutink.domain.Comment;
-import com.fulgay.wutink.dtos.PageSizeDto;
 import com.fulgay.wutink.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,40 +17,40 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    private CommentDao commentDao;
+    private CommentRepository commentRepository;
 
     @Override
     public List<Comment> findCommentsByExperienceId(Long id) {
-        return commentDao.findCommentsByExperienceId(id);
+        return commentRepository.findCommentsByExperienceId(id);
     }
 
     @Override
     public List<Comment> findCommentsByUsername(String username) {
-        return commentDao.findCommentsByUsername(username);
+        return commentRepository.findCommentsByUsername(username);
     }
 
     @Override
     public Long save(Comment obj) {
-        return commentDao.save(obj).getId();
+        return commentRepository.save(obj).getId();
     }
 
     @Override
     public List<Comment> findAll() {
-        return commentDao.findAll();
+        return (List<Comment>) commentRepository.findAll();
     }
 
     @Override
     public Comment findById(Long id) {
-        return commentDao.findOne(id);
+        return commentRepository.findById(id).get();
     }
 
     @Override
     public void update(Comment obj) {
-        commentDao.save(obj);
+        commentRepository.save(obj);
     }
 
     @Override
     public void delete(Comment obj) {
-        commentDao.delete(obj);
+        commentRepository.delete(obj);
     }
 }

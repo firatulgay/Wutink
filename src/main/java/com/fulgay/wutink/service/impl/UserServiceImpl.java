@@ -1,6 +1,6 @@
 package com.fulgay.wutink.service.impl;
 
-import com.fulgay.wutink.dao.UserDao;
+import com.fulgay.wutink.repository.UserRepository;
 import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +18,20 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     public Long save(User user) {
-        return userDao.save(user).getId();
+        return userRepository.save(user).getId();
     }
 
     @Override
     public List<User> findAll() {
-        return userDao.findAll();
+        return (List<User>) userRepository.findAll();
     }
 
     @Override
     public User findById(Long id) {
-        return userDao.findOne(id);
+        return userRepository.findById(id).get();
     }
 
     @Override
@@ -46,13 +46,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUserName(String userName) {
-        User user = userDao.findUserByUserName(userName);
+        User user = userRepository.findUserByUserName(userName);
         return user;
     }
 
     @Override
     public User findUserByUserNameAndPassword(String userName, String password) {
-        User user = userDao.findUserByUserNameAndPassword(userName, password);
+        User user = userRepository.findUserByUserNameAndPassword(userName, password);
         return user;
     }
 }

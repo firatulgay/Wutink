@@ -1,6 +1,6 @@
 package com.fulgay.wutink.service.impl;
 
-import com.fulgay.wutink.dao.ExperienceDao;
+import com.fulgay.wutink.repository.ExperienceRepository;
 import com.fulgay.wutink.domain.Experience;
 import com.fulgay.wutink.service.ExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,41 +14,41 @@ import java.util.List;
 public class ExperienceServiceImpl implements ExperienceService {
 
     @Autowired
-    private ExperienceDao experienceDao;
+    private ExperienceRepository experienceRepository;
 
     @Transactional(rollbackFor = Exception.class)
     public Long save(Experience experience) {
         experience.setCreationTime(new Date());
-        return experienceDao.save(experience).getId();
+        return experienceRepository.save(experience).getId();
     }
 
     @Override
     public List<Experience> findAll() {
-        return experienceDao.findAll();    }
+        return (List<Experience>) experienceRepository.findAll();    }
 
     @Override
     public Experience findById(Long id) {
-        return experienceDao.findOne(id);    }
+        return experienceRepository.findById(id).get();    }
 
     @Override
     public void update(Experience obj) {
         obj.setModifiedTime(new Date());
-        experienceDao.save(obj);
+        experienceRepository.save(obj);
     }
 
     @Override
     public void delete(Experience obj) {
-        experienceDao.delete(obj);
+        experienceRepository.delete(obj);
     }
 
     @Override
     public List<Experience> findExperienceByHeader(String experienceName) {
-        return experienceDao.findExperienceByHeader(experienceName);
+        return experienceRepository.findExperienceByHeader(experienceName);
     }
 
     @Override
     public List<Experience> findAllExperiencesByUsername(String username) {
-        return experienceDao.findAllExperienceByUserName(username);
+        return experienceRepository.findAllExperienceByUserName(username);
     }
 
 }

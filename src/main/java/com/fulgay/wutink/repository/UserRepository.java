@@ -1,10 +1,8 @@
-package com.fulgay.wutink.dao;
+package com.fulgay.wutink.repository;
 
 import com.fulgay.wutink.domain.User;
-import com.fulgay.wutink.enums.EnumUserType;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * BaseUserDao
@@ -13,7 +11,7 @@ import java.util.List;
  * @author Fırat ÜLGAY
  * @since 8/12/2020
  */
-public interface UserDao extends JpaRepository<User,Long> {
+public interface UserRepository extends CrudRepository<User,Long> {
 
     User findUserByUserName(String userName);
     User findUserByUserNameAndPassword(String userName, String password);
