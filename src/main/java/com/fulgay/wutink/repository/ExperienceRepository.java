@@ -21,5 +21,6 @@ public interface ExperienceRepository extends CrudRepository<Experience,Long> {
     @Query(value = "select ex from Experience ex JOIN FETCH ex.user user  where user.userName = :userName")
     List<Experience> findAllExperienceByUserName(@Param("userName") String userName);
 
+    List<Experience> findByHeaderOrDescriptionContainingIgnoreCase(String searchTextHeader,String searchTextDesc);
 
-    }
+}
