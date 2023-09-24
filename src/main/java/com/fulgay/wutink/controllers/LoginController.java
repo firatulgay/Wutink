@@ -2,6 +2,7 @@ package com.fulgay.wutink.controllers;
 
 import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
 import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
+import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
 import com.fulgay.wutink.commons.notificationMessages.GlobalMessages;
 import com.fulgay.wutink.security.model.WutinkAuthenticationResponse;
 import com.fulgay.wutink.service.AuthenticationService;
@@ -39,7 +40,7 @@ public class LoginController {
             response = authenticationService.authenticate(authorization,httpResponse);
 
             LOG.info("LOGIN SUCCESSFUL!");
-            response.setGlobalMessage(new GlobalMessages(EnumMessageType.CONF_MESSAGE, messageConfig.getLoginSuccessMessage()));
+            response.setGlobalMessage(new GlobalMessages(EnumMessageType.CONF_MESSAGE, EnumSuccessMessage.LOGIN_SUCCESS.getValue()));
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, response.getAccessToken())
                     .body(response);
@@ -47,7 +48,7 @@ public class LoginController {
         } catch (BadCredentialsException ex) {
             LOG.error("LOGIN FAIL :: " + ex.getMessage());
             response = new WutinkAuthenticationResponse("", "","", Boolean.FALSE);
-            response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE,messageConfig.getLoginErrorMessage()));
+            response.setGlobalMessage(new GlobalMessages(EnumMessageType.ERROR_MESSAGE,EnumErrorMessage.LOGIN_ERROR.getValue()));
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }catch (Exception e){
             LOG.error("Error occurred during login process ! ",e);
