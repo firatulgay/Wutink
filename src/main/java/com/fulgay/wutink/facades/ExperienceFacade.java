@@ -16,6 +16,8 @@ import com.fulgay.wutink.service.ExperienceService;
 import com.fulgay.wutink.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -146,5 +148,13 @@ public class ExperienceFacade {
 
     public List<ExperienceDto> findAllExperiencesByUsername(String username) {
         return experienceDtoConverter.convertToList(experienceService.findAllExperiencesByUsername(username));
+    }
+
+    public List<ExperienceDto> findAllExperiencesByPage(Pageable pageable) {
+
+        Page<Experience> allExperiencesByPage = experienceService.findAllExperiencesByPage(pageable);
+        List<Experience> experienceList = allExperiencesByPage.getContent();
+        return experienceDtoConverter.convertToList(experienceList);
+
     }
 }
