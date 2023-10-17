@@ -1,5 +1,6 @@
 package com.fulgay.wutink.service.impl;
 
+import com.fulgay.wutink.dtos.ExperienceDto;
 import com.fulgay.wutink.repository.Cat2ExRepository;
 import com.fulgay.wutink.domain.Cat2Ex;
 import com.fulgay.wutink.domain.Category;
@@ -58,5 +59,10 @@ public class Cat2ExServiceImpl implements Cat2ExService {
     @Override
     public List<Cat2Ex> findAllByExperience(Experience experience) {
         return cat2ExRepository.findAllByExperience(experience);
+    }
+
+    @Override
+    public List<ExperienceDto> findExperiencesByCategoryIdWithLikeAndCommentCount(Long id) {
+        return cat2ExRepository.findExperiencesByCategoryIdWithLikeAndCommentCount(id);
     }
 }

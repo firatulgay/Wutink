@@ -10,9 +10,12 @@ import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.dtos.BaseDto;
 import com.fulgay.wutink.service.*;
 import org.apache.log4j.Logger;
+import org.hibernate.JDBCException;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 /**

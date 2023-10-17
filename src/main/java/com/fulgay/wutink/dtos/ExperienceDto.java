@@ -1,15 +1,56 @@
 package com.fulgay.wutink.dtos;
 
+import java.util.Date;
 import java.util.List;
 
 public class ExperienceDto extends BaseDto {
-
     private Long id;
     private String header;
     private String description;
     private List<Long> categoryIdList;
     private String userName;
-    private String creationTime;
+    private String creationTimeStr;
+
+    private Date creationTimeDate;
+    private Long likeCount;
+    private Long commentCount;
+
+    public ExperienceDto() {
+    }
+
+    public ExperienceDto(Long id, String header, String description, String userName, Date creationTimeDate, Long likeCount, Long commentCount) {
+        this.id = id;
+        this.header = header;
+        this.description = description;
+        this.userName = userName;
+        this.creationTimeDate = creationTimeDate;
+        this.likeCount = likeCount;
+        this.commentCount = commentCount;
+    }
+
+    public Date getCreationTimeDate() {
+        return creationTimeDate;
+    }
+
+    public void setCreationTimeDate(Date creationTimeDate) {
+        this.creationTimeDate = creationTimeDate;
+    }
+
+    public Long getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Long likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public Long getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Long commentCount) {
+        this.commentCount = commentCount;
+    }
 
     public Long getId() {
         return id;
@@ -51,11 +92,11 @@ public class ExperienceDto extends BaseDto {
         this.userName = userName;
     }
 
-    public String getCreationTime() {
-        return creationTime;
+    public String getCreationTimeStr() {
+        return creationTimeStr;
     }
 
-    public void setCreationTime(String creationTime) {
-        this.creationTime = creationTime;
+    public void setCreationTimeStr(String creationTimeStr) {
+        this.creationTimeStr = creationTimeStr;
     }
 }

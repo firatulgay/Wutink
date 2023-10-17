@@ -8,7 +8,8 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "LIKE2EXPERIENCE", indexes = {
+@Table(name = "LIKE2EXPERIENCE",uniqueConstraints = {@UniqueConstraint(name = "experience_user_unique", columnNames = {"experience_id", "user_id"})},
+        indexes = {
         @Index(name = "IX_LIKE2EX_ID",columnList = "id", unique = true)})
 public class Like2Experience{
 

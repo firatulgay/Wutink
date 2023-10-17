@@ -24,7 +24,7 @@ public class ExperienceDtoPopulator implements Populator<Experience,ExperienceDt
             target.setUserName(source.getUser().getUserName());
 
             String pattern = "dd MMMMM yyyy";
-            target.setCreationTime(new SimpleDateFormat(pattern, new Locale("tr", "TR")).format(source.getCreationTime()));
+            target.setCreationTimeStr(new SimpleDateFormat(pattern, new Locale("tr", "TR")).format(source.getCreationTime()));
         }
 
     }

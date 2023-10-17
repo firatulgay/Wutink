@@ -22,8 +22,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Component
 public class ExperienceFacade {
@@ -83,6 +85,14 @@ public class ExperienceFacade {
     public List<ExperienceDto> findAllExperienceByCategoryId(Long id) {
         List<Experience> experienceList = cat2ExService.findExperienceByCategoryId(id);
         return experienceDtoConverter.convertToList(experienceList);
+    }
+
+    public List<ExperienceDto> findExperiencesByCategoryIdWithLikeAndCommentCount(Long id) {
+        List<ExperienceDto> experienceDtoList = cat2ExService.findExperiencesByCategoryIdWithLikeAndCommentCount(id);
+        String pattern = "dd MMMMM yyyy";
+        experienceDtoList.forEach(experienceDto -> experienceDto.setCreationTimeStr(new SimpleDateFormat(pattern, new Locale("tr", "TR")).format(experienceDto.getCreationTimeDate())));
+
+        return experienceDtoList;
     }
 
     public List<ExperienceDto> findExperienceByHeader(String header) {

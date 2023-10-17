@@ -15,6 +15,7 @@ public abstract class Converter<S,T> {
 
             for (S source : sourceList) {
                 T targetDto = convert(source);
+                convert(source);
                 targetList.add(targetDto);
             }
         }
