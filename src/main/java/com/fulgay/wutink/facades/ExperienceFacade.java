@@ -162,9 +162,13 @@ public class ExperienceFacade {
 
     public List<ExperienceDto> findAllExperiencesByPage(Pageable pageable) {
 
-        Page<Experience> allExperiencesByPage = experienceService.findAllExperiencesByPage(pageable);
-        List<Experience> experienceList = allExperiencesByPage.getContent();
-        return experienceDtoConverter.convertToList(experienceList);
+        Page<ExperienceDto> allExperiencesByPage = experienceService.findAllExperiencesByPage(pageable);
+        List<ExperienceDto> experienceDtoList = allExperiencesByPage.getContent();
+
+        String pattern = "dd MMMMM yyyy";
+        experienceDtoList.forEach(experienceDto -> experienceDto.setCreationTimeStr(new SimpleDateFormat(pattern, new Locale("tr", "TR")).format(experienceDto.getCreationTimeDate())));
+
+        return experienceDtoList;
 
     }
 }

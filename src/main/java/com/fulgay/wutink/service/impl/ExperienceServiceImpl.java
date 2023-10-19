@@ -1,5 +1,6 @@
 package com.fulgay.wutink.service.impl;
 
+import com.fulgay.wutink.dtos.ExperienceDto;
 import com.fulgay.wutink.repository.ExperiencePagingRepository;
 import com.fulgay.wutink.repository.ExperienceRepository;
 import com.fulgay.wutink.domain.Experience;
@@ -57,8 +58,8 @@ public class ExperienceServiceImpl implements ExperienceService {
     }
 
     @Override
-    public Page<Experience> findAllExperiencesByPage(Pageable pageable) {
-        return pagingRepository.findAll(pageable);
+    public Page<ExperienceDto> findAllExperiencesByPage(Pageable pageable) {
+        return pagingRepository.findAllByPage(pageable);
     }
 
 }
