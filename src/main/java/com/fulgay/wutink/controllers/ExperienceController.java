@@ -3,6 +3,8 @@ package com.fulgay.wutink.controllers;
 import com.fulgay.wutink.domain.Experience;
 import com.fulgay.wutink.dtos.ExperienceDto;
 import com.fulgay.wutink.facades.ExperienceFacade;
+import com.fulgay.wutink.security.annotation.DeleteGuard;
+import com.fulgay.wutink.security.annotation.IdGuard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,8 +58,9 @@ public class ExperienceController {
         return experienceDtoList;
     }
 
-    @GetMapping("/deleteExperienceById/{id}")
-    public void deleteExperienceById(@PathVariable("id") Long id){
+    @DeleteMapping("/deleteExperienceById")
+    @DeleteGuard(parameterIndex = 0)
+    public void deleteExperienceById(@RequestParam("id") Long id){
         experienceFacade.deleteExperienceById(id);
     }
 
