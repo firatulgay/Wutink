@@ -43,5 +43,10 @@ public class UserController {
         return userDto;
     }
 
+    @GetMapping("/getCurrentAuthUser")
+    @IdGuard(parameterIndex = 0)
+    public UserDto getCurrentAuthUser(){
+        return userFacade.getCurrentAuthUser();
+    }
 
 }

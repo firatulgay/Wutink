@@ -1,8 +1,11 @@
 package com.fulgay.wutink.security.aspect;
 
+import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.security.annotation.IdGuard;
 import com.fulgay.wutink.security.jwt.manager.EncryptionManager;
 import com.fulgay.wutink.security.jwt.manager.JwtTokenManager;
+import com.fulgay.wutink.service.SessionService;
+import com.fulgay.wutink.service.UserService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -23,19 +26,27 @@ public class IdGuardAspect {
 	
 	@Autowired
 	private EncryptionManager encryptionManager;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private SessionService sessionService;
 	
 
 	@Before("@annotation(idGuard)") // idGuard annotation gördüğün metodda metoda girmeden burası çalışacak.
 	public void execute(JoinPoint joinPoint, IdGuard idGuard) {
-	
+
 		int argIndex = idGuard.parameterIndex();
 		if(argIndex < 0){
 			argIndex = 0;
 		}
-		
+
 		Object[] args = joinPoint.getArgs();
-		if(args == null || args.length == 0) {
-			throw new RuntimeException("ACCESS ERROR FOR INVALID RESOURCE");
+		if (args == null || args.length == 0) {
+			String userName = sessionService.getSessionUserName();
+			User user = userService.findUserByUserName(userName);
+			args = new Object[]{user.getId()};
 		}
 		
 		Object idParameterObj = args[argIndex];

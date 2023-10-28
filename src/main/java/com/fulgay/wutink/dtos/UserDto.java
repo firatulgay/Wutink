@@ -1,12 +1,18 @@
 package com.fulgay.wutink.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 public class UserDto extends BaseDto {
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Long id;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String password;
     private String userName;
     private List<String> userRoles;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String authToken;
 
     public Long getId() {

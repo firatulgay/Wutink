@@ -9,6 +9,7 @@ import com.fulgay.wutink.converter.UserDtoConverter;
 import com.fulgay.wutink.domain.User;
 import com.fulgay.wutink.dtos.UserDto;
 import com.fulgay.wutink.service.AuthenticationService;
+import com.fulgay.wutink.service.SessionService;
 import com.fulgay.wutink.service.UserService;
 import com.fulgay.wutink.utils.validators.UserValidator;
 import org.apache.log4j.Logger;
@@ -30,6 +31,8 @@ public class UserFacade {
     private UserConverter userConverter;
     @Autowired
     private AuthenticationService authenticationService;
+    @Autowired
+    private SessionService sessionService;
 
     private static final Logger LOG = Logger.getLogger(UserFacade.class);
     private GlobalMessages globalMessage;
@@ -88,6 +91,11 @@ public class UserFacade {
         UserDto userDto = userDtoConverter.convert(user);
 
         return userDto;
+    }
+
+    public UserDto getCurrentAuthUser(){
+        String userName = sessionService.getSessionUserName();
+        return userDtoConverter.convert(userService.findUserByUserName(userName));
     }
 
 
