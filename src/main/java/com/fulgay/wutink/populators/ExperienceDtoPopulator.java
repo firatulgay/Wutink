@@ -3,7 +3,7 @@ package com.fulgay.wutink.populators;
 import com.fulgay.wutink.converter.UserDtoConverter;
 import com.fulgay.wutink.domain.Category;
 import com.fulgay.wutink.domain.Experience;
-import com.fulgay.wutink.dtos.ExperienceDto;
+import com.fulgay.wutink.dtos.response.experience.ExperienceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

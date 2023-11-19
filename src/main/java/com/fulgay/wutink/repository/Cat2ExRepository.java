@@ -3,8 +3,7 @@ package com.fulgay.wutink.repository;
 import com.fulgay.wutink.domain.Cat2Ex;
 import com.fulgay.wutink.domain.Category;
 import com.fulgay.wutink.domain.Experience;
-import com.fulgay.wutink.dtos.ExperienceDto;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.fulgay.wutink.dtos.response.experience.ExperienceDto;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -25,7 +24,7 @@ public interface Cat2ExRepository extends CrudRepository<Cat2Ex,Long> {
     List<Experience> findExperienceByCategoryId(@Param("id") Long id);
 
 
-    @Query("SELECT NEW com.fulgay.wutink.dtos.ExperienceDto(e.id, e.header, e.description, e.user.userName, e.creationTime, COUNT(DISTINCT l.id), COUNT(DISTINCT c.id)) " +
+    @Query("SELECT NEW com.fulgay.wutink.dtos.response.experience.ExperienceDto(e.id, e.header, e.description, e.user.userName, e.creationTime, COUNT(DISTINCT l.id), COUNT(DISTINCT c.id)) " +
             "FROM Experience e " +
             "LEFT JOIN e.user u " +
             "LEFT JOIN Like2Experience l ON e.id = l.experience.id " +

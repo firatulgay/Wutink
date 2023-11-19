@@ -1,5 +1,6 @@
 package com.fulgay.wutink.facades;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fulgay.wutink.commons.notificationMessages.EnumErrorMessage;
 import com.fulgay.wutink.commons.notificationMessages.EnumMessageType;
 import com.fulgay.wutink.commons.notificationMessages.EnumSuccessMessage;
@@ -9,7 +10,9 @@ import com.fulgay.wutink.converter.ExperienceDtoConverter;
 import com.fulgay.wutink.domain.Cat2Ex;
 import com.fulgay.wutink.domain.Category;
 import com.fulgay.wutink.domain.Experience;
-import com.fulgay.wutink.dtos.ExperienceDto;
+import com.fulgay.wutink.dtos.response.experience.ExperienceCategoryContainerDto;
+import com.fulgay.wutink.dtos.response.experience.ExperienceDto;
+import com.fulgay.wutink.dtos.response.experience.UserExperienceResponseDto;
 import com.fulgay.wutink.service.Cat2ExService;
 import com.fulgay.wutink.service.CategoryService;
 import com.fulgay.wutink.service.ExperienceService;
@@ -156,8 +159,36 @@ public class ExperienceFacade {
     }
 
 
-    public List<ExperienceDto> findAllExperiencesByUsername(String username) {
-        return experienceDtoConverter.convertToList(experienceService.findAllExperiencesByUsername(username));
+    public UserExperienceResponseDto findAllExperiencesByUsernameGroupByCategory(String username) throws JsonProcessingException {
+        List<ExperienceDto> experienceDtoList = experienceDtoConverter.convertToList(experienceService.findAllExperiencesByUsername(username));
+        UserExperienceResponseDto userExperienceResponseDto = new UserExperienceResponseDto();
+        List<ExperienceCategoryContainerDto> experienceCategoryContainerDtoList = new ArrayList<>();
+
+        List<Long> allCategoryIdList = new ArrayList<>();
+        for (ExperienceDto experienceDto : experienceDtoList) {
+            for (Long categoryId : experienceDto.getCategoryIdList()) {
+                if (!allCategoryIdList.contains(categoryId))
+                    allCategoryIdList.add(categoryId);
+            }
+        }
+
+        for (Long categoryId: allCategoryIdList) {
+            ExperienceCategoryContainerDto experienceCategoryContainerDto = new ExperienceCategoryContainerDto();
+            experienceCategoryContainerDto.setCategoryId(categoryId);
+
+            List<ExperienceDto> experienceDtoListByCategory = new ArrayList<>();
+            for (ExperienceDto experienceDto : experienceDtoList) {
+                for (Long catId : experienceDto.getCategoryIdList()) {
+                    if (catId.equals(categoryId)){
+                        experienceDtoListByCategory.add(experienceDto);
+                    }
+                }
+            }
+            experienceCategoryContainerDto.setExperienceDtoList(experienceDtoListByCategory);
+            experienceCategoryContainerDtoList.add(experienceCategoryContainerDto);
+        }
+        userExperienceResponseDto.setExperienceContainerResponseDtoList(experienceCategoryContainerDtoList);
+        return userExperienceResponseDto;
     }
 
     public List<ExperienceDto> findAllExperiencesByPage(Pageable pageable) {

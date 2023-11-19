@@ -1,6 +1,6 @@
 package com.fulgay.wutink.service.impl;
 
-import com.fulgay.wutink.dtos.ExperienceDto;
+import com.fulgay.wutink.dtos.response.experience.ExperienceDto;
 import com.fulgay.wutink.repository.Cat2ExRepository;
 import com.fulgay.wutink.domain.Cat2Ex;
 import com.fulgay.wutink.domain.Category;

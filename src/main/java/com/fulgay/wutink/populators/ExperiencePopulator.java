@@ -1,7 +1,7 @@
 package com.fulgay.wutink.populators;
 
 import com.fulgay.wutink.domain.Experience;
-import com.fulgay.wutink.dtos.ExperienceDto;
+import com.fulgay.wutink.dtos.response.experience.ExperienceDto;
 import com.fulgay.wutink.service.SessionService;
 import com.fulgay.wutink.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

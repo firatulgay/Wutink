@@ -1,12 +1,11 @@
 package com.fulgay.wutink.controllers;
 
-import com.fulgay.wutink.domain.Experience;
-import com.fulgay.wutink.dtos.ExperienceDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fulgay.wutink.dtos.response.experience.ExperienceDto;
+import com.fulgay.wutink.dtos.response.experience.UserExperienceResponseDto;
 import com.fulgay.wutink.facades.ExperienceFacade;
 import com.fulgay.wutink.security.annotation.DeleteGuard;
-import com.fulgay.wutink.security.annotation.IdGuard;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,9 +52,8 @@ public class ExperienceController {
     }
 
     @GetMapping("/getAllExperiencesByUsername/{username}")
-    public List<ExperienceDto> findAllExperienceByUsername(@PathVariable("username") String username){
-        List<ExperienceDto> experienceDtoList = experienceFacade.findAllExperiencesByUsername(username);
-        return experienceDtoList;
+    public UserExperienceResponseDto findAllExperienceByUsername(@PathVariable("username") String username) throws JsonProcessingException {
+        return experienceFacade.findAllExperiencesByUsernameGroupByCategory(username);
     }
 
     @DeleteMapping("/deleteExperienceById")

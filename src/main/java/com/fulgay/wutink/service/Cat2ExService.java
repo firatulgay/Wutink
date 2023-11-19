@@ -3,8 +3,7 @@ package com.fulgay.wutink.service;
 import com.fulgay.wutink.domain.Cat2Ex;
 import com.fulgay.wutink.domain.Category;
 import com.fulgay.wutink.domain.Experience;
-import com.fulgay.wutink.dtos.ExperienceDto;
-import org.springframework.data.repository.query.Param;
+import com.fulgay.wutink.dtos.response.experience.ExperienceDto;
 
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package com.fulgay.wutink.dtos;
+package com.fulgay.wutink.dtos.response.experience;
+
+import com.fulgay.wutink.dtos.BaseDto;
 
 import java.util.Date;
 import java.util.List;
