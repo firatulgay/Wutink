@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  wutink:
+    build: .  # Path to your Spring Boot app Dockerfile or source code
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/wutink 
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: MyN3wP4ssw0rd
+      SPRING_PROFILES_ACTIVE: prod
+
+  mysqldb:
+    platform: linux/x86_64
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: MyN3wP4ssw0rd
+      MYSQL_DATABASE: wutink
+    ports:
+      - "3307:3306"
+    command: ["--innodb_use_native_aio=0"]
+    volumes:
+      - ./mysql-custom.cnf:/etc/mysql/conf.d/mysql-custom.cnf
+
+volumes:
+  mysqldata:

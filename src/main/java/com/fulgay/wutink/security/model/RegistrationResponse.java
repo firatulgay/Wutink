@@ -17,6 +17,8 @@ public class RegistrationResponse extends BaseDto implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private String refreshToken;
 
+    private String userName;
+
     public Long getUserId() {
         return userId;
     }
@@ -35,6 +37,14 @@ public class RegistrationResponse extends BaseDto implements Serializable {
 
     public String getRefreshToken() {
         return refreshToken;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setRefreshToken(String refreshToken) {

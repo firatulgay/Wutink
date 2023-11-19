@@ -15,6 +15,8 @@ public class ExperienceDto extends BaseDto {
     private Long likeCount;
     private Long commentCount;
 
+    private List<String> categoryNameList;
+
     public ExperienceDto() {
     }
 
@@ -98,5 +100,13 @@ public class ExperienceDto extends BaseDto {
 
     public void setCreationTimeStr(String creationTimeStr) {
         this.creationTimeStr = creationTimeStr;
+    }
+
+    public void setCategoryNameList(List<String> categoryNameList) {
+        this.categoryNameList = categoryNameList;
+    }
+
+    public List<String> getCategoryNameList() {
+        return this.categoryNameList;
     }
 }

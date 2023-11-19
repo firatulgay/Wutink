@@ -2,6 +2,7 @@ package com.fulgay.wutink.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Experience
@@ -34,6 +35,12 @@ public class Experience {
     @JoinColumn(name = "ID_USER", foreignKey = @ForeignKey(name = "FK_EXPERIENCE_USER"))
     private User user;
 
+    @ManyToMany()
+    @JoinTable(name = "CAT2EX",
+            joinColumns = @JoinColumn(name = "experience_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> category;
+
 
     public Long getId() {
         return id;
@@ -61,6 +68,14 @@ public class Experience {
 
     public User getUser() {
         return user;
+    }
+
+    public List<Category> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<Category> category) {
+        this.category = category;
     }
 
     public void setUser(User user) {

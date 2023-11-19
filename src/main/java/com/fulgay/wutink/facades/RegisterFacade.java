@@ -43,7 +43,7 @@ public class RegisterFacade {
             authenticationService.authenticate("Basic " + Base64.getEncoder().encodeToString(
                     (userDto.getUserName() + ":" + userDto.getPassword()).getBytes()),httpServletResponse);
 
-            setSuccessGlobalMessage(registrationResponse);
+            setSuccessGlobalMessage(userDto,registrationResponse);
             LOG.info("Registration successful with username : " + userDto.getUserName());
 
         } catch (WutinkUserSaveException ex) {
@@ -67,9 +67,10 @@ public class RegisterFacade {
         userDto.setUserRoles(userRoles);
     }
 
-    private void setSuccessGlobalMessage(RegistrationResponse registrationResponse) {
+    private void setSuccessGlobalMessage(UserDto userDto, RegistrationResponse registrationResponse) {
         globalMessage = new GlobalMessages(EnumMessageType.CONF_MESSAGE,EnumSuccessMessage.REGISTER_SUCCESS.getValue());
         registrationResponse.setGlobalMessage(globalMessage);
         registrationResponse.setSuccess(true);
+        registrationResponse.setUserName(userDto.getUserName());
     }
 }
